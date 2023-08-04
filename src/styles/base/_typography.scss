@@ -1,0 +1,22 @@
+body {
+  font-family: "Montserrat", "Times New Roman", Times, serif;
+}
+
+.heading-primary {
+  font-size: $font-size-25;
+  color: $color-white;
+  font-weight: 400;
+}
+
+.heading-secundary {
+  font-size: $font-size-27;
+  color: $color-gray;
+  font-weight: 400;
+}
+
+.navbar-list-item {
+  font-size: $font-size-15;
+  color: $color-white;
+  letter-spacing: 0.08rem;
+  cursor: pointer;
+}

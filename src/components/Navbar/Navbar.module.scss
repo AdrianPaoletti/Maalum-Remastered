@@ -1,0 +1,68 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.navbar {
+  @include display-flex(space-between);
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background-color: transparent;
+  transition: background-color 0.3s;
+
+  &--sticky {
+    background-color: $color-white;
+    opacity: 0.95;
+  }
+}
+
+.menu {
+  &__list {
+    list-style: none;
+    @include display-flex(flex-end);
+    gap: 3rem;
+  }
+
+  &__item {
+    &:not(:last-child) {
+      position: relative;
+      @include underline-effect();
+      padding: 1.25rem 0;
+    }
+
+    &:last-child {
+      border: 0.2rem solid $color-white;
+      transition: all 0.3s;
+      padding: 1.25rem 1.5rem;
+
+      &:hover {
+        background-color: $color-white;
+        color: $color-green;
+      }
+    }
+
+    &--sticky {
+      color: $color-green;
+
+      &:not(:last-child) {
+        position: relative;
+        @include underline-effect($color-green);
+      }
+
+      &:last-child {
+        border: 0.2rem solid $color-green;
+        transition: all 0.3s;
+
+        &:hover {
+          background-color: lighten($color-green, 10%);
+          color: $color-white;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__link-item {
+    text-decoration: none;
+    color: inherit;
+  }
+}
