@@ -12,6 +12,13 @@ body {
   font-size: $font-size-27;
   color: $color-gray;
   font-weight: 400;
+  text-align: center;
+}
+
+.text-primary {
+  font-size: $font-size-14;
+  color: $color-gray;
+  line-height: 2.25rem;
 }
 
 .navbar-list-item {

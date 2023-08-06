@@ -14,7 +14,7 @@
 //* PARENT POSITION RELATIVE REQUIRED
 @mixin underline-effect(
   $color: $color-white,
-  $height: 0.15rem,
+  $height: 0.2rem,
   $bottom: 0.8rem
 ) {
   &::after {

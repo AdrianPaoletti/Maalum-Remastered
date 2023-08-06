@@ -12,13 +12,81 @@
 }
 
 .description {
-  &__title {
-    text-align: center;
+  background-color: $color-gray-light;
 
+  &__title {
     span {
       display: block;
       color: $color-green;
-      margin-top: 0.5rem;
+      margin-top: 0.6rem;
+    }
+  }
+
+  &__text {
+    p {
+      text-align: center;
+    }
+  }
+}
+
+.images {
+  display: grid;
+  background-color: $color-white;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 4rem;
+  grid-row: 4rem;
+
+  &__container {
+    position: relative;
+    padding-bottom: 100%;
+
+    img {
+      position: absolute;
+      width: 100%;
+    }
+  }
+}
+
+.book-now {
+  background-color: $color-beige;
+
+  &__text-container {
+    display: flex;
+    gap: 5rem;
+  }
+
+  &__description {
+    @include display-flex(flex-start, flex-end, column);
+    gap: 0.8rem;
+  }
+
+  &__title {
+    font-weight: 500;
+  }
+
+  &__list-item {
+    @include display-flex(flex-start, center);
+    gap: 0.6rem;
+    list-style: none;
+    padding-bottom: 0.6rem;
+  }
+
+  &__button {
+    @include display-flex();
+
+    span {
+      border: 2px solid $color-gray-dark;
+      color: $color-gray-dark;
+      cursor: pointer;
+      padding: 13px 26px;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+
+      &:hover {
+        color: $color-beige;
+        background-color: lighten($color-gray-dark, 10%);
+      }
     }
   }
 }

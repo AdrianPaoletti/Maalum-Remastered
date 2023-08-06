@@ -1,10 +1,16 @@
-.u-padding-components {
-  padding: 3rem 4rem;
-}
-
 .u-padding-vertical-20 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.u-padding-vertical-0 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.u-padding-vertical-45 {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
 }
 
 .u-padding-horizontal-30 {
@@ -12,7 +18,15 @@
   padding-right: 3rem;
 }
 
-.u-padding-vertical-45 {
-  padding-top: 4.5rem;
-  padding-bottom: 4.5rem;
+.u-padding-horizontal-40 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.u-padding-top-40 {
+  padding-top: 4rem;
+}
+
+.u-padding-bottom-30 {
+  padding-bottom: 3rem;
 }

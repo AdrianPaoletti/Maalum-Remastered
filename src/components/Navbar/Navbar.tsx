@@ -36,14 +36,14 @@ export function Navbar({}: NavbarProps) {
     <nav
       className={`${styles.navbar} ${
         hasScrollMoved && styles["navbar--sticky"]
-      } u-padding-horizontal-30 u-padding-vertical-20`}
+      } u-padding-horizontal-40 u-padding-vertical-20`}
     >
       <div className={"col-1-of-2"}>
         <Image
           src="/images/header-logo.png"
           alt="maalum-zanzibar-logo"
-          width={188}
-          height={46}
+          width={162.5}
+          height={45}
         />
       </div>
       <div className={`${styles.menu} col-1-of-2`}>
