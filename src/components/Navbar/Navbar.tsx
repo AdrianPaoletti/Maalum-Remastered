@@ -36,7 +36,7 @@ export function Navbar({}: NavbarProps) {
     <nav
       className={`${styles.navbar} ${
         hasScrollMoved && styles["navbar--sticky"]
-      } u-padding-horizontal-40 u-padding-vertical-20`}
+      } u-padding-horizontal-large u-padding-vertical-small`}
     >
       <div className={"col-1-of-2"}>
         <Image

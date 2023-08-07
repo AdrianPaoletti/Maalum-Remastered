@@ -1,0 +1,12 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.header {
+  position: relative;
+
+  &__title {
+    @include display-flex();
+    height: 100vh;
+    position: relative;
+  }
+}

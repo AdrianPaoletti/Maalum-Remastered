@@ -1,16 +1,6 @@
 @import "src/styles/abstracts/mixins";
 @import "src/styles/abstracts/variables";
 
-.header {
-  position: relative;
-
-  &__title {
-    @include display-flex();
-    height: 100vh;
-    position: relative;
-  }
-}
-
 .description {
   background-color: $color-gray-light;
 
@@ -33,9 +23,16 @@
   display: grid;
   background-color: $color-white;
   grid-template-rows: auto;
-  grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 4rem;
   grid-row: 4rem;
+
+  &--description {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &--instagram {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
   &__container {
     position: relative;
@@ -61,10 +58,6 @@
     gap: 0.8rem;
   }
 
-  &__title {
-    font-weight: 500;
-  }
-
   &__list-item {
     @include display-flex(flex-start, center);
     gap: 0.6rem;
@@ -76,12 +69,13 @@
     @include display-flex();
 
     span {
-      border: 2px solid $color-gray-dark;
+      border: 0.2rem solid $color-gray-dark;
       color: $color-gray-dark;
       cursor: pointer;
-      padding: 13px 26px;
+      padding: 1.3rem 2.6rem;
       transition: all 0.3s ease;
       -webkit-transition: all 0.3s ease;
+      font-weight: 600;
 
       &:hover {
         color: $color-beige;

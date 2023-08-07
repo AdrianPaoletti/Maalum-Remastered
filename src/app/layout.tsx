@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Head from "next/head";
 
+import { Footer } from "maalum/components/Footer/Footer";
+import { Header } from "maalum/components/Header/Header";
+
 import "maalum/styles/main.scss";
 
 const montserrat = Montserrat({
@@ -27,7 +30,11 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body className={montserrat.className}>{children}</body>
+      <body className={montserrat.className}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

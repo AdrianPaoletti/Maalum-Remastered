@@ -23,6 +23,8 @@
   }
 
   &__item {
+    font-weight: 500;
+    
     &:not(:last-child) {
       position: relative;
       @include underline-effect();

@@ -1,0 +1,44 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.footer {
+  background-color: $color-beige;
+
+  &__container {
+    display: flex;
+  }
+
+  &__text-container {
+    @include display-flex(center, center, column);
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  &__link-mail {
+    color: inherit;
+  }
+
+  &__map {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 65.25%;
+    padding-right: 90.25%;
+    height: 0;
+    margin: 2rem 0;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__social-media {
+    @include display-flex();
+    gap: 1rem;
+  }
+}
