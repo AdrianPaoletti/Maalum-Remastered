@@ -8,6 +8,8 @@
   z-index: 1;
   background-color: transparent;
   transition: background-color 0.3s;
+  padding-right: 4rem;
+  padding-left: 4rem;
 
   &--sticky {
     background-color: $color-white;

@@ -58,7 +58,10 @@ export default function Home() {
         className={`${styles["images"]} ${styles["images--description"]} u-padding-horizontal-mega-large u-padding-vertical-large-mega`}
       >
         {imagesDescription.map(({ url, id }) => (
-          <div key={id} className={`${styles["images__container"]}`}>
+          <div
+            key={id}
+            className={`${styles["images__container"]} ${styles["images__container--description"]}`}
+          >
             <Image src={url} alt="swimming cave zanzibar" fill sizes="33vw" />
           </div>
         ))}

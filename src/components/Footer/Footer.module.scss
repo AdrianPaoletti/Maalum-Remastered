@@ -20,6 +20,10 @@
     transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
 
+    @include responsive(tab-land) {
+      font-size: $font-size-16;
+    }
+
     &:hover {
       color: darken($color-gray-footer, 20%);
       border-bottom-color: darken($color-gray-footer, 20%);

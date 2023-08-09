@@ -7,6 +7,7 @@ const imagesDescription: { id: number; url: string }[] = [
   { id: 1, url: "/images/body-1.jpg" },
   { id: 2, url: "/images/body-2.jpg" },
   { id: 3, url: "/images/body-3.jpg" },
+  { id: 3, url: "/images/body-4.jpg" },
 ];
 
 const imagesInstagram: { id: string; url: string; href: string }[] = [

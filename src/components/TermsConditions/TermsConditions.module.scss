@@ -13,6 +13,11 @@
   &__condition-block {
     @include display-flex(flex-start, flex-start, row, inherit);
     gap: 7rem;
+
+    @include responsive(phone) {
+      @include display-flex(flex-start, flex-start, column, inherit);
+      gap: 3rem;
+    }
   }
 }
 

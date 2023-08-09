@@ -40,7 +40,7 @@ export function Navbar({}: NavbarProps) {
     <nav
       className={`${styles.navbar} ${
         hasScrollMoved && styles["navbar--sticky"]
-      } u-padding-horizontal-large u-padding-vertical-small`}
+      } u-padding-vertical-small`}
     >
       <div className={"col-1-of-2"}>
         <Link href="/#header">

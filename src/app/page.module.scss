@@ -23,16 +23,33 @@
   display: grid;
   background-color: $color-white;
   grid-template-rows: auto;
+  grid-row-gap: 4rem;
   grid-column-gap: 4rem;
   grid-row: 4rem;
 
   &--description {
     grid-template-columns: repeat(3, 1fr);
+
+    @include responsive(tab-land) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(phone) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &--instagram {
     background-color: $color-gray-light;
     grid-template-columns: repeat(4, 1fr);
+
+    @include responsive(tab-land) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(phone) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &__container {
@@ -43,6 +60,16 @@
       position: absolute;
       width: 100%;
     }
+
+    &--description {
+      &:last-child {
+        display: none;
+
+        @include responsive(tab-land) {
+          display: block;
+        }
+      }
+    }
   }
 }
 
@@ -52,14 +79,29 @@
   &__text-container {
     display: flex;
     gap: 5rem;
+
+    @include responsive(phone) {
+      @include display-flex(flex-start, center, column);
+      gap: 4rem;
+    }
   }
 
   &__description {
     @include display-flex(flex-start, flex-end, column);
     gap: 0.8rem;
 
+    @include responsive(phone) {
+      @include display-flex(center, center, column);
+    }
+
     h3 {
       font-weight: 500;
+    }
+  }
+
+  &__list {
+    @include responsive(phone) {
+      margin-right: 14rem;
     }
   }
 
@@ -81,6 +123,11 @@
   @include display-flex(flex-start, flex-start);
   position: relative;
   gap: 5rem;
+
+  @include responsive(phone) {
+    @include display-flex(center, flex-start, column);
+    gap: 2rem;
+  }
 
   &__text-container {
     @include display-flex(flex-start, flex-start, column, no-wrap);
@@ -117,6 +164,11 @@
 
   &__container {
     display: flex;
+
+    @include responsive(phone) {
+      @include display-flex(center, center, column);
+      gap: 2rem;
+    }
   }
 
   &__text-container {
@@ -131,6 +183,12 @@
     color: inherit;
   }
 
+  &__map-container {
+    @include responsive(phone) {
+      width: 100%;
+    }
+  }
+
   &__map {
     position: relative;
     overflow: hidden;
@@ -138,6 +196,11 @@
     padding-right: 90.25%;
     height: 0;
     margin: 2rem 0;
+
+    @include responsive(phone) {
+      padding-bottom: 65.25%;
+      padding-right: 50.25%;
+    }
 
     iframe {
       position: absolute;
