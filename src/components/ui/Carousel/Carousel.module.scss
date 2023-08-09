@@ -4,6 +4,19 @@
 .carousel {
   position: relative;
 
+  &__image-container {
+    position: relative;
+  }
+
+  &__image {
+    width: auto;
+    height: 100%;
+    max-height: 50rem;
+    display: block;
+  }
+}
+
+button.carousel {
   &__button {
     position: absolute;
     top: 50%;
@@ -19,16 +32,5 @@
     &--next {
       right: 0;
     }
-  }
-
-  &__image-container {
-    position: relative;
-  }
-
-  &__image {
-    width: auto;
-    height: 100%;
-    max-height: 50rem;
-    display: block;
   }
 }
