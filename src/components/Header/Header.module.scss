@@ -4,6 +4,12 @@
 .header {
   position: relative;
 
+  &__image {
+    object-fit: cover;
+    object-position: center;
+    height: 100vh;
+  }
+
   &__title {
     @include display-flex();
     height: 100vh;

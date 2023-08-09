@@ -39,12 +39,14 @@ export function Navbar({}: NavbarProps) {
       } u-padding-horizontal-large u-padding-vertical-small`}
     >
       <div className={"col-1-of-2"}>
-        <Image
-          src="/images/header-logo.png"
-          alt="maalum-zanzibar-logo"
-          width={162.5}
-          height={45}
-        />
+        <Link href="/#header">
+          <Image
+            src="/images/header-logo.png"
+            alt="maalum-zanzibar-logo"
+            width={162.5}
+            height={45}
+          />
+        </Link>
       </div>
       <div className={`${styles.menu} col-1-of-2`}>
         <ul className={styles["menu__list"]}>

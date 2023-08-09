@@ -24,7 +24,8 @@
 
   &__item {
     font-weight: 500;
-    
+    color: $color-white;
+
     &:not(:last-child) {
       position: relative;
       @include underline-effect();

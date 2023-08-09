@@ -6,6 +6,7 @@ import { Footer } from "maalum/components/Footer/Footer";
 import { Header } from "maalum/components/Header/Header";
 
 import "maalum/styles/main.scss";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700", "800"],

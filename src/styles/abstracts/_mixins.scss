@@ -37,3 +37,20 @@
     }
   }
 }
+
+@mixin button() {
+  span {
+    border: 0.2rem solid $color-gray-dark;
+    color: $color-gray-dark;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    font-weight: 600;
+
+    &:hover {
+      color: $color-beige;
+      background-color: lighten($color-gray-dark, 10%);
+    }
+  }
+}

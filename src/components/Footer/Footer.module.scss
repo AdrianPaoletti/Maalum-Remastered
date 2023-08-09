@@ -2,43 +2,30 @@
 @import "src/styles/abstracts/variables";
 
 .footer {
-  background-color: $color-beige;
+  background-color: $color-black-light;
+  color: $color-gray-footer;
 
-  &__container {
-    display: flex;
+  &__list {
+    @include display-flex();
+    gap: 3rem;
   }
 
-  &__text-container {
-    @include display-flex(center, center, column);
-  }
-
-  span {
-    font-weight: 500;
-  }
-
-  &__link-mail {
+  &__list-item-link {
+    text-decoration: none;
     color: inherit;
   }
 
-  &__map {
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 65.25%;
-    padding-right: 90.25%;
-    height: 0;
-    margin: 2rem 0;
+  &__list-item {
+    list-style: none;
+    font-size: $font-size-17;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $color-gray-footer;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    &:hover {
+      color: darken($color-gray-footer, 15%);
+      border-bottom-color: darken($color-gray-footer, 15%);
     }
-  }
-
-  &__social-media {
-    @include display-flex();
-    gap: 1rem;
   }
 }

@@ -80,4 +80,15 @@ const bookNowListItem: {
   },
 ];
 
-export { imagesDescription, imagesInstagram, bookNowListItem };
+const carouselImages: { id: string; url: string }[] = [
+  {
+    id: "spa-first",
+    url: "/images/spa-1.jpg",
+  },
+  {
+    id: "spa-second",
+    url: "/images/spa-2.jpg",
+  },
+];
+
+export { imagesDescription, imagesInstagram, bookNowListItem, carouselImages };

@@ -31,6 +31,7 @@
   }
 
   &--instagram {
+    background-color: $color-gray-light;
     grid-template-columns: repeat(4, 1fr);
   }
 
@@ -56,6 +57,10 @@
   &__description {
     @include display-flex(flex-start, flex-end, column);
     gap: 0.8rem;
+
+    h3 {
+      font-weight: 500;
+    }
   }
 
   &__list-item {
@@ -67,20 +72,84 @@
 
   &__button {
     @include display-flex();
+    @include button();
+  }
+}
 
-    span {
-      border: 0.2rem solid $color-gray-dark;
-      color: $color-gray-dark;
-      cursor: pointer;
-      padding: 1.3rem 2.6rem;
-      transition: all 0.3s ease;
-      -webkit-transition: all 0.3s ease;
-      font-weight: 600;
+.spa,
+.restaurant {
+  @include display-flex(flex-start, flex-start);
+  position: relative;
+  gap: 5rem;
 
-      &:hover {
-        color: $color-beige;
-        background-color: lighten($color-gray-dark, 10%);
-      }
+  &__text-container {
+    @include display-flex(flex-start, flex-start, column, no-wrap);
+  }
+
+  &__subtitle {
+    font-weight: 500;
+  }
+
+  &__button {
+    @include display-flex();
+    @include button();
+  }
+
+  &__food-menu {
+    position: relative;
+    color: $color-yellow-beige;
+    @include underline-effect($color-yellow-beige, 0.1rem, 0);
+    transition: color 0.25s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      color: darken($color-yellow-beige, 10%);
     }
+  }
+}
+
+.instagram {
+  background-color: $color-gray-light;
+}
+
+.contact-us {
+  background-color: $color-beige;
+
+  &__container {
+    display: flex;
+  }
+
+  &__text-container {
+    @include display-flex(center, center, column);
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  &__link-mail {
+    color: inherit;
+  }
+
+  &__map {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 65.25%;
+    padding-right: 90.25%;
+    height: 0;
+    margin: 2rem 0;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__social-media {
+    @include display-flex();
+    gap: 1rem;
   }
 }
