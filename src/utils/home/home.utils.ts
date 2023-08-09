@@ -1,3 +1,5 @@
+import { IsSocialMedia } from "maalum/core/models/home.model";
+
 const BOOK_NOW_PATH =
   "https://static1.squarespace.com/static/5edbafe6caad7c68afd91215/t";
 
@@ -7,24 +9,24 @@ const imagesDescription: { id: number; url: string }[] = [
   { id: 3, url: "/images/body-3.jpg" },
 ];
 
-const imagesInstagram: { id: number; url: string; href: string }[] = [
+const imagesInstagram: { id: string; url: string; href: string }[] = [
   {
-    id: 1,
+    id: "1",
     url: "/images/instagram-1.jpg",
     href: "https://www.instagram.com/p/CXy4MRvsRaA/?hl=es",
   },
   {
-    id: 2,
+    id: "2",
     url: "/images/instagram-2.jpg",
     href: "https://www.instagram.com/p/CXigyu5M0mL/?hl=es",
   },
   {
-    id: 3,
+    id: "3",
     url: "/images/instagram-3.jpg",
     href: "https://www.instagram.com/p/CXjMQouM8Ux/?hl=es",
   },
   {
-    id: 4,
+    id: "contact",
     url: "/images/instagram-4.jpg",
     href: "https://www.instagram.com/p/CXkjRdLozkJ/?hl=es",
   },
@@ -91,4 +93,40 @@ const carouselImages: { id: string; url: string }[] = [
   },
 ];
 
-export { imagesDescription, imagesInstagram, bookNowListItem, carouselImages };
+const socialMediaLogos: {
+  id: keyof IsSocialMedia;
+  white: string;
+  black: string;
+  altText: string;
+  href: string;
+}[] = [
+  {
+    id: "instagram",
+    white: "/images/icon-instagram-white.png",
+    black: "/images/icon-instagram-black.png",
+    altText: "instagram logo",
+    href: "https://www.instagram.com/maalumzanzibar/?hl=es",
+  },
+  {
+    id: "facebook",
+    white: "/images/icon-facebook-white.png",
+    black: "/images/icon-facebook-black.png",
+    altText: "facebook logo",
+    href: "https://www.instagram.com/maalumzanzibar/?hl=es",
+  },
+  {
+    id: "tripadvisor",
+    white: "/images/icon-tripadvisor-white.png",
+    black: "/images/icon-tripadvisor-black.png",
+    altText: "tripadvisor logo",
+    href: "https://www.tripadvisor.es/Attraction_Review-g616020-d23946364-Reviews-Maalum-Paje_Zanzibar_Island_Zanzibar_Archipelago.html",
+  },
+];
+
+export {
+  imagesDescription,
+  imagesInstagram,
+  bookNowListItem,
+  carouselImages,
+  socialMediaLogos,
+};

@@ -1,0 +1,26 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.terms {
+  &__text-container {
+    padding-top: 6rem;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__condition-block {
+    @include display-flex(flex-start, flex-start, row, inherit);
+    gap: 7rem;
+  }
+}
+
+.line {
+  @include display-flex();
+
+  span {
+    border-bottom: 0.5px solid $color-gray-footer;
+    width: 88%;
+  }
+}

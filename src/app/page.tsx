@@ -6,12 +6,12 @@ import Link from "next/link";
 
 import { Carousel } from "maalum/components/ui/Carousel/Carousel";
 import { IsSocialMedia } from "maalum/core/models/home.model";
-import { socialMediaLogos } from "maalum/utils/footer/footer.utils";
 import {
   bookNowListItem,
   carouselImages,
   imagesDescription,
   imagesInstagram,
+  socialMediaLogos,
 } from "../utils/home/home.utils";
 
 import styles from "./page.module.scss";
@@ -183,6 +183,7 @@ export default function Home() {
         >
           {imagesInstagram.map(({ url, id, href }) => (
             <Link
+              id={id}
               key={id}
               className={`${styles["images__container"]}`}
               href={href}
@@ -194,7 +195,6 @@ export default function Home() {
       </article>
       <article
         className={`${styles["contact-us"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
-        id="contact"
       >
         <h2 className={`heading-secundary`}>CONTACT US</h2>
         <div

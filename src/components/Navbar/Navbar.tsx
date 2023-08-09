@@ -21,6 +21,10 @@ export function Navbar({}: NavbarProps) {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollEvent);
+    if (window.scrollY > 0) {
+      setHasScrollMoved(true);
+      return;
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScrollEvent);
