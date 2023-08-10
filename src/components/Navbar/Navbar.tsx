@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
+import MaalumContext from "maalum/core/store/context/MaalumContext";
 
 import styles from "./Navbar.module.scss";
 
@@ -11,6 +13,7 @@ interface NavbarProps {}
 export function Navbar({}: NavbarProps) {
   const [hasScrollMoved, setHasScrollMoved] = useState<boolean>(false);
   const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false);
+  const { setIsReservationsOpen } = useContext(MaalumContext);
 
   const handleScrollEvent = useCallback(() => {
     if (window.scrollY > 0) {
@@ -32,9 +35,21 @@ export function Navbar({}: NavbarProps) {
     };
   }, [handleScrollEvent]);
 
-  const menuItems: { id: string; title: string; refference?: string }[] = [
+  const menuItems: {
+    id: string;
+    title: string;
+    refference?: string;
+    onClick?: () => void;
+  }[] = [
     { id: "contact", title: "CONTACT US", refference: "contact" },
-    { id: "bookNow", title: "BOOK NOW" },
+    {
+      id: "bookNow",
+      title: "BOOK NOW",
+      onClick: () => {
+        setIsReservationsOpen(true);
+        document.body.className = `${document.body.classList[0]} u-scroll-disabled`;
+      },
+    },
   ];
 
   const handleClick = () => {
@@ -50,9 +65,13 @@ export function Navbar({}: NavbarProps) {
       <div className={"col-1-of-2"}>
         <Link href="/#header">
           <Image
-            src="/images/header-logo.png"
+            src={
+              hasScrollMoved
+                ? "/images/logo-beige.png"
+                : "/images/logo-white.png"
+            }
             alt="maalum-zanzibar-logo"
-            width={162.5}
+            width={182.5}
             height={45}
           />
         </Link>
@@ -76,13 +95,16 @@ export function Navbar({}: NavbarProps) {
             isMenuExpanded && styles["menu__list--active"]
           }`}
         >
-          {menuItems.map(({ id, title, refference }) => (
+          {menuItems.map(({ id, title, refference, onClick }) => (
             <li
               key={id}
               className={`navbar-list-item ${styles["menu__item"]} ${
                 hasScrollMoved && styles["menu__item--sticky"]
               }`}
-              onClick={handleClick}
+              onClick={() => {
+                handleClick();
+                onClick && onClick();
+              }}
             >
               {refference ? (
                 <Link

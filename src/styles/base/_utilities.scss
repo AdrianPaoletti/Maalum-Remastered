@@ -1,6 +1,15 @@
+.u-padding-small {
+  padding: 2rem;
+}
+
 .u-padding-vertical-small {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.u-padding-horizontal-small {
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 
 .u-padding-top-small {
@@ -47,4 +56,8 @@
     padding-left: 2rem;
     padding-right: 2rem;
   }
+}
+
+.u-scroll-disabled {
+  overflow: hidden;
 }

@@ -7,7 +7,7 @@
   &__title {
     span {
       display: block;
-      color: $color-green;
+      color: $color-beige-dark;
       margin-top: 0.6rem;
     }
   }
@@ -74,7 +74,7 @@
 }
 
 .book-now {
-  background-color: $color-beige;
+  background-color: $color-beige-yellow;
 
   &__text-container {
     display: flex;
@@ -143,18 +143,18 @@
 
   &__button {
     @include display-flex();
-    @include button();
+    @include button($color-white);
   }
 
   &__food-menu {
     position: relative;
-    color: $color-yellow-beige;
-    @include underline-effect($color-yellow-beige, 0.1rem, 0);
+    color: $color-beige;
+    @include underline-effect($color-beige, 0.1rem, 0);
     transition: color 0.25s ease-out;
     cursor: pointer;
 
     &:hover {
-      color: darken($color-yellow-beige, 10%);
+      color: darken($color-beige, 10%);
     }
   }
 }
@@ -164,7 +164,7 @@
 }
 
 .contact-us {
-  background-color: $color-beige;
+  background-color: $color-beige-yellow;
 
   &__container {
     display: flex;

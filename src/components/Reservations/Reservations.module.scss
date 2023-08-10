@@ -1,0 +1,39 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.reservations {
+  position: fixed;
+  right: -100vw;
+  left: auto;
+  top: 2rem;
+  bottom: 2rem;
+  width: 50rem;
+  border-radius: 2rem;
+  background-color: $color-white;
+  transition: ease-in-out 1s;
+  -webkit-transition: ease-in-out 0.8s;
+
+  &--active {
+    right: 2rem;
+  }
+
+  &__header {
+    @include display-flex(space-between);
+    width: 100%;
+    top: 2rem;
+    background-color: $color-beige-light;
+    padding: 1.5rem;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    color: $color-white;
+  }
+
+  &__title {
+    padding: 0 1rem;
+  }
+
+  &__button-close {
+    font-size: $font-size-22;
+    color: inherit;
+  }
+}

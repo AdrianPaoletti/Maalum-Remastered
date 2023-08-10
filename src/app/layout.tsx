@@ -4,6 +4,7 @@ import Head from "next/head";
 
 import { Footer } from "maalum/components/Footer/Footer";
 import { Header } from "maalum/components/Header/Header";
+import MaalumContextProvider from "maalum/core/store/context/MaalumContextProvider";
 
 import "maalum/styles/main.scss";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -32,9 +33,13 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body className={montserrat.className}>
-        <Header />
-        {children}
-        <Footer />
+        <MaalumContextProvider>
+          <>
+            <Header />
+            {children}
+            <Footer />
+          </>
+        </MaalumContextProvider>
       </body>
     </html>
   );

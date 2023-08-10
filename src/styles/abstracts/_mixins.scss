@@ -38,7 +38,7 @@
   }
 }
 
-@mixin button() {
+@mixin button($color-hover: $color-beige-yellow) {
   span {
     border: 0.2rem solid $color-gray-dark;
     color: $color-gray-dark;
@@ -49,7 +49,7 @@
     font-weight: 600;
 
     &:hover {
-      color: $color-beige;
+      color: $color-hover;
       background-color: lighten($color-gray-dark, 10%);
     }
   }

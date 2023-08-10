@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import { Navbar } from "../Navbar/Navbar";
+import { Reservations } from "../Reservations/Reservations";
 
 import styles from "./Header.module.scss";
 
@@ -21,6 +22,7 @@ export function Header() {
       <h1 className={`${styles["header__title"]} heading-primary`}>
         WELCOME TO PARADISE
       </h1>
+      <Reservations />
     </header>
   );
 }

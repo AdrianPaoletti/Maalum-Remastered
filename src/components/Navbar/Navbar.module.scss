@@ -60,13 +60,6 @@
     @include display-flex(flex-end);
     gap: 3rem;
 
-    &--active {
-      @include responsive(phone) {
-        left: 0;
-        right: 9rem;
-      }
-    }
-
     @include responsive(phone) {
       @include display-flex(center, flex-start, column, inherit);
       gap: 2rem;
@@ -80,6 +73,13 @@
       bottom: 0;
       transition: 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
       -webkit-transition: 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
+    }
+
+    &--active {
+      @include responsive(phone) {
+        left: 0;
+        right: 9rem;
+      }
     }
   }
 
@@ -109,24 +109,24 @@
 
       &:hover {
         background-color: $color-white;
-        color: $color-green;
+        color: $color-beige-dark;
       }
     }
 
     &--sticky {
-      color: $color-green;
+      color: $color-beige-dark;
 
       &:not(:last-child) {
         position: relative;
-        @include underline-effect($color-green);
+        @include underline-effect($color-beige-dark);
       }
 
       &:last-child {
-        border: 0.2rem solid $color-green;
+        border: 0.2rem solid $color-beige-dark;
         transition: all 0.3s;
 
         &:hover {
-          background-color: lighten($color-green, 10%);
+          background-color: lighten($color-beige, 10%);
           color: $color-white;
           opacity: 1;
         }
@@ -137,7 +137,7 @@
 
           &:hover {
             background-color: transparent;
-            color: $color-green;
+            color: $color-beige-dark;
             opacity: inherit;
           }
         }
