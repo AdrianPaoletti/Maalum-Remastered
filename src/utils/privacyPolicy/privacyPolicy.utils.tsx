@@ -127,7 +127,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 3,
+        id: 4,
         subtitle: "",
         text: (
           <>
@@ -137,7 +137,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 4,
+        id: 5,
         subtitle: "",
         text: (
           <>
@@ -147,7 +147,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 5,
+        id: 6,
         subtitle: "",
         text: (
           <>
@@ -158,7 +158,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 6,
+        id: 7,
         subtitle: "",
         text: (
           <>
@@ -170,7 +170,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 7,
+        id: 8,
         subtitle: "",
         text: (
           <>
@@ -180,7 +180,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 8,
+        id: 9,
         subtitle: "",
         text: (
           <>
@@ -191,7 +191,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 9,
+        id: 10,
         subtitle: "",
         text: (
           <>
@@ -201,7 +201,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 10,
+        id: 11,
         subtitle: "",
         text: (
           <>
@@ -211,7 +211,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 11,
+        id: 12,
         subtitle: "b.     Not necessary for the provision of the service:",
         text: (
           <>
@@ -222,7 +222,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 12,
+        id: 13,
         subtitle: "",
         text: (
           <>
@@ -233,7 +233,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 13,
+        id: 14,
         subtitle: "",
         text: (
           <>
@@ -244,7 +244,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 14,
+        id: 15,
         subtitle: " ",
         text: (
           <>
@@ -254,7 +254,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 15,
+        id: 16,
         subtitle: " ",
         text: (
           <>
@@ -269,7 +269,7 @@ const privacyPolicyText: {
         ),
       },
       {
-        id: 16,
+        id: 17,
         subtitle: " ",
         text: (
           <>

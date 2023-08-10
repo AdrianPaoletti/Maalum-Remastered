@@ -31,4 +31,16 @@ body {
   font-size: $font-size-15;
   letter-spacing: 0.08rem;
   cursor: pointer;
+
+  @include responsive(phone) {
+    list-style: none;
+    font-size: $font-size-24;
+    color: $color-green;
+    letter-spacing: 0.14rem;
+    cursor: pointer;
+
+    position: relative;
+    padding: 1.25rem 0;
+    @include underline-effect($color-green);
+  }
 }

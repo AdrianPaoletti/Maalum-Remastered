@@ -10,6 +10,7 @@ interface NavbarProps {}
 
 export function Navbar({}: NavbarProps) {
   const [hasScrollMoved, setHasScrollMoved] = useState<boolean>(false);
+  const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false);
 
   const handleScrollEvent = useCallback(() => {
     if (window.scrollY > 0) {
@@ -36,6 +37,10 @@ export function Navbar({}: NavbarProps) {
     { id: "bookNow", title: "BOOK NOW" },
   ];
 
+  const handleClick = () => {
+    setIsMenuExpanded(!isMenuExpanded);
+  };
+
   return (
     <nav
       className={`${styles.navbar} ${
@@ -53,13 +58,31 @@ export function Navbar({}: NavbarProps) {
         </Link>
       </div>
       <div className={`${styles.menu} col-1-of-2`}>
-        <ul className={styles["menu__list"]}>
+        <div
+          className={`${styles["menu__burger-container"]}`}
+          onClick={handleClick}
+        >
+          {[1, 2, 3].map((value) => (
+            <span
+              key={value}
+              className={`${styles["menu__burger-line"]} ${
+                isMenuExpanded && styles["menu__burger-line--active"]
+              }`}
+            ></span>
+          ))}
+        </div>
+        <ul
+          className={`${styles["menu__list"]} ${
+            isMenuExpanded && styles["menu__list--active"]
+          }`}
+        >
           {menuItems.map(({ id, title, refference }) => (
             <li
               key={id}
               className={`navbar-list-item ${styles["menu__item"]} ${
                 hasScrollMoved && styles["menu__item--sticky"]
               }`}
+              onClick={handleClick}
             >
               {refference ? (
                 <Link

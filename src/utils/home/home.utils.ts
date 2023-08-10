@@ -7,7 +7,7 @@ const imagesDescription: { id: number; url: string }[] = [
   { id: 1, url: "/images/body-1.jpg" },
   { id: 2, url: "/images/body-2.jpg" },
   { id: 3, url: "/images/body-3.jpg" },
-  { id: 3, url: "/images/body-4.jpg" },
+  { id: 4, url: "/images/body-4.jpg" },
 ];
 
 const imagesInstagram: { id: string; url: string; href: string }[] = [
@@ -27,7 +27,7 @@ const imagesInstagram: { id: string; url: string; href: string }[] = [
     href: "https://www.instagram.com/p/CXjMQouM8Ux/?hl=es",
   },
   {
-    id: "contact",
+    id: "4",
     url: "/images/instagram-4.jpg",
     href: "https://www.instagram.com/p/CXkjRdLozkJ/?hl=es",
   },
@@ -124,10 +124,79 @@ const socialMediaLogos: {
   },
 ];
 
+const spaInformation: {
+  id: number;
+  title: string;
+  subtitle: string;
+  text: { id: number; paragraph: string }[];
+}[] = [
+  {
+    id: 1,
+    title: "MAALUM SPA",
+    subtitle: "NATURAL RETREAT",
+    text: [
+      {
+        id: 1,
+        paragraph:
+          "Indulge in serenity and rejuvenation at La Valise SPA, our luxurious wellness sanctuary in Tulum. Experience our signature treatments and immersive spa experiences at our sister property.",
+      },
+      {
+        id: 2,
+        paragraph:
+          "Immerse yourself in a sensorial journey, nurturing body, mind, and soul. From blissful massages to revitalizing facials, our therapies embrace ancient Mayan techniques in a tranquil atmosphere. Our skilled practitioners curate tailored treatments, ensuring a sanctuary of relaxation.",
+      },
+      {
+        id: 3,
+        paragraph:
+          "Indulge in serenity and rejuvenation at La Valise SPA, our luxurious wellness sanctuary in Tulum. Experience our signature treatments and immersive spa experiences at our sister property.",
+      },
+    ],
+  },
+];
+
+const restaurantInformation = [
+  {
+    id: 1,
+    title: "OUR RESTAURANT",
+    subtitle: "LIVE THE FULL EXPERIENCE",
+    text: [
+      {
+        id: 1,
+        paragraph:
+          "After a magical swim at Maalum Natural Swimming Pool, relax on our sun beds, drink one of our refreshing tropical fruit smoothies and enjoy our local cuisine surrounded by nature.",
+      },
+      {
+        id: 2,
+        paragraph:
+          "We carefully select fresh food from the garden and adapt to your preferences and suggestions. Come and enjoy a day full of flavours with us.",
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "",
+    subtitle: "DINE AT MAALUM RESTAURANT",
+    text: [
+      {
+        id: 1,
+        paragraph:
+          "Zanzibar is often described as a cultural melting pot, due to the different people who have settled on the island over time and therefore so is its cuisine.",
+      },
+      {
+        id: 2,
+        paragraph:
+          "Tasting the typical delicacies of a country is the perfect way to enter in its culture, history and traditions, are you ready to taste the delicious costal East African cuisine?",
+      },
+    ],
+  },
+];
+
 export {
   imagesDescription,
   imagesInstagram,
   bookNowListItem,
   carouselImages,
   socialMediaLogos,
+  spaInformation,
+  restaurantInformation,
 };

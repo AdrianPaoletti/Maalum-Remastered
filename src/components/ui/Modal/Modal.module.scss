@@ -15,6 +15,13 @@
   padding: 6rem;
   overflow: scroll;
 
+  &__button {
+    position: absolute;
+    font-size: $font-size-22;
+    top: 2rem;
+    right: 2rem;
+  }
+
   @include responsive(phone) {
     width: 90%;
     max-height: 95%;

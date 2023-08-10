@@ -1,4 +1,5 @@
-import { Backdrop, Fade, Modal as ModalMUI } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Backdrop, Fade, IconButton, Modal as ModalMUI } from "@mui/material";
 
 import styles from "./Modal.module.scss";
 
@@ -23,7 +24,15 @@ export function Modal({ children, isOpen, handleClose }: ModalProps) {
       }}
     >
       <Fade in={isOpen}>
-        <div className={styles.modal}>{children}</div>
+        <section className={styles.modal}>
+          <IconButton
+            onClick={handleClose}
+            className={`${styles["modal__button"]}`}
+          >
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+          {children}
+        </section>
       </Fade>
     </ModalMUI>
   );

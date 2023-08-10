@@ -11,7 +11,9 @@ import {
   carouselImages,
   imagesDescription,
   imagesInstagram,
+  restaurantInformation,
   socialMediaLogos,
+  spaInformation,
 } from "../utils/home/home.utils";
 
 import styles from "./page.module.scss";
@@ -108,29 +110,21 @@ export default function Home() {
       >
         <Carousel images={carouselImages} />
         <div className={`${styles["spa__text-container"]} col-1-of-2`}>
-          <h2 className={`heading-secundary`}>MAALUM SPA</h2>
-          <h3
-            className={`${styles["spa__subtitle"]} text-primary u-padding-top-large`}
-          >
-            NATURAL RETREAT
-          </h3>
-          <p className={`text-primary u-padding-top-small`}>
-            Indulge in serenity and rejuvenation at La Valise SPA, our luxurious
-            wellness sanctuary in Tulum. Experience our signature treatments and
-            immersive spa experiences at our sister property.
-          </p>
-          <p className={`text-primary u-padding-top-small`}>
-            Immerse yourself in a sensorial journey, nurturing body, mind, and
-            soul. From blissful massages to revitalizing facials, our therapies
-            embrace ancient Mayan techniques in a tranquil atmosphere. Our
-            skilled practitioners curate tailored treatments, ensuring a
-            sanctuary of relaxation.
-          </p>
-          <p className={`text-primary u-padding-top-small`}>
-            Indulge in serenity and rejuvenation at La Valise SPA, our luxurious
-            wellness sanctuary in Tulum. Experience our signature treatments and
-            immersive spa experiences at our sister property.
-          </p>
+          {spaInformation.map(({ id, title, subtitle, text }) => (
+            <div key={id}>
+              <h2 className={`heading-secundary`}>{title}</h2>
+              <h3
+                className={`${styles["spa__subtitle"]} text-primary u-padding-top-large`}
+              >
+                {subtitle}
+              </h3>
+              {text.map(({ id, paragraph }) => (
+                <p key={id} className={`text-primary u-padding-top-small`}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ))}
           <div className={`${styles["spa__button"]} u-padding-top-large`}>
             <span className="text-primary">RESERVE NOW</span>
           </div>
@@ -140,37 +134,21 @@ export default function Home() {
         className={`${styles["restaurant"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
       >
         <div className={`${styles["restaurant__text-container"]} col-1-of-2`}>
-          <h2 className={`heading-secundary`}>OUR RESTAURANT</h2>
-          <h3
-            className={`${styles["restaurant__subtitle"]} text-primary u-padding-top-large`}
-          >
-            LIVE THE FULL EXPERIENCE
-          </h3>
-          <p className={`text-primary u-padding-top-small`}>
-            After a magical swim at Maalum Natural Swimming Pool, relax on our
-            sun beds, drink one of our refreshing tropical fruit smoothies and
-            enjoy our local cuisine surrounded by nature.
-          </p>
-          <p className={`text-primary u-padding-top-small`}>
-            We carefully select fresh food from the garden and adapt to your
-            preferences and suggestions. Come and enjoy a day full of flavours
-            with us.
-          </p>
-          <h3
-            className={`${styles["restaurant__subtitle"]} text-primary u-padding-top-large`}
-          >
-            DINE AT MAALUM RESTAURANT
-          </h3>
-          <p className={`text-primary u-padding-top-small`}>
-            Zanzibar is often described as a cultural melting pot, due to the
-            different people who have settled on the island over time and
-            therefore so is its cuisine.
-          </p>
-          <p className={`text-primary u-padding-top-small`}>
-            Tasting the typical delicacies of a country is the perfect way to
-            enter in its culture, history and traditions, are you ready to taste
-            the delicious costal East African cuisine?
-          </p>
+          {restaurantInformation.map(({ id, title, subtitle, text }) => (
+            <div key={id}>
+              <h2 className={`heading-secundary`}>{title}</h2>
+              <h3
+                className={`${styles["restaurant__subtitle"]} text-primary u-padding-top-large`}
+              >
+                {subtitle}
+              </h3>
+              {text.map(({ id, paragraph }) => (
+                <p key={id} className={`text-primary u-padding-top-small`}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ))}
           <p className={`text-primary u-padding-top-large`}>
             <a className={`${styles["restaurant__food-menu"]}`}>Food Menu</a>
           </p>
@@ -198,6 +176,7 @@ export default function Home() {
       </article>
       <article
         className={`${styles["contact-us"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        id={"contact"}
       >
         <h2 className={`heading-secundary`}>CONTACT US</h2>
         <div

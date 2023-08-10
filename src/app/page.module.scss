@@ -126,11 +126,15 @@
 
   @include responsive(phone) {
     @include display-flex(center, flex-start, column);
-    gap: 2rem;
+    gap: 4em;
   }
 
   &__text-container {
     @include display-flex(flex-start, flex-start, column, no-wrap);
+
+    h2 {
+      text-align: left;
+    }
   }
 
   &__subtitle {
