@@ -21,6 +21,7 @@ export function Carousel({ images }: CarouselProps) {
       showIndicators={false}
       showThumbs={false}
       interval={6000}
+      swipeable={false}
       animationHandler={"fade"}
       renderArrowPrev={(clickHandler) => (
         <IconButton
