@@ -156,7 +156,7 @@
   &__text-container {
     @include display-flex(flex-start, flex-start, row, inherit);
     gap: 5rem;
-    padding: 1rem;
+    padding: 2rem 1rem;
 
     @include responsive(phone) {
       @include display-flex(flex-start, flex-start, column, inherit);
