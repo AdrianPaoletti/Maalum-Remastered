@@ -268,21 +268,6 @@ const privacyPolicyText: {
           </>
         ),
       },
-      {
-        id: 17,
-        subtitle: " ",
-        text: (
-          <>
-            Purposes (1), (2) and (3) are not necessary, but are important to
-            offer clients, through campaigns of marketing, advertising and
-            commercial prospection, goods, products and exclusive services, for
-            which they have the right to object, or, to revoke their consent for{" "}
-            <span>MAALUM</span> to stop processing personal data for such
-            purposes, in accordance with the procedure indicated in section IV
-            or V of this Privacy Notice.
-          </>
-        ),
-      },
     ],
   },
 ];

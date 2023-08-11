@@ -9,8 +9,10 @@ import { IsSocialMedia } from "maalum/core/models/home.model";
 import {
   bookNowListItem,
   carouselImages,
+  experiencesInformation,
   imagesDescription,
   imagesInstagram,
+  imagesRestaurant,
   restaurantInformation,
   socialMediaLogos,
   spaInformation,
@@ -64,7 +66,7 @@ export default function Home() {
             key={id}
             className={`${styles["images__container"]} ${styles["images__container--description"]}`}
           >
-            <Image src={url} alt="swimming cave zanzibar" fill sizes="33vw" />
+            <Image src={url} alt="swimming cave zanzibar" fill sizes="100vw" />
           </div>
         ))}
       </article>
@@ -94,7 +96,7 @@ export default function Home() {
                   alt="zanzibar swimming cave services"
                   width={size || 22}
                   height={size || 22}
-                  sizes="5vw"
+                  sizes="50vw"
                 />
                 <p className="text-primary">{text}</p>
               </li>
@@ -103,6 +105,59 @@ export default function Home() {
         </div>
         <div className={`${styles["book-now__button"]}`}>
           <span className="text-primary">BOOK NOW</span>
+        </div>
+      </article>
+      <article
+        className={`${styles["restaurant"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+      >
+        <h2 className={`heading-secundary`}>OUR RESTAURANT</h2>
+        <div
+          className={`${styles["restaurant__image-container"]} u-padding-vertical-large`}
+        >
+          <Image
+            src={"/images/restaurant-main.jpg"}
+            className={`${styles["restaurant__image"]}`}
+            alt="restaurant menu"
+            fill
+            sizes="100vw"
+          />
+        </div>
+        <div className={`${styles["restaurant__text-container"]}`}>
+          {restaurantInformation.map(({ id, title, text }, indexNumber) => (
+            <div key={id}>
+              <h2
+                className={`heading-secundary ${styles["restaurant__subtitle"]}`}
+              >
+                {title}
+              </h2>
+              {text.map(({ id, paragraph }) => (
+                <p key={id} className={`text-primary u-padding-top-small`}>
+                  {paragraph}
+                </p>
+              ))}
+              {!!indexNumber && (
+                <p className={`text-primary u-padding-top-small`}>
+                  <a className={`${styles["restaurant__food-menu"]}`}>
+                    Food Menu
+                  </a>
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+        <div
+          className={`${styles["images"]} ${styles["images--restaurant"]} u-padding-top-large`}
+        >
+          {imagesRestaurant.map(({ url, id }) => (
+            <div key={id} className={`${styles["images__container"]}`}>
+              <Image
+                src={url}
+                alt="restaurant cave zanzibar"
+                fill
+                sizes="50vw"
+              />
+            </div>
+          ))}
         </div>
       </article>
       <article
@@ -131,14 +186,14 @@ export default function Home() {
         </div>
       </article>
       <article
-        className={`${styles["restaurant"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles["experiences"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
       >
-        <div className={`${styles["restaurant__text-container"]} col-1-of-2`}>
-          {restaurantInformation.map(({ id, title, subtitle, text }) => (
+        <div className={`${styles["experiences__text-container"]} col-1-of-2`}>
+          {experiencesInformation.map(({ id, title, subtitle, text }) => (
             <div key={id}>
               <h2 className={`heading-secundary`}>{title}</h2>
               <h3
-                className={`${styles["restaurant__subtitle"]} text-primary u-padding-top-large`}
+                className={`${styles["experiences__subtitle"]} text-primary u-padding-top-large`}
               >
                 {subtitle}
               </h3>
@@ -150,7 +205,7 @@ export default function Home() {
             </div>
           ))}
           <p className={`text-primary u-padding-top-large`}>
-            <a className={`${styles["restaurant__food-menu"]}`}>Food Menu</a>
+            <a className={`${styles["experiences__food-menu"]}`}>Food Menu</a>
           </p>
         </div>
         <Carousel images={carouselImages} />
@@ -169,7 +224,7 @@ export default function Home() {
               className={`${styles["images__container"]}`}
               href={href}
             >
-              <Image src={url} alt="swimming cave zanzibar" fill sizes="25vw" />
+              <Image src={url} alt="swimming cave zanzibar" fill sizes="50vw" />
             </Link>
           ))}
         </div>

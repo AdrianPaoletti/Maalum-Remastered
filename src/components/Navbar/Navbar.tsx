@@ -4,6 +4,8 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import zIndex from "@mui/material/styles/zIndex";
+
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 
 import styles from "./Navbar.module.scss";
@@ -12,6 +14,7 @@ interface NavbarProps {}
 
 export function Navbar({}: NavbarProps) {
   const [hasScrollMoved, setHasScrollMoved] = useState<boolean>(false);
+  const [isPhoneSize, setIsPhoneSize] = useState<boolean>(false);
   const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false);
   const { setIsReservationsOpen } = useContext(MaalumContext);
 
@@ -23,10 +26,21 @@ export function Navbar({}: NavbarProps) {
     setHasScrollMoved(false);
   }, []);
 
+  const handleInnerWidth = useCallback(() => {
+    if (window.innerWidth <= 700) {
+      setIsPhoneSize(true);
+      return;
+    }
+  }, []);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScrollEvent);
     if (window.scrollY > 0) {
       setHasScrollMoved(true);
+      return;
+    }
+    if (window.innerWidth <= 700) {
+      setIsPhoneSize(true);
       return;
     }
 
@@ -54,25 +68,31 @@ export function Navbar({}: NavbarProps) {
 
   const handleClick = () => {
     setIsMenuExpanded(!isMenuExpanded);
+    if (!isMenuExpanded) {
+      document.body.className = `${document.body.classList[0]} u-scroll-disabled`;
+      return;
+    }
+    document.body.className = `${document.body.classList[0]}`;
   };
 
   return (
     <nav
       className={`${styles.navbar} ${
         hasScrollMoved && styles["navbar--sticky"]
-      } u-padding-vertical-small`}
+      }`}
     >
-      <div className={"col-1-of-2"}>
+      <div className={`${styles.navbar__container} col-1-of-2`}>
         <Link href="/#header">
           <Image
             src={
-              hasScrollMoved
+              hasScrollMoved || isPhoneSize
                 ? "/images/logo-beige.png"
                 : "/images/logo-white.png"
             }
             alt="maalum-zanzibar-logo"
-            width={182.5}
-            height={45}
+            className={styles.navbar__image}
+            width={isPhoneSize ? 135 : 157}
+            height={isPhoneSize ? 36 : 41}
           />
         </Link>
       </div>

@@ -7,7 +7,7 @@
 
   &__list {
     @include display-flex();
-    gap: 3rem;
+    gap: 1.5rem 3rem;
   }
 
   &__list-item {
@@ -21,7 +21,7 @@
     -webkit-transition: all 0.3s ease;
 
     @include responsive(tab-land) {
-      font-size: $font-size-16;
+      font-size: $font-size-14;
     }
 
     &:hover {

@@ -157,8 +157,43 @@ const spaInformation: {
 const restaurantInformation = [
   {
     id: 1,
-    title: "OUR RESTAURANT",
-    subtitle: "LIVE THE FULL EXPERIENCE",
+    title: "LIVE THE FULL EXPERIENCE",
+    text: [
+      {
+        id: 1,
+        paragraph:
+          "After a magical swim at Maalum Natural Swimming Pool, relax on our sun beds, drink one of our refreshing tropical fruit smoothies and enjoy our local cuisine surrounded by nature.",
+      },
+      {
+        id: 2,
+        paragraph:
+          "We carefully select fresh food from the garden and adapt to your preferences and suggestions. Come and enjoy a day full of flavours with us.",
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "DINE AT MAALUM RESTAURANT",
+    text: [
+      {
+        id: 1,
+        paragraph:
+          "Zanzibar is often described as a cultural melting pot, due to the different people who have settled on the island over time and therefore so is its cuisine.",
+      },
+      {
+        id: 2,
+        paragraph:
+          "Tasting the typical delicacies of a country is the perfect way to enter in its culture, history and traditions, are you ready to taste the delicious costal East African cuisine?",
+      },
+    ],
+  },
+];
+
+const experiencesInformation = [
+  {
+    id: 1,
+    title: "EXPERIENCES",
+    subtitle: "EXPERIENCES #1",
     text: [
       {
         id: 1,
@@ -175,7 +210,7 @@ const restaurantInformation = [
   {
     id: 2,
     title: "",
-    subtitle: "DINE AT MAALUM RESTAURANT",
+    subtitle: "EXPERIENCES #2",
     text: [
       {
         id: 1,
@@ -191,12 +226,33 @@ const restaurantInformation = [
   },
 ];
 
+const imagesRestaurant: { id: string; url: string }[] = [
+  {
+    id: "1",
+    url: "/images/restaurant-1.jpg",
+  },
+  {
+    id: "2",
+    url: "/images/restaurant-2.jpg",
+  },
+  {
+    id: "3",
+    url: "/images/restaurant-3.jpg",
+  },
+  {
+    id: "4",
+    url: "/images/restaurant-4.jpg",
+  },
+];
+
 export {
   imagesDescription,
   imagesInstagram,
+  imagesRestaurant,
   bookNowListItem,
   carouselImages,
   socialMediaLogos,
   spaInformation,
+  experiencesInformation,
   restaurantInformation,
 };

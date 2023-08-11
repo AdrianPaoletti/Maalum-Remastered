@@ -41,13 +41,13 @@ body {
 
   @include responsive(phone) {
     list-style: none;
-    font-size: $font-size-24;
-    color: $color-green;
+    font-size: $font-size-22;
+    color: $color-beige;
     letter-spacing: 0.14rem;
     cursor: pointer;
 
     position: relative;
     padding: 1.25rem 0;
-    @include underline-effect($color-green);
+    @include underline-effect($color-beige);
   }
 }

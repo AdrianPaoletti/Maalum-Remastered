@@ -15,9 +15,7 @@ export function PrivacyPolicy({ isOpen, handleClose }: PrivacyPolicyProps) {
         <h2 className={`${styles.privacy__title} heading-secundary`}>
           PRIVACY POLICY
         </h2>
-        <article
-          className={`${styles["privacy__text-container"]} u-padding-top-large`}
-        >
+        <article className={`${styles["privacy__text-container"]}`}>
           {privacyPolicyText.map(({ id, title, textBlock }, indexNumber) => (
             <div key={id}>
               <h3

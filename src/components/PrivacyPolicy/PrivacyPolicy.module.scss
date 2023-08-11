@@ -1,5 +1,18 @@
+@import "src/styles/abstracts/mixins";
+
 .privacy {
-  span {
-    font-weight: 600;
+  &__text-container {
+    overflow: scroll;
+    height: calc(70rem - 15rem);
+    margin-top: 4rem;
+    padding-right: 0.5rem;
+
+    @include responsive(phone) {
+      height: calc(95vh - 20rem);
+    }
+
+    span {
+      font-weight: 600;
+    }
   }
 }

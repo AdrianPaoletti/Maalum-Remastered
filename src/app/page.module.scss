@@ -27,6 +27,11 @@
   grid-column-gap: 4rem;
   grid-row: 4rem;
 
+  @include responsive(phone) {
+    grid-row-gap: 2rem;
+    grid-column-gap: 2rem;
+  }
+
   &--description {
     grid-template-columns: repeat(3, 1fr);
 
@@ -39,16 +44,19 @@
     }
   }
 
-  &--instagram {
-    background-color: $color-gray-light;
+  &--restaurant {
     grid-template-columns: repeat(4, 1fr);
 
     @include responsive(tab-land) {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
 
-    @include responsive(phone) {
-      grid-template-columns: repeat(1, 1fr);
+  &--instagram {
+    grid-template-columns: repeat(4, 1fr);
+
+    @include responsive(tab-land) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -118,11 +126,68 @@
   }
 }
 
-.spa,
 .restaurant {
+  &__image-container {
+    overflow: hidden;
+    position: relative;
+
+    width: 100%;
+    min-height: 50vh;
+    margin: 4rem 0;
+
+    @include responsive(tab-land) {
+      min-height: 40vh;
+    }
+
+    @include responsive(tab-port) {
+      min-height: 30vh;
+    }
+
+    @include responsive(phone) {
+      min-height: 20vh;
+    }
+  }
+
+  &__image {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__text-container {
+    @include display-flex(flex-start, flex-start, row, inherit);
+    gap: 5rem;
+    padding: 1rem;
+
+    @include responsive(phone) {
+      @include display-flex(flex-start, flex-start, column, inherit);
+      // padding: 0;
+      gap: 4em;
+    }
+  }
+
+  &__subtitle {
+    text-align: left;
+  }
+
+  &__food-menu {
+    position: relative;
+    color: $color-beige;
+    @include underline-effect($color-beige, 0.1rem, 0);
+    transition: color 0.25s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      color: darken($color-beige, 10%);
+    }
+  }
+}
+
+.spa,
+.experiences {
   @include display-flex(flex-start, flex-start);
   position: relative;
   gap: 5rem;
+  background-color: $color-beige-yellow;
 
   @include responsive(phone) {
     @include display-flex(center, flex-start, column);
@@ -143,24 +208,8 @@
 
   &__button {
     @include display-flex();
-    @include button($color-white);
+    @include button();
   }
-
-  &__food-menu {
-    position: relative;
-    color: $color-beige;
-    @include underline-effect($color-beige, 0.1rem, 0);
-    transition: color 0.25s ease-out;
-    cursor: pointer;
-
-    &:hover {
-      color: darken($color-beige, 10%);
-    }
-  }
-}
-
-.instagram {
-  background-color: $color-gray-light;
 }
 
 .contact-us {
@@ -179,8 +228,11 @@
     @include display-flex(center, center, column);
   }
 
-  span {
-    font-weight: 500;
+  &__text {
+    text-align: center;
+    span {
+      font-weight: 500;
+    }
   }
 
   &__link-mail {

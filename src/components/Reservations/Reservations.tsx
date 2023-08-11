@@ -27,7 +27,7 @@ export function Reservations() {
       open={isReservationsOpen}
       onClick={() => handleOnClose()}
       transitionDuration={{ enter: 800, exit: 800 }}
-      sx={{ zIndex: 1 }}
+      sx={{ zIndex: 2 }}
     >
       <section
         className={`${styles.reservations} ${

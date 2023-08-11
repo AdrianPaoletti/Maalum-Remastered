@@ -11,28 +11,21 @@
   width: 70%;
   max-width: 120rem;
   max-height: 70rem;
-  height: auto;
-  padding: 5rem;
-  overflow: scroll;
+  height: 70rem;
+  padding: 4rem 5rem;
+  overflow: hidden;
 
   &__button {
     position: absolute;
     font-size: $font-size-22;
-    top: 2rem;
-    right: 2rem;
+    top: 1rem;
+    right: 1rem;
   }
 
   @include responsive(phone) {
-    width: 90%;
+    width: 95%;
+    height: 95%;
     max-height: 95%;
-    padding: 6rem 4rem;
-  }
-
-  &::-webkit-scrollbar-track {
-    margin-top: 2rem;
-  }
-
-  &::-webkit-scrollbar-corner {
-    margin-bottom: 2rem;
+    padding: 4rem 3rem;
   }
 }
