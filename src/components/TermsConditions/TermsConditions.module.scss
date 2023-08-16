@@ -3,13 +3,17 @@
 
 .terms {
   &__text-container {
-    overflow: scroll;
+    overflow-y: scroll;
     height: calc(70rem - 15rem);
     margin-top: 4rem;
     padding-right: 0.5rem;
 
     @include responsive(phone) {
-      height: calc(95vh - 20rem);
+      height: calc(95vh - 15rem);
+    }
+
+    @include responsive(phone-small) {
+      height: calc(95vh - 18.5rem);
     }
   }
 
@@ -22,7 +26,7 @@
     gap: 7rem;
 
     @include responsive(phone) {
-      @include display-flex(flex-start, flex-start, column, inherit);
+      @include display-flex(flex-start, flex-start, column);
       gap: 3rem;
     }
   }

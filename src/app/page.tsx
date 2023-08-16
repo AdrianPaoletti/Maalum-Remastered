@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <main>
       <article
-        className={`${styles.description} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles.description} u-padding-vertical-large-extra u-padding-vertical-huge`}
       >
         <h2 className={`${styles["description__title"]} heading-secundary`}>
           TAKE A BREATH <span>LOVE NATURE</span>
@@ -59,7 +59,7 @@ export default function Home() {
         </div>
       </article>
       <article
-        className={`${styles["images"]} ${styles["images--description"]} u-padding-horizontal-mega-large u-padding-vertical-large-mega`}
+        className={`${styles["images"]} ${styles["images--description"]} u-padding-vertical-huge u-padding-vertical-large-extra`}
       >
         {imagesDescription.map(({ url, id }) => (
           <div
@@ -71,7 +71,7 @@ export default function Home() {
         ))}
       </article>
       <article
-        className={`${styles["book-now"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles["book-now"]} u-padding-vertical-large-extra u-padding-vertical-huge`}
       >
         <h2 className={`heading-secundary`}>BOOK NOW</h2>
         <div
@@ -108,7 +108,7 @@ export default function Home() {
         </div>
       </article>
       <article
-        className={`${styles["restaurant"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles["restaurant"]} u-padding-vertical-large-extra u-padding-vertical-huge`}
       >
         <h2 className={`heading-secundary`}>OUR RESTAURANT</h2>
         <div
@@ -161,7 +161,7 @@ export default function Home() {
         </div>
       </article>
       <article
-        className={`${styles["spa"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles["spa"]} u-padding-vertical-large-extra u-padding-vertical-huge`}
       >
         <Carousel images={carouselImages} />
         <div className={`${styles["spa__text-container"]} col-1-of-2`}>
@@ -186,7 +186,7 @@ export default function Home() {
         </div>
       </article>
       <article
-        className={`${styles["experiences"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles["experiences"]} u-padding-vertical-large-extra u-padding-vertical-huge`}
       >
         <div className={`${styles["experiences__text-container"]} col-1-of-2`}>
           {experiencesInformation.map(({ id, title, subtitle, text }) => (
@@ -204,14 +204,11 @@ export default function Home() {
               ))}
             </div>
           ))}
-          <p className={`text-primary u-padding-top-large`}>
-            <a className={`${styles["experiences__food-menu"]}`}>Food Menu</a>
-          </p>
         </div>
         <Carousel images={carouselImages} />
       </article>
       <article
-        className={`${styles["instagram"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles["instagram"]} u-padding-vertical-large-extra u-padding-vertical-huge`}
       >
         <h2 className={`heading-secundary`}>FOLLOW US ON INSTAGRAM</h2>
         <div
@@ -230,7 +227,7 @@ export default function Home() {
         </div>
       </article>
       <article
-        className={`${styles["contact-us"]} u-padding-vertical-large-mega u-padding-horizontal-mega-large`}
+        className={`${styles["contact-us"]} u-padding-vertical-large-extra u-padding-vertical-huge`}
         id={"contact"}
       >
         <h2 className={`heading-secundary`}>CONTACT US</h2>

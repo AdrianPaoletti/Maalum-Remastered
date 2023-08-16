@@ -11,18 +11,31 @@
   padding: 2rem 4rem;
 
   &__container {
-    z-index: 1;
+    z-index: 2;
+
+    @include responsive(phone) {
+      width: 100%;
+      @include display-flex(space-between);
+    }
+  }
+
+  &__image {
+    @include responsive(phone) {
+      content: url("/images/logo-beige.png");
+      width: 13.5rem;
+      height: 3.6rem;
+    }
   }
 
   &--sticky {
     background-color: $color-white;
-    opacity: 0.95;
+    opacity: 0.98;
   }
 
   @include responsive(phone) {
     background-color: $color-white;
     padding: 1.5rem 2rem;
-    opacity: 0.9;
+    opacity: 0.98;
   }
 }
 
@@ -67,7 +80,6 @@
       @include display-flex(center, center, column, inherit);
       gap: 2rem;
       position: fixed;
-      padding-left: 2rem;
       background-color: $color-white;
       height: 100vh;
       left: -100vw;
@@ -81,7 +93,7 @@
     &--active {
       @include responsive(phone) {
         left: 0;
-        right: 7rem;
+        right: 0;
       }
     }
   }

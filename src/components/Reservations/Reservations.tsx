@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -10,6 +11,7 @@ import {
 } from "@mui/material";
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";
+import { Guests } from "./Guests/Guests";
 
 import styles from "./Reservations.module.scss";
 
@@ -21,6 +23,15 @@ export function Reservations() {
     setIsReservationsOpen(false);
     document.body.className = `${document.body.classList[0]}`;
   };
+
+  const accordionElements: {
+    id: string;
+    title: string;
+    component: JSX.Element;
+  }[] = [
+    { id: "services", title: "SERVICE", component: <></> },
+    { id: "guests", title: "GUESTS", component: <Guests /> },
+  ];
 
   return (
     <Backdrop
@@ -46,7 +57,22 @@ export function Reservations() {
             <CloseIcon fontSize="inherit" />
           </IconButton>
         </article>
-        <article className={`${styles.reservations__body}`}></article>
+        <article className={`${styles.reservations__body}`}>
+          {accordionElements.map(({ id, title, component }) => (
+            <Accordion key={id} disableGutters square>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon fontSize="large" />}
+              >
+                <h5
+                  className={`${styles["reservations__sub-title"]} heading-cuaternary`}
+                >
+                  {title}
+                </h5>
+              </AccordionSummary>
+              <AccordionDetails>{component}</AccordionDetails>
+            </Accordion>
+          ))}
+        </article>
         <article className={`${styles.reservations__footer} `}></article>
       </section>
     </Backdrop>

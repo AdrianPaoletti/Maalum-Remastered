@@ -8,7 +8,7 @@
   top: 2rem;
   bottom: 2rem;
   width: 50rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   background-color: $color-white;
   transition: ease-in-out 1s;
   -webkit-transition: ease-in-out 0.8s;
@@ -22,18 +22,27 @@
     width: 100%;
     top: 2rem;
     background-color: $color-beige-light;
-    padding: 1.5rem;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+    padding: 1rem 2rem 1rem 3rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     color: $color-white;
   }
 
   &__title {
-    padding: 0 1rem;
+    color: $color-white;
+  }
+
+  &__sub-title {
+    color: $color-gray;
   }
 
   &__button-close {
     font-size: $font-size-22;
     color: inherit;
+  }
+
+  &__body {
+    padding: 1rem 2.9rem 1rem 3rem;
+    color: $color-gray;
   }
 }

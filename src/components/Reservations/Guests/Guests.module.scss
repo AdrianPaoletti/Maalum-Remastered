@@ -1,0 +1,48 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.guests {
+  &__card {
+    @include display-flex(space-between);
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: $color-gray-medium-light;
+    min-height: 7.1rem;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__text-title {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+
+    span {
+      font-weight: 400;
+    }
+  }
+
+  &__counter {
+    @include display-flex();
+    gap: 2.2rem;
+  }
+
+  &__count {
+    font-size: $font-size-15;
+    font-weight: 600;
+    width: 1rem;
+  }
+
+  &__button {
+    font-size: $font-size-16;
+    background-color: $color-beige-light;
+    color: $color-white;
+    padding: 0.4rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($color-beige-light, 15%);
+    }
+  }
+}

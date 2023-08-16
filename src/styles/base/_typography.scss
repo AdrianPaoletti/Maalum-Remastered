@@ -22,8 +22,7 @@ body {
 }
 
 .heading-cuaternary {
-  font-size: $font-size-16;
-  color: $color-white;
+  font-size: $font-size-14;
   letter-spacing: 0.08rem;
   font-weight: 500;
 }
@@ -32,6 +31,16 @@ body {
   font-size: $font-size-14;
   color: $color-gray;
   line-height: 2.25rem;
+}
+
+.text-secondary {
+  font-size: $font-size-15;
+  color: $color-gray;
+}
+
+.text-terciary {
+  font-size: $font-size-11;
+  color: $color-gray;
 }
 
 .navbar-list-item {

@@ -2,13 +2,13 @@
 
 .privacy {
   &__text-container {
-    overflow: scroll;
+    overflow-y: scroll;
     height: calc(70rem - 15rem);
     margin-top: 4rem;
     padding-right: 0.5rem;
 
     @include responsive(phone) {
-      height: calc(95vh - 20rem);
+      height: calc(95vh - 15rem);
     }
 
     span {

@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -75,7 +76,7 @@ export function Footer() {
 
   return (
     <footer
-      className={`${styles["footer"]} u-padding-vertical-large u-padding-horizontal-mega-large`}
+      className={`${styles["footer"]} u-padding-vertical-large u-padding-vertical-huge`}
     >
       <ul className={`${styles["footer__list"]}`}>
         {listItems.map(({ id, label, queryParam }) => (

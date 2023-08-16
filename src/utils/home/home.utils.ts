@@ -86,11 +86,11 @@ const bookNowListItem: {
 const carouselImages: { id: string; url: string }[] = [
   {
     id: "spa-first",
-    url: "/images/spa-1.jpg",
+    url: "/images/restaurant-1.jpg",
   },
   {
     id: "spa-second",
-    url: "/images/spa-2.jpg",
+    url: "/images/restaurant-2.jpg",
   },
 ];
 

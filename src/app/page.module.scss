@@ -89,8 +89,10 @@
     gap: 5rem;
 
     @include responsive(phone) {
-      @include display-flex(flex-start, center, column);
+      @include display-flex(center, center, column);
       gap: 4rem;
+      max-width: 40rem;
+      margin: 0 auto;
     }
   }
 
@@ -99,11 +101,15 @@
     gap: 0.8rem;
 
     @include responsive(phone) {
-      @include display-flex(center, center, column);
+      @include display-flex(center, flex-end, column);
     }
 
     h3 {
       font-weight: 500;
+    }
+
+    p {
+      text-align: right;
     }
   }
 
