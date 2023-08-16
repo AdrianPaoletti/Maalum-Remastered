@@ -5,18 +5,18 @@ export const defaultTheme: Theme = createTheme({
     MuiAccordionDetails: {
       styleOverrides: {
         root: {
-          // padding: "1rem",
+          padding: "1rem",
         },
       },
     },
     MuiAccordionSummary: {
       styleOverrides: {
         root: {
-          // padding: "0 1rem",
+          padding: "0 1rem",
         },
         expandIconWrapper: {
-          // transform: "none",
-          // WebkitTransform: "none",
+          transform: "none",
+          WebkitTransform: "none",
         },
       },
     },
