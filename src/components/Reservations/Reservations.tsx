@@ -12,6 +12,7 @@ import {
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 import { Guests } from "./Guests/Guests";
+import { Services } from "./Services/Services";
 
 import styles from "./Reservations.module.scss";
 
@@ -29,8 +30,10 @@ export function Reservations() {
     title: string;
     component: JSX.Element;
   }[] = [
-    { id: "services", title: "SERVICE", component: <></> },
+    { id: "services", title: "SERVICE", component: <Services /> },
     { id: "guests", title: "GUESTS", component: <Guests /> },
+    { id: "dates", title: "DATES", component: <></> },
+    { id: "hours", title: "HOURS", component: <></> },
   ];
 
   return (

@@ -1,0 +1,21 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.services {
+  &__card {
+    @include display-flex(space-between);
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: $color-gray-medium-light;
+    min-height: 7.1rem;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__text-title {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+}

@@ -7,6 +7,7 @@ export const defaultTheme: Theme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: "none",
+          borderTop: "none",
           borderBottom: "1px solid #c7c7c7",
         },
       },
@@ -14,7 +15,7 @@ export const defaultTheme: Theme = createTheme({
     MuiAccordionDetails: {
       styleOverrides: {
         root: {
-          padding: "1.5rem 0 3rem 0",
+          padding: "1rem 0 3rem 0",
         },
       },
     },
@@ -24,7 +25,7 @@ export const defaultTheme: Theme = createTheme({
           fontSize: 14,
           padding: 0,
         },
-        content: { margin: "3rem 0 1.5rem 0" },
+        content: { margin: "2rem 0" },
       },
     },
   },
