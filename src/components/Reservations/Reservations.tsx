@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";
+import { DatePicker } from "./DatePicker/DatePicker";
 import { Guests } from "./Guests/Guests";
 import { Services } from "./Services/Services";
 
@@ -32,8 +33,7 @@ export function Reservations() {
   }[] = [
     { id: "services", title: "SERVICE", component: <Services /> },
     { id: "guests", title: "GUESTS", component: <Guests /> },
-    { id: "dates", title: "DATES", component: <></> },
-    { id: "hours", title: "HOURS", component: <></> },
+    { id: "dates", title: "DATES", component: <DatePicker /> },
   ];
 
   return (
@@ -49,34 +49,38 @@ export function Reservations() {
         }`}
         onClick={(event) => event.stopPropagation()}
       >
-        <article className={`${styles.reservations__header}`}>
-          <h4 className={`${styles.reservations__title} heading-cuaternary`}>
-            SELECT DATE AND TIME
-          </h4>
-          <IconButton
-            onClick={handleOnClose}
-            className={`${styles["reservations__button-close"]}`}
-          >
-            <CloseIcon fontSize="inherit" />
-          </IconButton>
-        </article>
-        <article className={`${styles.reservations__body}`}>
-          {accordionElements.map(({ id, title, component }) => (
-            <Accordion key={id} disableGutters square>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon fontSize="large" />}
-              >
-                <h5
-                  className={`${styles["reservations__sub-title"]} heading-cuaternary`}
+        <div className={`${styles["reservations__container"]}`}>
+          <article className={`${styles.reservations__header}`}>
+            <h4 className={`${styles.reservations__title} heading-cuaternary`}>
+              SELECT DATE AND TIME
+            </h4>
+            <IconButton
+              onClick={handleOnClose}
+              sx={{ color: "inherit", fontSize: 22 }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          </article>
+          <article className={`${styles.reservations__body}`}>
+            {accordionElements.map(({ id, title, component }) => (
+              <Accordion key={id} disableGutters square>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon fontSize="large" />}
                 >
-                  {title}
-                </h5>
-              </AccordionSummary>
-              <AccordionDetails>{component}</AccordionDetails>
-            </Accordion>
-          ))}
-        </article>
-        <article className={`${styles.reservations__footer} `}></article>
+                  <h5
+                    className={`${styles["reservations__sub-title"]} heading-cuaternary`}
+                  >
+                    {title}
+                  </h5>
+                </AccordionSummary>
+                <AccordionDetails>{component}</AccordionDetails>
+              </Accordion>
+            ))}
+          </article>
+          <article className={`${styles.reservations__footer}`}>
+            <button type="submit">NEXT</button>
+          </article>
+        </div>
       </section>
     </Backdrop>
   );

@@ -1,0 +1,201 @@
+.react-datepicker {
+  width: 100%;
+  border: none;
+  font-family: "__Montserrat_56c2f7";
+  font-size: $font-size-13;
+  // &--time-only {
+  //   width: 90%;
+  //   height: 90vh;
+  //   height: 100%;
+  // }
+
+  &__header {
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &__day {
+    width: 7rem;
+    height: 6rem;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    background-color: #e2efc48f;
+    color: #4f6029a8;
+
+    &:hover {
+      background-color: #e2efc4;
+    }
+
+    &--disabled {
+      background-color: #f8f9fa;
+      color: #949aa0a8;
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+
+    &--selected {
+      outline: 2px solid #a8bb7da8;
+      outline-offset: 0;
+      border-radius: 0;
+      background-color: #e2efc4;
+      color: #4f6029a8;
+
+      &:hover {
+        background-color: #e2efc4;
+        border-radius: 0;
+      }
+    }
+
+    // &--keyboard-selected {
+    //   color: black;
+    // }
+
+    &--outside-month {
+      visibility: hidden;
+    }
+
+    &-name {
+      width: 7rem;
+      height: 4rem;
+      color: #949aa0;
+    }
+  }
+
+  &__day-names {
+    @include display-flex(space-between, center, row, inherit);
+    width: 100%;
+  }
+
+  &__week {
+    @include display-flex(space-between, center, row, inherit);
+    width: 100%;
+  }
+
+  &__month {
+    margin: 0;
+  }
+
+  &__month-container {
+    width: 100%;
+    padding-bottom: 1.5rem;
+  }
+
+  &__current-month {
+    letter-spacing: 0.7px;
+    font-size: $font-size-14;
+    padding-bottom: 3rem;
+  }
+
+  &__navigation {
+    &--next--with-time:not(
+        .react-datepicker__navigation--next--with-today-button
+      ) {
+      right: 2px;
+    }
+
+    &-icon::before {
+      border-color: black;
+      border-width: 2px 2px 0 0;
+    }
+  }
+
+  &__time-container {
+    width: 100%;
+    padding-top: 2px;
+    border-left: 1px solid transparent;
+
+    .react-datepicker__time {
+      .react-datepicker__time-box {
+        width: 100%;
+        display: flex;
+      }
+    }
+  }
+
+  &-time__header {
+    color: transparent;
+    font-size: 0;
+    border-top: 1px solid rgb(206, 203, 187);
+    margin: 0 2px;
+  }
+
+  &__time-list {
+    padding-bottom: 20px;
+    padding-top: 15px;
+    border-bottom: 1px solid rgb(206, 203, 187);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 100% !important;
+
+    & li {
+      display: none;
+    }
+
+    & li:nth-child(3n + 17) {
+      display: inline-block;
+      background-color: #e2efc48f;
+      color: #000000b5;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      font-family: "Montserrat-Regular";
+    }
+
+    & li:nth-child(1n + 36) {
+      display: none;
+    }
+  }
+}
+
+// .react-datepicker__time-container
+//   .react-datepicker__time
+//   .react-datepicker__time-box
+//   ul.react-datepicker__time-list {
+//   overflow-y: hidden;
+//   padding-left: 3px;
+//   & li.react-datepicker__time-list-item {
+//     height: 25px;
+//     padding: 10px 10px;
+//     white-space: nowrap;
+//     color: #4f6029a8;
+//     &--disabled {
+//       background-color: #f8f9fa !important;
+//       color: #949aa0a8 !important;
+//       outline: none !important;
+//       &:hover {
+//         background-color: #f8f9fa !important;
+//       }
+//     }
+//     :hover {
+//       background-color: #e2efc4;
+//     }
+//   }
+// }
+
+// .react-datepicker__time-container
+//   .react-datepicker__time
+//   .react-datepicker__time-box
+//   ul.react-datepicker__time-list
+//   li.react-datepicker__time-list-item--selected {
+//   font-weight: normal;
+//   outline: 2px solid #a8bb7da8;
+//   outline-offset: 0;
+//   border-radius: 0;
+//   background-color: #e2efc4;
+//   color: #4f6029a8;
+//   &:hover {
+//     background-color: #e2efc4;
+//   }
+// }
+
+// .react-datepicker__time-container
+//   .react-datepicker__time
+//   .react-datepicker__time-box
+//   ul.react-datepicker__time-list
+//   li.react-datepicker__time-list-item:hover {
+//   cursor: pointer;
+//   background-color: #e2efc4;
+// }

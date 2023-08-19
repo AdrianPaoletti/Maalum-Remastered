@@ -55,6 +55,25 @@
   }
 }
 
+@mixin button-reservations($color: $color-beige-light) {
+  button {
+    background-color: $color;
+    color: $color-white;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+
+    &:hover {
+      background-color: darken($color, 15%);
+    }
+  }
+}
+
 // MEDIA QUERY MANAGER
 /*
 0 - 600px:      Phone

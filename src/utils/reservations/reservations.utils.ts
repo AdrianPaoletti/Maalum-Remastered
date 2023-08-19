@@ -27,4 +27,24 @@ const guestsInformation: GuestsInformation[] = [
   },
 ];
 
-export { guestsInformation };
+const servicesInformation: {
+  id: string;
+  title: string;
+  text: string;
+  disclaimer?: string;
+}[] = [
+  {
+    id: "cave",
+    title: "Maalum Cave",
+    text: "Lorem ipsum ergo ipsum",
+    disclaimer: "",
+  },
+  {
+    id: "caveAndSpa",
+    title: "Maalum Cave + Spa",
+    text: "Lorem ipsum ergo ipsum",
+    disclaimer: "Maximum 4 persons per day",
+  },
+];
+
+export { guestsInformation, servicesInformation };

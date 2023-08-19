@@ -53,7 +53,7 @@ export function Guests() {
                       [id]: prevGuestsCounter[id] - 1,
                     }));
                 }}
-                className={`${styles["guests__button"]} ${styles["guests__button--minus"]}`}
+                className={`${styles["guests__button"]}`}
                 disableRipple
               >
                 <RemoveIcon fontSize="inherit" />
@@ -68,7 +68,7 @@ export function Guests() {
                     [id]: prevGuestsCounter[id] + 1,
                   }));
                 }}
-                className={`${styles["guests__button"]} ${styles["guests__button--add"]}`}
+                className={`${styles["guests__button"]}`}
                 disableRipple
               >
                 <AddIcon fontSize="inherit" />
@@ -77,6 +77,9 @@ export function Guests() {
           </div>
         )
       )}
+      <div className={`${styles["guests__button-submit"]}`}>
+        <button type="button">NEXT</button>
+      </div>
     </div>
   );
 }

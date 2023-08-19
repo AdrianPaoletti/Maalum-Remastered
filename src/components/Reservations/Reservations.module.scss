@@ -17,6 +17,11 @@
     right: 2rem;
   }
 
+  &__container {
+    position: relative;
+    height: 100%;
+  }
+
   &__header {
     @include display-flex(space-between);
     width: 100%;
@@ -36,14 +41,25 @@
     color: $color-gray;
   }
 
-  &__button-close {
-    font-size: $font-size-22;
-    color: inherit;
-  }
-
   &__body {
     padding: 1rem 2.9rem 1rem 3rem;
-    overflow-y: hidden;
+    overflow-y: scroll;
+    height: 78.5vh;
     color: $color-gray;
+  }
+
+  &__footer {
+    padding: 1.5rem 3rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $color-white;
+    box-shadow: 0 -4px 13px 2px hsla(0, 0%, 69%, 0.35);
+    @include button-reservations();
+
+    button {
+      width: 100%;
+      padding: 1.25rem;
+    }
   }
 }

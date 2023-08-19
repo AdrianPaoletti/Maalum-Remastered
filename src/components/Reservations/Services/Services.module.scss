@@ -8,14 +8,20 @@
     border-radius: 0.5rem;
     background-color: $color-gray-medium-light;
     min-height: 7.1rem;
+    margin-bottom: 1rem;
 
-    &:not(:last-child) {
-      margin-bottom: 1rem;
+    &:nth-child(2) {
+      margin-bottom: 1.5rem;
     }
   }
 
   &__text-title {
     font-weight: 600;
     margin-bottom: 0.4rem;
+  }
+
+  &__button-submit {
+    @include button-reservations();
+    text-align: end;
   }
 }

@@ -8,9 +8,10 @@
     border-radius: 0.5rem;
     background-color: $color-gray-medium-light;
     min-height: 7.1rem;
+    margin-bottom: 1rem;
 
-    &:not(:last-child) {
-      margin-bottom: 1rem;
+    &:nth-child(3) {
+      margin-bottom: 1.5rem;
     }
   }
 
@@ -34,15 +35,21 @@
     width: 1rem;
   }
 
-  &__button {
-    font-size: $font-size-16;
-    background-color: $color-beige-light;
-    color: $color-white;
-    padding: 0.4rem;
-    transition: all 0.3s ease;
+  &__button-submit {
+    @include button-reservations();
+    text-align: end;
+    margin-right: 0;
+  }
+}
 
-    &:hover {
-      background-color: darken($color-beige-light, 15%);
-    }
+button.guests__button {
+  font-size: $font-size-16;
+  background-color: $color-beige-light;
+  color: $color-white;
+  padding: 0.4rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: darken($color-beige-light, 15%);
   }
 }
