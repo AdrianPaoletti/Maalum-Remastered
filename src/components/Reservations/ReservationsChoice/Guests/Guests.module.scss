@@ -24,6 +24,12 @@
     }
   }
 
+  &__text-subtitle {
+    @include responsive(phone-small) {
+      margin-bottom: 0.4rem;
+    }
+  }
+
   &__counter {
     @include display-flex();
     gap: 2.2rem;

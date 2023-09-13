@@ -162,7 +162,7 @@
   &__text-container {
     @include display-flex(flex-start, flex-start, row, inherit);
     gap: 5rem;
-    padding: 2rem 1rem;
+    padding: 1rem;
 
     @include responsive(phone) {
       @include display-flex(flex-start, flex-start, column, inherit);
@@ -223,10 +223,11 @@
 
   &__container {
     display: flex;
+    gap: 2rem;
 
     @include responsive(phone) {
       @include display-flex(center, center, column);
-      gap: 2rem;
+      // gap: 2rem;
     }
   }
 
@@ -254,13 +255,13 @@
   &__map {
     position: relative;
     overflow: hidden;
-    padding-bottom: 65.25%;
+    padding-bottom: 70.25%;
     padding-right: 90.25%;
     height: 0;
     margin: 2rem 0;
 
     @include responsive(phone) {
-      padding-bottom: 65.25%;
+      padding-bottom: 85.25%;
       padding-right: 50.25%;
     }
 

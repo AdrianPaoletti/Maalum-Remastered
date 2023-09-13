@@ -76,7 +76,7 @@ export function Footer() {
 
   return (
     <footer
-      className={`${styles["footer"]} u-padding-vertical-large u-padding-vertical-huge`}
+      className={`${styles["footer"]} u-padding-vertical-large u-padding-horizontal-huge`}
     >
       <ul className={`${styles["footer__list"]}`}>
         {listItems.map(({ id, label, queryParam }) => (

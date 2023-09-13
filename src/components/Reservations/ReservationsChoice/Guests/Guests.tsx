@@ -2,14 +2,18 @@ import { useState } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { IconButton } from "@mui/material";
+import { IconButton, useMediaQuery } from "@mui/material";
 
 import { GuestsCounter } from "maalum/core/models/guests.model";
 import { guestsInformation } from "maalum/utils/reservations/reservations.utils";
 
 import styles from "./Guests.module.scss";
 
-export function Guests() {
+interface GuestsProps {
+  isPhoneViewport: boolean;
+}
+
+export function Guests({ isPhoneViewport }: GuestsProps) {
   const [guestsCounter, setGuestsCounter] = useState<GuestsCounter>({
     adults: 0,
     children: 0,
@@ -36,13 +40,20 @@ export function Guests() {
                 {guestsCounter[id] > 1 || !guestsCounter[id]
                   ? pluralTitle
                   : singleTitle}
-                <span className="text-terciary">
-                  {` - ${dollarsPrice}$ | ${shillingPrice}tsh pp`}
-                </span>
+                {!isPhoneViewport && (
+                  <span className="text-terciary">
+                    {` - ${dollarsPrice}$ | ${shillingPrice}tsh pp`}
+                  </span>
+                )}
               </p>
               <p className={`${styles["guests__text-subtitle"]} text-primary`}>
                 {subtitle}
               </p>
+              {isPhoneViewport && (
+                <span className="text-terciary">
+                  {`${dollarsPrice}$ | ${shillingPrice}tsh pp`}
+                </span>
+              )}
             </div>
             <div className={`${styles["guests__counter"]}`}>
               <IconButton

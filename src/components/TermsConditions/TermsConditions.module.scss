@@ -4,6 +4,7 @@
 .terms {
   &__text-container {
     overflow-y: scroll;
+    scroll-margin: 0 0 0 20px;
     height: calc(70rem - 15rem);
     margin-top: 4rem;
     padding-right: 0.5rem;
