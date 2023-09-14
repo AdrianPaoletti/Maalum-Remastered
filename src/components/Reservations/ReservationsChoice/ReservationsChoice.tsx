@@ -11,7 +11,9 @@ interface ReservationsChoiceProps {
   isPhoneViewport: boolean;
 }
 
-const ReservationsChoice = ({ isPhoneViewport }: ReservationsChoiceProps) => {
+export function ReservationsChoice({
+  isPhoneViewport,
+}: ReservationsChoiceProps) {
   const accordionElements: {
     id: string;
     title: string;
@@ -22,7 +24,7 @@ const ReservationsChoice = ({ isPhoneViewport }: ReservationsChoiceProps) => {
     {
       id: "guests",
       title: "GUESTS",
-      component: <Guests isPhoneViewport={isPhoneViewport} />,
+      component: <Guests />,
     },
     {
       id: "dates",
@@ -33,7 +35,7 @@ const ReservationsChoice = ({ isPhoneViewport }: ReservationsChoiceProps) => {
   ];
 
   return (
-    <article className={`${styles["reservations-choice__body"]}`}>
+    <>
       {accordionElements.map(({ id, title, component, paddingBottom }) => (
         <Accordion key={id} disableGutters square>
           <AccordionSummary expandIcon={<ExpandMoreIcon fontSize="large" />}>
@@ -48,8 +50,6 @@ const ReservationsChoice = ({ isPhoneViewport }: ReservationsChoiceProps) => {
           </AccordionDetails>
         </Accordion>
       ))}
-    </article>
+    </>
   );
-};
-
-export default ReservationsChoice;
+}

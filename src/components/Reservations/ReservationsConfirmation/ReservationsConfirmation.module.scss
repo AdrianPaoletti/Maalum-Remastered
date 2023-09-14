@@ -1,0 +1,47 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.reservations-confirmation {
+  padding: 2rem 0;
+
+  &__sub-title {
+    color: $color-black-sub-title;
+  }
+
+  &__booking-information {
+    @include display-flex(flex-start, flex-start);
+    gap: 2.75rem;
+    padding-top: 2.5rem;
+
+    @include responsive(phone) {
+      @include display-flex(space-between, flex-start);
+      max-width: 50rem;
+    }
+  }
+
+  &__image-container {
+    img {
+      border-radius: 0.6rem;
+    }
+  }
+
+  &__booking-data-block-container {
+    @include display-flex(flex-start, flex-start);
+    gap: 2.5rem;
+  }
+
+  &__booking-data-title {
+    color: $color-black-sub-title;
+    padding-bottom: 1rem;
+  }
+
+  &__booking-data-block {
+    @include display-flex(space-between, flex-start, column);
+    font-size: $font-size-12;
+    gap: 0.75rem;
+
+    span {
+      font-weight: 500;
+    }
+  }
+}

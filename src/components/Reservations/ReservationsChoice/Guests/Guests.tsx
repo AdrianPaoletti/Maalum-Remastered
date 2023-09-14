@@ -9,11 +9,8 @@ import { guestsInformation } from "maalum/utils/reservations/reservations.utils"
 
 import styles from "./Guests.module.scss";
 
-interface GuestsProps {
-  isPhoneViewport: boolean;
-}
-
-export function Guests({ isPhoneViewport }: GuestsProps) {
+export function Guests() {
+  const isSmallPhoneViewPort = useMediaQuery("(max-width:27.2em)");
   const [guestsCounter, setGuestsCounter] = useState<GuestsCounter>({
     adults: 0,
     children: 0,
@@ -40,7 +37,7 @@ export function Guests({ isPhoneViewport }: GuestsProps) {
                 {guestsCounter[id] > 1 || !guestsCounter[id]
                   ? pluralTitle
                   : singleTitle}
-                {!isPhoneViewport && (
+                {!isSmallPhoneViewPort && (
                   <span className="text-terciary">
                     {` - ${dollarsPrice}$ | ${shillingPrice}tsh pp`}
                   </span>
@@ -49,7 +46,7 @@ export function Guests({ isPhoneViewport }: GuestsProps) {
               <p className={`${styles["guests__text-subtitle"]} text-primary`}>
                 {subtitle}
               </p>
-              {isPhoneViewport && (
+              {isSmallPhoneViewPort && (
                 <span className="text-terciary">
                   {`${dollarsPrice}$ | ${shillingPrice}tsh pp`}
                 </span>

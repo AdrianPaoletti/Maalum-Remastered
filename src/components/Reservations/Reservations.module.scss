@@ -16,15 +16,18 @@
   @include responsive(phone) {
     right: 0;
     left: 0;
-    top: 0;
+    z-index: 2;
+    position: fixed;
+    top: 100vh;
     bottom: -100vh;
     width: 100vw;
     border-radius: 0;
-    -webkit-transition: 1s cubic-bezier(0.07, 0.95, 0, 1);
-    transition: 1s cubic-bezier(0.07, 0.95, 0, 1);
+    transition: ease-in-out 1s;
+    -webkit-transition: ease-in-out 0.8s;
 
     &--active {
       bottom: 0;
+      top: 0;
     }
   }
 
@@ -37,12 +40,17 @@
     height: 100%;
   }
 
+  &__title-container {
+    @include display-flex();
+    gap: 1rem;
+  }
+
   &__header {
     @include display-flex(space-between);
     width: 100%;
     top: 2rem;
     background-color: $color-beige-light;
-    padding: 1rem 2rem 1rem 3rem;
+    padding: 1rem 2.5rem 1rem 3rem;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     color: $color-white;
@@ -53,6 +61,18 @@
 
     @include responsive(phone-small) {
       padding: 1rem 1rem 1rem 1.7rem;
+    }
+  }
+
+  &__body {
+    padding: 1rem 2.9rem 0 3rem;
+    overflow-y: scroll;
+    height: calc(100vh - 58px - 71px - 2rem - 2rem);
+    color: $color-gray;
+
+    @include responsive(phone-small) {
+      padding: 1rem 1.7rem 0 1.7rem;
+      height: calc(100vh - 58px - 71px - 5.75rem);
     }
   }
 
