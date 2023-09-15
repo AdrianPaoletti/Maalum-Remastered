@@ -116,6 +116,7 @@ export function ReservationConfirmation({
                   border: "1px solid #737373",
                 },
               }}
+              required
               InputProps={{
                 disableUnderline: true,
                 style: {
