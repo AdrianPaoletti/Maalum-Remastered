@@ -103,6 +103,11 @@ ORDER: Base + typography > general layout + grid > page layout > components
       @content;
     } //700px
   }
+  @if $breakpoint == phone-up {
+    @media only screen and (min-width: 43.75em) {
+      @content;
+    } //1000
+  }
   @if $breakpoint == tab-port {
     @media only screen and (max-width: 56.25em) {
       @content;
@@ -113,6 +118,7 @@ ORDER: Base + typography > general layout + grid > page layout > components
       @content;
     } //1300px
   }
+
   @if $breakpoint == big-desktop {
     @media only screen and (min-width: 112.5em) {
       @content;
