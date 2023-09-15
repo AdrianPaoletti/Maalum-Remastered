@@ -68,8 +68,8 @@ export function ReservationConfirmation({
             <Image
               src={"/images/instagram-1.jpg"}
               alt="booking-swimming-cave"
-              width={isSmallPhoneViewport ? 180 / 1.3 : 180}
-              height={isSmallPhoneViewport ? 120 / 1.3 : 120}
+              width={isSmallPhoneViewport ? 180 / 1.35 : 180}
+              height={isSmallPhoneViewport ? 120 / 1.35 : 120}
               sizes="50vw"
             />
           </div>
