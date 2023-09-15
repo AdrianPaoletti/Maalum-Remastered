@@ -120,7 +120,7 @@ export function ReservationConfirmation({
               InputProps={{
                 disableUnderline: true,
                 style: {
-                  fontSize: "13px",
+                  fontSize: "14px",
                   backgroundColor: "#f0f2f4",
                   borderRadius: ".4rem",
                 },
@@ -129,6 +129,7 @@ export function ReservationConfirmation({
                 style: {
                   color: "#737373",
                   letterSpacing: "1.5px",
+                  fontSize: "11px",
                   paddingTop: "4px",
                   border: "none",
                 },
