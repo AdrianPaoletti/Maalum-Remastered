@@ -4,9 +4,9 @@ import { Radio } from "@mui/material";
 
 import { servicesInformation } from "maalum/utils/reservations/reservations.utils";
 
-import styles from "./Services.module.scss";
+import styles from "./ReservationsPickerServices.module.scss";
 
-export function Services() {
+export function ReservationsPickerServices() {
   const [selected, setSelected] = useState<string>("");
 
   const handleClick = (id: string) => {

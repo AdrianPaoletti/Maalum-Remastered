@@ -1,25 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { IconButton, useMediaQuery } from "@mui/material";
 
-import { GuestsCounter } from "maalum/core/models/guests.model";
-import { guestsInformation } from "maalum/utils/reservations/reservations.utils";
+import { ReservationsGuestsCounter } from "maalum/core/models/reservations.model";
+import { reservationsGuestsInformation } from "maalum/utils/reservations/reservations.utils";
 
-import styles from "./Guests.module.scss";
+import styles from "./ReservationsPickerGuests.module.scss";
 
-export function Guests() {
+export function ReservationsPickerGuests() {
   const isSmallPhoneViewPort = useMediaQuery("(max-width:27.2em)");
-  const [guestsCounter, setGuestsCounter] = useState<GuestsCounter>({
-    adults: 0,
-    children: 0,
-    residents: 0,
-  });
+  const [reservationsGuestsCounter, setReservationsGuestsCounter] =
+    useState<ReservationsGuestsCounter>({
+      adults: 0,
+      children: 0,
+      residents: 0,
+    });
+  const [reservationsTotalGuestsCounter, setReservationsTotalGuestsCounter] =
+    useState<number>(0);
+  const [isButtonDisabled, setIsButtonsDisabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const totalGuests = Object.values(reservationsGuestsCounter).reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    setIsButtonsDisabled(totalGuests === 10 ? true : false);
+    setReservationsTotalGuestsCounter(totalGuests);
+  }, [reservationsGuestsCounter]);
 
   return (
     <div className={styles.guests}>
-      {guestsInformation.map(
+      {reservationsGuestsInformation.map(
         ({
           id,
           pluralTitle,
@@ -34,7 +46,8 @@ export function Guests() {
           >
             <div className={`${styles["guests__text-container"]}`}>
               <p className={`${styles["guests__text-title"]} text-secondary`}>
-                {guestsCounter[id] > 1 || !guestsCounter[id]
+                {reservationsGuestsCounter[id] > 1 ||
+                !reservationsGuestsCounter[id]
                   ? pluralTitle
                   : singleTitle}
                 {!isSmallPhoneViewPort && (
@@ -55,11 +68,13 @@ export function Guests() {
             <div className={`${styles["guests__counter"]}`}>
               <IconButton
                 onClick={() => {
-                  !!guestsCounter[id] &&
-                    setGuestsCounter((prevGuestsCounter) => ({
-                      ...prevGuestsCounter,
-                      [id]: prevGuestsCounter[id] - 1,
-                    }));
+                  !!reservationsGuestsCounter[id] &&
+                    setReservationsGuestsCounter(
+                      (prevReservationsGuestsCounter) => ({
+                        ...prevReservationsGuestsCounter,
+                        [id]: prevReservationsGuestsCounter[id] - 1,
+                      })
+                    );
                 }}
                 className={`${styles["guests__button"]}`}
                 disableRipple
@@ -67,15 +82,18 @@ export function Guests() {
                 <RemoveIcon fontSize="inherit" />
               </IconButton>
               <span className={`${styles["guests__count"]}`}>
-                {guestsCounter[id]}
+                {reservationsGuestsCounter[id]}
               </span>
               <IconButton
                 onClick={() => {
-                  setGuestsCounter((prevGuestsCounter) => ({
-                    ...prevGuestsCounter,
-                    [id]: prevGuestsCounter[id] + 1,
-                  }));
+                  setReservationsGuestsCounter(
+                    (prevReservationsGuestsCounter) => ({
+                      ...prevReservationsGuestsCounter,
+                      [id]: prevReservationsGuestsCounter[id] + 1,
+                    })
+                  );
                 }}
+                disabled={isButtonDisabled}
                 className={`${styles["guests__button"]}`}
                 disableRipple
               >

@@ -5,8 +5,8 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Backdrop, IconButton, useMediaQuery } from "@mui/material";
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";
-import { ReservationsChoice } from "./ReservationsChoice/ReservationsChoice";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
+import { ReservationsPicker } from "./ReservationsPicker/ReservationsPicker";
 
 import styles from "./Reservations.module.scss";
 
@@ -46,7 +46,7 @@ export function Reservations() {
     switch (reservationStepper) {
       case "reservationsChoice":
         return {
-          component: <ReservationsChoice isPhoneViewport={isPhoneViewport} />,
+          component: <ReservationsPicker isPhoneViewport={isPhoneViewport} />,
           title: "SELECT DATE AND TIME",
           buttonText: "NEXT",
           onClick: () => setReservationStepper("reservationsConfirmation"),
@@ -63,7 +63,7 @@ export function Reservations() {
         };
       default:
         return {
-          component: <ReservationsChoice isPhoneViewport={isPhoneViewport} />,
+          component: <ReservationsPicker isPhoneViewport={isPhoneViewport} />,
           title: "SELECT DATE AND TIME",
           buttonText: "NEXT",
           onClick: () => setReservationStepper("reservationsConfirmation"),
