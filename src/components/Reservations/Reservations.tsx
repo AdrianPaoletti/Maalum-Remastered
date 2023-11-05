@@ -2,9 +2,18 @@ import { useContext, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { Backdrop, IconButton, useMediaQuery } from "@mui/material";
+import { Backdrop, IconButton, Slide, useMediaQuery } from "@mui/material";
 
+import { EMAIL_REGEX } from "maalum/core/constants/constants";
+import {
+  ReservationsConfirmationInformation,
+  ReservationsPickerInformation,
+} from "maalum/core/models/reservations.model";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
+import {
+  initialReservationsConfirmationInformation,
+  initialReservationsPickerInformation,
+} from "maalum/utils/reservations/reservations.utils";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
 import { ReservationsPicker } from "./ReservationsPicker/ReservationsPicker";
 
@@ -29,7 +38,36 @@ export function Reservations() {
   const { isReservationsOpen, setIsReservationsOpen } =
     useContext(MaalumContext);
   const [reservationStepper, setReservationStepper] =
-    useState<string>("reservationsChoice");
+    useState<string>("reservationsPicker");
+  const [reservationsPickerInformation, setReservationsPickerInformation] =
+    useState<ReservationsPickerInformation>(
+      initialReservationsPickerInformation
+    );
+
+  const [
+    reservationsConfirmationInformation,
+    setReservationsConfirmationInformation,
+  ] = useState<ReservationsConfirmationInformation>(
+    initialReservationsConfirmationInformation
+  );
+
+  const isReservationsPickerButtonDisabled = (
+    reservationsPickerInformation: ReservationsPickerInformation
+  ): boolean => {
+    const totalGuests = Object.values(reservationsPickerInformation)
+      .slice(0, 3)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    const dateServiceValue = Object.values(reservationsPickerInformation).slice(
+      3,
+      5
+    );
+
+    return !totalGuests || dateServiceValue.some((value) => !value);
+  };
+
+  const isReservationsConfirmationButtonDisabled = Object.values(
+    reservationsConfirmationInformation
+  ).some((value) => !value || !value?.length);
 
   const handleOnClose = () => {
     setIsReservationsOpen(false);
@@ -40,39 +78,74 @@ export function Reservations() {
     component: React.ReactNode;
     title: string;
     buttonText: string;
+    isButtonDisabled: boolean;
     onClick: () => void;
     hasGoBackIcon?: boolean;
   } => {
     switch (reservationStepper) {
-      case "reservationsChoice":
+      case "reservationsPicker":
         return {
-          component: <ReservationsPicker isPhoneViewport={isPhoneViewport} />,
+          component: (
+            <ReservationsPicker
+              isPhoneViewport={isPhoneViewport}
+              reservationsPickerInformation={reservationsPickerInformation}
+              setReservationsPickerInformation={
+                setReservationsPickerInformation
+              }
+            />
+          ),
           title: "SELECT DATE AND TIME",
           buttonText: "NEXT",
+          isButtonDisabled: isReservationsPickerButtonDisabled(
+            reservationsPickerInformation
+          ),
           onClick: () => setReservationStepper("reservationsConfirmation"),
         };
       case "reservationsConfirmation":
         return {
           component: (
-            <ReservationConfirmation isPhoneViewport={isPhoneViewport} />
+            <ReservationConfirmation
+              isPhoneViewport={isPhoneViewport}
+              reservationsPickerInformation={reservationsPickerInformation}
+              reservationsConfirmationInformation={
+                reservationsConfirmationInformation
+              }
+              setReservationsConfirmationInformation={
+                setReservationsConfirmationInformation
+              }
+            />
           ),
           title: "BOOKING CONFIRMATION",
           buttonText: "PROCEED TO BOOK",
-          onClick: () => setReservationStepper(""),
+          isButtonDisabled: isReservationsConfirmationButtonDisabled,
+          onClick: () => {
+            const isValidEmail = new RegExp(EMAIL_REGEX, "gm").test(
+              reservationsConfirmationInformation.email
+            );
+          },
           hasGoBackIcon: true,
         };
       default:
         return {
-          component: <ReservationsPicker isPhoneViewport={isPhoneViewport} />,
-          title: "SELECT DATE AND TIME",
-          buttonText: "NEXT",
-          onClick: () => setReservationStepper("reservationsConfirmation"),
+          component: <></>,
+          title: "",
+          buttonText: "",
+          isButtonDisabled: false,
+          onClick: () => {},
         };
     }
   };
 
-  const { component, title, buttonText, onClick, hasGoBackIcon } =
-    renderReservationComponent();
+  const {
+    component,
+    title,
+    buttonText,
+    onClick,
+    hasGoBackIcon,
+    isButtonDisabled,
+  } = renderReservationComponent();
+
+  console.log(isButtonDisabled);
 
   return (
     <ReservationsWrapper
@@ -80,9 +153,8 @@ export function Reservations() {
       wrapper={(children) => (
         <Backdrop
           open={isReservationsOpen}
-          onClick={() => handleOnClose()}
           transitionDuration={{ enter: 800, exit: 800 }}
-          sx={{ zIndex: 2 }}
+          sx={{ zIndex: 2, opacity: 1 }}
         >
           {children}
         </Backdrop>
@@ -99,7 +171,7 @@ export function Reservations() {
             <div className={`${styles["reservations__title-container"]}`}>
               {hasGoBackIcon && (
                 <IconButton
-                  onClick={() => setReservationStepper("reservationsChoice")}
+                  onClick={() => setReservationStepper("reservationsPicker")}
                   sx={{ color: "inherit", fontSize: 22, paddingLeft: 0 }}
                   disableRipple
                 >
@@ -124,7 +196,15 @@ export function Reservations() {
             {component}
           </article>
           <article className={`${styles.reservations__footer}`}>
-            <button type="button" onClick={onClick}>
+            <button
+              className={`${styles["reservations__footer-button"]} ${
+                isButtonDisabled &&
+                styles["reservations__footer-button--disabled"]
+              }`}
+              disabled={isButtonDisabled}
+              type="button"
+              onClick={onClick}
+            >
               {buttonText}
             </button>
           </article>

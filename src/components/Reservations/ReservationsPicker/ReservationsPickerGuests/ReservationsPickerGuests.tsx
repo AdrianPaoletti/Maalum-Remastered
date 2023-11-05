@@ -4,33 +4,55 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { IconButton, useMediaQuery } from "@mui/material";
 
-import { ReservationsGuestsCounter } from "maalum/core/models/reservations.model";
-import { reservationsGuestsInformation } from "maalum/utils/reservations/reservations.utils";
+import { ReservationsPickerInformation } from "maalum/core/models/reservations.model";
+import { defaultTheme } from "maalum/styles/themes";
+import {
+  initialReservationsPickerInformation,
+  reservationsGuestsInformation,
+} from "maalum/utils/reservations/reservations.utils";
 
 import styles from "./ReservationsPickerGuests.module.scss";
 
-export function ReservationsPickerGuests() {
+interface ReservationsPickerGuestsProps {
+  handleSubmit: () => void;
+  reservationsPickerInformation: ReservationsPickerInformation;
+  setReservationsPickerInformation: React.Dispatch<
+    React.SetStateAction<ReservationsPickerInformation>
+  >;
+}
+
+export function ReservationsPickerGuests({
+  handleSubmit,
+  reservationsPickerInformation,
+  setReservationsPickerInformation,
+}: ReservationsPickerGuestsProps) {
   const isSmallPhoneViewPort = useMediaQuery("(max-width:27.2em)");
-  const [reservationsGuestsCounter, setReservationsGuestsCounter] =
-    useState<ReservationsGuestsCounter>({
-      adults: 0,
-      children: 0,
-      residents: 0,
-    });
   const [reservationsTotalGuestsCounter, setReservationsTotalGuestsCounter] =
     useState<number>(0);
-  const [isButtonDisabled, setIsButtonsDisabled] = useState<boolean>(false);
+  const [isButtonPlusDisabled, setIsButtonPlusDisabled] =
+    useState<boolean>(false);
 
   useEffect(() => {
-    const totalGuests = Object.values(reservationsGuestsCounter).reduce(
-      (accumulator, currentValue) => accumulator + currentValue
+    const totalGuests = Object.values(reservationsPickerInformation)
+      .splice(0, 3)
+      .reduce((accumulator, currentValue) => accumulator + currentValue);
+    setReservationsPickerInformation((prevReservationsPickerInformation) =>
+      !totalGuests
+        ? initialReservationsPickerInformation
+        : prevReservationsPickerInformation
     );
-    setIsButtonsDisabled(totalGuests === 10 ? true : false);
+    setIsButtonPlusDisabled(totalGuests === 10 ? true : false);
     setReservationsTotalGuestsCounter(totalGuests);
-  }, [reservationsGuestsCounter]);
+  }, [reservationsPickerInformation, setReservationsPickerInformation]);
 
   return (
-    <div className={styles.guests}>
+    <form
+      className={styles.guests}
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
       {reservationsGuestsInformation.map(
         ({
           id,
@@ -46,8 +68,8 @@ export function ReservationsPickerGuests() {
           >
             <div className={`${styles["guests__text-container"]}`}>
               <p className={`${styles["guests__text-title"]} text-secondary`}>
-                {reservationsGuestsCounter[id] > 1 ||
-                !reservationsGuestsCounter[id]
+                {reservationsPickerInformation[id] > 1 ||
+                !reservationsPickerInformation[id]
                   ? pluralTitle
                   : singleTitle}
                 {!isSmallPhoneViewPort && (
@@ -68,33 +90,46 @@ export function ReservationsPickerGuests() {
             <div className={`${styles["guests__counter"]}`}>
               <IconButton
                 onClick={() => {
-                  !!reservationsGuestsCounter[id] &&
-                    setReservationsGuestsCounter(
-                      (prevReservationsGuestsCounter) => ({
-                        ...prevReservationsGuestsCounter,
-                        [id]: prevReservationsGuestsCounter[id] - 1,
+                  !!reservationsPickerInformation[id] &&
+                    setReservationsPickerInformation(
+                      (prevReservationsPickerInformation) => ({
+                        ...prevReservationsPickerInformation,
+                        [id]: prevReservationsPickerInformation[id] - 1,
                       })
                     );
                 }}
+                disabled={!reservationsPickerInformation[id]}
                 className={`${styles["guests__button"]}`}
+                sx={{
+                  "&.Mui-disabled": {
+                    backgroundColor: defaultTheme.palette.beige.disabled,
+                    color: defaultTheme.palette.white,
+                  },
+                }}
                 disableRipple
               >
                 <RemoveIcon fontSize="inherit" />
               </IconButton>
               <span className={`${styles["guests__count"]}`}>
-                {reservationsGuestsCounter[id]}
+                {reservationsPickerInformation[id]}
               </span>
               <IconButton
                 onClick={() => {
-                  setReservationsGuestsCounter(
-                    (prevReservationsGuestsCounter) => ({
-                      ...prevReservationsGuestsCounter,
-                      [id]: prevReservationsGuestsCounter[id] + 1,
+                  setReservationsPickerInformation(
+                    (prevReservationsPickerInformation) => ({
+                      ...prevReservationsPickerInformation,
+                      [id]: prevReservationsPickerInformation[id] + 1,
                     })
                   );
                 }}
-                disabled={isButtonDisabled}
+                disabled={isButtonPlusDisabled}
                 className={`${styles["guests__button"]}`}
+                sx={{
+                  "&.Mui-disabled": {
+                    backgroundColor: defaultTheme.palette.beige.disabled,
+                    color: defaultTheme.palette.white,
+                  },
+                }}
                 disableRipple
               >
                 <AddIcon fontSize="inherit" />
@@ -103,9 +138,18 @@ export function ReservationsPickerGuests() {
           </div>
         )
       )}
-      <div className={`${styles["guests__button-submit"]}`}>
-        <button type="button">NEXT</button>
+      <div className={`${styles["guests__button-submit-container"]}`}>
+        <button
+          className={`${styles["guests__button-submit"]} ${
+            !reservationsTotalGuestsCounter &&
+            styles["guests__button-submit--disabled"]
+          }`}
+          disabled={!reservationsTotalGuestsCounter}
+          type="submit"
+        >
+          NEXT
+        </button>
       </div>
-    </div>
+    </form>
   );
 }

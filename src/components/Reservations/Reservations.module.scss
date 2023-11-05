@@ -89,7 +89,6 @@
     box-shadow: 0 -4px 13px 2px hsla(0, 0%, 69%, 0.35);
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    @include button-reservations();
 
     @include responsive(phone) {
       border-radius: 0;
@@ -103,5 +102,9 @@
       width: 100%;
       padding: 1.25rem;
     }
+  }
+
+  &__footer-button {
+    @include button-reservations();
   }
 }

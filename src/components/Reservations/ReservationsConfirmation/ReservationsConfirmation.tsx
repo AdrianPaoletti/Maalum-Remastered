@@ -1,59 +1,51 @@
+import { ChangeEvent } from "react";
 import Image from "next/image";
 
-import { TextField, useMediaQuery } from "@mui/material";
+import { Alert, TextField, useMediaQuery } from "@mui/material";
+
+import {
+  ReservationsConfirmationInformation,
+  ReservationsPickerInformation,
+} from "maalum/core/models/reservations.model";
+import { defaultTheme } from "maalum/styles/themes";
+import {
+  formatReservationsPickerData,
+  reservationsConfirmationInputs,
+  reservationsPickerData,
+} from "maalum/utils/reservations/reservationsConfirmation.utils";
 
 import styles from "./ReservationsConfirmation.module.scss";
 
 interface ReservationConfirmationProps {
   isPhoneViewport: boolean;
+  reservationsPickerInformation: ReservationsPickerInformation;
+  reservationsConfirmationInformation: ReservationsConfirmationInformation;
+  setReservationsConfirmationInformation: React.Dispatch<
+    React.SetStateAction<ReservationsConfirmationInformation>
+  >;
 }
 
 export function ReservationConfirmation({
   isPhoneViewport,
+  reservationsPickerInformation,
+  reservationsConfirmationInformation,
+  setReservationsConfirmationInformation,
 }: ReservationConfirmationProps) {
   const isSmallPhoneViewport = useMediaQuery("(max-width:27.2em)");
-  const bookingData = [
-    {
-      id: "date",
-      title: "DATE",
-      value: "22/11/2023",
-    },
-    {
-      id: "hour",
-      title: "HOUR",
-      value: "15:00",
-    },
-    {
-      id: "guests",
-      title: "GUESTS",
-      value: "2 adults, 1 child",
-    },
-    {
-      id: "amount",
-      title: "AMOUNT",
-      value: "$40",
-      fontWeight: 600,
-    },
-  ];
+  const formattedReservationsPickerData = formatReservationsPickerData(
+    reservationsPickerInformation
+  );
 
-  const bookingConfirmationInputs = [
-    {
-      id: "firstName",
-      label: "FIRST NAME",
-    },
-    {
-      id: "secondName",
-      label: "SECOND NAME",
-    },
-    {
-      id: "email",
-      label: "EMAIL",
-    },
-    {
-      id: "phoneNumber",
-      label: "PHONE NUMBER",
-    },
-  ];
+  const handleChange = (
+    { target: { value } }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    id: keyof ReservationsConfirmationInformation
+  ) =>
+    setReservationsConfirmationInformation(
+      (prevReservationsConfirmationInformation) => ({
+        ...prevReservationsConfirmationInformation,
+        [id]: value,
+      })
+    );
 
   return (
     <article className={`${styles["reservations-confirmation"]}`}>
@@ -84,14 +76,14 @@ export function ReservationConfirmation({
               className={`${styles["your-booking__booking-data-block-container"]}`}
             >
               <div className={`${styles["your-booking__booking-data-block"]}`}>
-                {bookingData.map(({ id, title }) => (
+                {reservationsPickerData.map(({ id, title }) => (
                   <span key={id}>{title}:</span>
                 ))}
               </div>
               <div className={`${styles["your-booking__booking-data-block"]}`}>
-                {bookingData.map(({ id, value, fontWeight }) => (
+                {reservationsPickerData.map(({ id, fontWeight }) => (
                   <p key={id} style={{ fontWeight }}>
-                    {value}
+                    {formattedReservationsPickerData[id]}
                   </p>
                 ))}
               </div>
@@ -106,28 +98,30 @@ export function ReservationConfirmation({
           CONTACT INFORMATION
         </h5>
         <div className={`${styles["contact-information__inputs-container"]}`}>
-          {bookingConfirmationInputs.map(({ id, label }) => (
+          {reservationsConfirmationInputs.map(({ id, label, type }) => (
             <TextField
               key={id}
               label={label}
+              type={type || "text"}
               variant="filled"
-              sx={{
-                ".Mui-focused": {
-                  border: "1px solid #737373",
-                },
-              }}
+              value={reservationsConfirmationInformation[id] || ""}
+              onChange={(event) => handleChange(event, id)}
               required
               InputProps={{
                 disableUnderline: true,
-                style: {
+                sx: {
                   fontSize: "14px",
-                  backgroundColor: "#f0f2f4",
+                  border: "1px solid transparent",
+                  backgroundColor: defaultTheme.palette.gray.lightMain,
                   borderRadius: ".4rem",
+                  "&.Mui-focused": {
+                    border: `1px solid ${defaultTheme.palette.gray.main}`,
+                  },
                 },
               }}
               InputLabelProps={{
                 style: {
-                  color: "#737373",
+                  color: defaultTheme.palette.gray.main,
                   letterSpacing: "1.5px",
                   fontSize: "11px",
                   paddingTop: "4px",
@@ -137,6 +131,17 @@ export function ReservationConfirmation({
             />
           ))}
         </div>
+        <Alert
+          sx={{
+            marginTop: "2rem",
+            display: "flex",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+          severity="error"
+        >
+          This is an error alert — check it out!
+        </Alert>
       </div>
     </article>
   );

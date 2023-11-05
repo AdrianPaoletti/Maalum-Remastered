@@ -1,8 +1,10 @@
 @import "src/styles/abstracts/mixins";
 @import "src/styles/abstracts/variables";
 
-.reservations-choice {
+.reservations-picker {
   &__sub-title {
-    color: $color-gray;
+    &--update {
+      color: $color-beige;
+    }
   }
 }

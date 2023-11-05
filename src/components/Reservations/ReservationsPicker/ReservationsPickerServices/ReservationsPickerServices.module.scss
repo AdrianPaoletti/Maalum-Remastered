@@ -20,7 +20,7 @@
     margin-bottom: 0.4rem;
   }
 
-  &__button-submit {
+  &__button-submit-container {
     @include button-reservations();
     text-align: end;
   }

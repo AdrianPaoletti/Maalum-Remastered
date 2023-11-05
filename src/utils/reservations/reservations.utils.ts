@@ -1,7 +1,31 @@
 import {
+  ADD_HOURS,
+  ADULTS_PRICE,
+  CHILDREN_PRICE,
+  RESIDENTS_PRICE,
+} from "maalum/core/constants/constants";
+import {
   BlockedDaysHours,
+  ReservationsConfirmationInformation,
   ReservationsGuestsInformation,
+  ReservationsPickerInformation,
 } from "maalum/core/models/reservations.model";
+
+const initialReservationsPickerInformation: ReservationsPickerInformation = {
+  adults: 0,
+  children: 0,
+  residents: 0,
+  date: null,
+  service: "",
+};
+
+const initialReservationsConfirmationInformation: ReservationsConfirmationInformation =
+  {
+    firstName: "",
+    secondName: "",
+    phone: null,
+    email: "",
+  };
 
 const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
   {
@@ -9,24 +33,24 @@ const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
     singleTitle: "Adult",
     pluralTitle: "Adults",
     subtitle: "14 years or older",
-    dollarsPrice: 20,
-    shillingPrice: "40,000",
+    dollarsPrice: ADULTS_PRICE,
+    shillingPrice: `${ADULTS_PRICE * 2},000`,
   },
   {
     id: "children",
     singleTitle: "Child",
     pluralTitle: "Children",
     subtitle: "From 5 to 13 years",
-    dollarsPrice: 10,
-    shillingPrice: "20,000",
+    dollarsPrice: CHILDREN_PRICE,
+    shillingPrice: `${CHILDREN_PRICE * 2},000`,
   },
   {
     id: "residents",
     singleTitle: "Resident",
     pluralTitle: "Residents",
     subtitle: "National ID required",
-    dollarsPrice: 15,
-    shillingPrice: "30,000",
+    dollarsPrice: RESIDENTS_PRICE,
+    shillingPrice: `${RESIDENTS_PRICE * 2},000`,
   },
 ];
 
@@ -50,41 +74,9 @@ const servicesInformation: {
   },
 ];
 
-const getExcludedHours = (
-  blockedDaysHours: BlockedDaysHours[],
-  startingDate: Date
-): Date[] => {
-  const excludedHours: Date[] = [];
-  const date = new Date(startingDate);
-
-  const matchedDates = blockedDaysHours.filter(
-    ({ dates }) =>
-      dates
-        .map((date) => new Date(date).getDate())
-        .indexOf(startingDate.getDate()) > -1
-  );
-  for (const { hours: matchedDatesHours } of matchedDates) {
-    matchedDatesHours.forEach((hour) => {
-      const [hours, minutes] = hour.split(":");
-      excludedHours.push(
-        new Date(new Date(date.setHours(+hours)).setMinutes(+minutes))
-      );
-    });
-  }
-
-  return excludedHours;
-};
-
-const addDaysToDate = (date: Date, days: number): Date =>
-  new Date(date.setDate(date.getDate() + days));
-
-const addHoursToTime = (date: Date, hours: number): Date =>
-  new Date(date.setTime(date.getTime() + hours * 60 * 60 * 1000));
-
 export {
   reservationsGuestsInformation,
   servicesInformation,
-  getExcludedHours,
-  addDaysToDate,
-  addHoursToTime,
+  initialReservationsPickerInformation,
+  initialReservationsConfirmationInformation,
 };

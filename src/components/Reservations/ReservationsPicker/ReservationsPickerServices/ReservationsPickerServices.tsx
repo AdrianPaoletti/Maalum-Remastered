@@ -1,29 +1,45 @@
-import { useState } from "react";
-
 import { Radio } from "@mui/material";
 
+import { ReservationsPickerInformation } from "maalum/core/models/reservations.model";
+import { defaultTheme } from "maalum/styles/themes";
 import { servicesInformation } from "maalum/utils/reservations/reservations.utils";
 
 import styles from "./ReservationsPickerServices.module.scss";
 
-export function ReservationsPickerServices() {
-  const [selected, setSelected] = useState<string>("");
+interface ReservationsPickerServicesProps {
+  selectedService: string;
+  setReservationsPickerInformation: React.Dispatch<
+    React.SetStateAction<ReservationsPickerInformation>
+  >;
+}
 
+export function ReservationsPickerServices({
+  selectedService,
+  setReservationsPickerInformation,
+}: ReservationsPickerServicesProps) {
   const handleClick = (id: string) => {
-    if (selected === id) {
-      setSelected("");
-      return;
+    if (selectedService === id) {
+      return setReservationsPickerInformation(
+        (prevReservationsPickerInformation) => ({
+          ...prevReservationsPickerInformation,
+          service: "",
+        })
+      );
     }
-    setSelected(id);
+
+    setReservationsPickerInformation((prevReservationsPickerInformation) => ({
+      ...prevReservationsPickerInformation,
+      service: id,
+    }));
   };
 
   return (
     <div className={styles.services}>
-      {servicesInformation.map(({ id, title, text, disclaimer }) => (
+      {servicesInformation.map(({ id, title, text }) => (
         <div
           key={id}
           className={`${styles.services__card} u-padding-horizontal-small-medium u-padding-vertical-small-extra`}
-          onClick={() => handleClick(id)}
+          onClick={(): void => handleClick(id)}
         >
           <div className={`${styles["services__text-container"]}`}>
             <p className={`${styles["services__text-title"]} text-secondary`}>
@@ -37,21 +53,18 @@ export function ReservationsPickerServices() {
             <Radio
               disableRipple
               sx={{
-                color: "#c3b288",
+                color: defaultTheme.palette.beige.light,
                 padding: 0,
                 "& .MuiSvgIcon-root": { fontSize: 24 },
                 "&.Mui-checked": {
-                  color: "#c3b288",
+                  color: defaultTheme.palette.beige.light,
                 },
               }}
-              checked={selected === id}
+              checked={selectedService === id}
             />
           </div>
         </div>
       ))}
-      <div className={`${styles["services__button-submit"]}`}>
-        <button type="button">NEXT</button>
-      </div>
     </div>
   );
 }

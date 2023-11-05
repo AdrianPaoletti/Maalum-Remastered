@@ -1,0 +1,13 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.date-picker {
+  &__button-submit-container {
+    margin-top: 2rem;
+    text-align: end;
+  }
+
+  &__button-submit {
+    @include button-reservations();
+  }
+}

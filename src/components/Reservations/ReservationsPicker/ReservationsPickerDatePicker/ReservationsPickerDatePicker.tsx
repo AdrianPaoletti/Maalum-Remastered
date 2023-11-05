@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react";
 import DatePickerReact from "react-datepicker";
 
-import { ADD_HOURS, MIN_DAY_HOUR } from "maalum/core/constants/constants";
-import { BlockedDaysHours } from "maalum/core/models/reservations.model";
+import { MIN_DAY_HOUR } from "maalum/core/constants/constants";
+import {
+  BlockedDaysHours,
+  ReservationsPickerInformation,
+} from "maalum/core/models/reservations.model";
 import {
   addDaysToDate,
-  addHoursToTime,
   getExcludedHours,
-} from "maalum/utils/reservations/reservations.utils";
+  getMinimumHour,
+} from "maalum/utils/reservations/reservationsPicker.utils";
 
 import "react-datepicker/dist/react-datepicker.css";
+import styles from "./ReservationsPickerDatePicker.module.scss";
 
 interface ReservationsPickerDatePickerProps {
   getBlockedDaysMonthly: (date?: Date | null) => void;
   excludedDays: Date[];
   excludedHours: Date[];
   selectedDate: Date | null;
-  setSelectedDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  setReservationsPickerInformation: React.Dispatch<
+    React.SetStateAction<ReservationsPickerInformation>
+  >;
   setExcludedHours: React.Dispatch<React.SetStateAction<Date[]>>;
   blockedDaysHours: BlockedDaysHours[];
+  handleSubmit: () => void;
 }
 
 export function ReservationsPickerDatePicker({
@@ -26,44 +33,69 @@ export function ReservationsPickerDatePicker({
   excludedDays,
   excludedHours,
   selectedDate,
-  setSelectedDate,
+  setReservationsPickerInformation,
   setExcludedHours,
   blockedDaysHours,
+  handleSubmit,
 }: ReservationsPickerDatePickerProps) {
-  const [minDate, setMinDate] = useState<Date | null>(null);
+  const [minimumDate, setMinimumDate] = useState<Date | null>(null);
+  const [minimumHour, setMinimumHour] = useState<Date>(new Date());
+  const isButtonDisabled = !(selectedDate && selectedDate.getHours());
 
   useEffect(() => {
     if (blockedDaysHours.length) {
-      const minDate =
+      const minimumDate =
         new Date().getHours() > MIN_DAY_HOUR
           ? addDaysToDate(new Date(), 1)
-          : new Date();
-      setExcludedHours(getExcludedHours(blockedDaysHours, minDate));
-      setMinDate(minDate);
-    }
-  }, [blockedDaysHours, setExcludedHours]);
+          : selectedDate;
 
-  const handleChange = (date: Date) => {
-    setSelectedDate((prevSelectedDate) =>
-      prevSelectedDate?.getDate() === date.getDate()
-        ? date
-        : new Date(date.setHours(0, 0, 0))
-    );
+      setMinimumDate(minimumDate);
+    }
+  }, [blockedDaysHours, selectedDate]);
+
+  const handleChange = (date: Date): void => {
+    setReservationsPickerInformation((prevReservationsPickerInformation) => ({
+      ...prevReservationsPickerInformation,
+      date:
+        prevReservationsPickerInformation.date?.getDate() === date.getDate()
+          ? date
+          : new Date(date.setHours(0, 0, 0)),
+      service: "",
+    }));
+    setMinimumHour(getMinimumHour(date));
     setExcludedHours(getExcludedHours(blockedDaysHours, date));
   };
 
   return (
-    <DatePickerReact
-      showTimeSelect
-      inline
-      minDate={minDate}
-      minTime={addHoursToTime(new Date(), ADD_HOURS)}
-      maxTime={new Date(new Date().setHours(17, 0, 0))}
-      selected={selectedDate}
-      excludeTimes={excludedHours}
-      excludeDates={excludedDays}
-      onChange={handleChange}
-      onMonthChange={getBlockedDaysMonthly}
-    />
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
+      <DatePickerReact
+        showTimeSelect
+        inline
+        minDate={minimumDate}
+        minTime={minimumHour}
+        maxTime={new Date(new Date().setHours(17, 0, 0))}
+        selected={selectedDate}
+        excludeTimes={excludedHours}
+        excludeDates={excludedDays}
+        onChange={handleChange}
+        onMonthChange={getBlockedDaysMonthly}
+      />
+      <div className={`${styles["date-picker__button-submit-container"]}`}>
+        <button
+          className={`${styles["date-picker__button-submit"]} ${
+            isButtonDisabled && styles["date-picker__button-submit--disabled"]
+          }`}
+          disabled={isButtonDisabled}
+          type="submit"
+        >
+          NEXT
+        </button>
+      </div>
+    </form>
   );
 }

@@ -13,7 +13,7 @@ export interface ReservationsGuestsCounter {
   residents: number;
 }
 
-export interface ReservationsMonthlyBlockedDaysQuery {
+export interface GetBlockedDaysMonthlyRequestBody {
   month: number | undefined;
   year: number | undefined;
 }
@@ -25,4 +25,26 @@ export interface BlockedDaysHours {
   hours: string[];
   observations: string;
   id: string;
+}
+
+export interface ReservationsPickerInformation {
+  adults: number;
+  children: number;
+  residents: number;
+  date: Date | null;
+  service: string;
+}
+
+export interface ReservationsConfirmationInformation {
+  firstName: string;
+  secondName: string;
+  phone: number | null;
+  email: string;
+}
+
+export interface FormattedReservationsPickerData {
+  date: string;
+  hour: string;
+  guests: string;
+  amount: string;
 }
