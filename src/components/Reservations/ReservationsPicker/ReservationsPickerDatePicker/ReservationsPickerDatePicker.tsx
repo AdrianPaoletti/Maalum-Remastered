@@ -93,7 +93,7 @@ export function ReservationsPickerDatePicker({
           disabled={isButtonDisabled}
           type="submit"
         >
-          NEXT
+          CONTINUE
         </button>
       </div>
     </form>

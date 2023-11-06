@@ -147,7 +147,7 @@ export function ReservationsPickerGuests({
           disabled={!reservationsTotalGuestsCounter}
           type="submit"
         >
-          NEXT
+          CONTINUE
         </button>
       </div>
     </form>

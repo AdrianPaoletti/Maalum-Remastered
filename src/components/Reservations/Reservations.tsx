@@ -8,11 +8,13 @@ import { EMAIL_REGEX } from "maalum/core/constants/constants";
 import {
   ReservationsConfirmationInformation,
   ReservationsPickerInformation,
+  ReservationsPickerSubmited,
 } from "maalum/core/models/reservations.model";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 import {
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
+  initialReservationsPickerSubmited,
 } from "maalum/utils/reservations/reservations.utils";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
 import { ReservationsPicker } from "./ReservationsPicker/ReservationsPicker";
@@ -43,6 +45,10 @@ export function Reservations() {
     useState<ReservationsPickerInformation>(
       initialReservationsPickerInformation
     );
+  const [reservationsPickerSubmited, setReservationsPickerSubmited] =
+    useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
+  const [accordionExpanded, setAccordionExpanded] = useState<string>("guests");
+  const [isError, setIsError] = useState<boolean>(false);
 
   const [
     reservationsConfirmationInformation,
@@ -71,6 +77,13 @@ export function Reservations() {
 
   const handleOnClose = () => {
     setIsReservationsOpen(false);
+    setReservationsPickerInformation(initialReservationsPickerInformation);
+    setReservationsConfirmationInformation(
+      initialReservationsConfirmationInformation
+    );
+    setReservationsPickerSubmited(initialReservationsPickerSubmited);
+    setReservationStepper("reservationsPicker");
+    setAccordionExpanded("guests");
     document.body.className = `${document.body.classList[0]}`;
   };
 
@@ -92,6 +105,10 @@ export function Reservations() {
               setReservationsPickerInformation={
                 setReservationsPickerInformation
               }
+              reservationsPickerSubmited={reservationsPickerSubmited}
+              setReservationsPickerSubmited={setReservationsPickerSubmited}
+              accordionExpanded={accordionExpanded}
+              setAccordionExpanded={setAccordionExpanded}
             />
           ),
           title: "SELECT DATE AND TIME",
@@ -99,13 +116,20 @@ export function Reservations() {
           isButtonDisabled: isReservationsPickerButtonDisabled(
             reservationsPickerInformation
           ),
-          onClick: () => setReservationStepper("reservationsConfirmation"),
+          onClick: () => {
+            setReservationStepper("reservationsConfirmation");
+            setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
+              ...prevReservationsPickerSubmited,
+              services: true,
+            }));
+          },
         };
       case "reservationsConfirmation":
         return {
           component: (
             <ReservationConfirmation
               isPhoneViewport={isPhoneViewport}
+              isError={isError}
               reservationsPickerInformation={reservationsPickerInformation}
               reservationsConfirmationInformation={
                 reservationsConfirmationInformation
@@ -119,8 +143,10 @@ export function Reservations() {
           buttonText: "PROCEED TO BOOK",
           isButtonDisabled: isReservationsConfirmationButtonDisabled,
           onClick: () => {
-            const isValidEmail = new RegExp(EMAIL_REGEX, "gm").test(
-              reservationsConfirmationInformation.email
+            setIsError(
+              !new RegExp(EMAIL_REGEX, "gm").test(
+                reservationsConfirmationInformation.email
+              )
             );
           },
           hasGoBackIcon: true,
@@ -144,8 +170,6 @@ export function Reservations() {
     hasGoBackIcon,
     isButtonDisabled,
   } = renderReservationComponent();
-
-  console.log(isButtonDisabled);
 
   return (
     <ReservationsWrapper

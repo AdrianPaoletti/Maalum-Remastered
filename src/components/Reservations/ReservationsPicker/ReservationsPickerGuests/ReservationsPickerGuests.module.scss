@@ -41,21 +41,10 @@
     margin-top: 2rem;
     text-align: end;
     margin-right: 0;
-
-    // &--disabled {
-    //   button {
-    //     background-color: $color-beige-light-disabled;
-    //     color: $color-white;
-
-    //     &:hover{
-
-    //     }
-    //   }
-    // }
   }
 
   &__button-submit {
-    @include button-reservations();
+    @include button-accordion();
   }
 }
 

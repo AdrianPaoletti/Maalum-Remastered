@@ -55,6 +55,23 @@
   }
 }
 
+@mixin button-accordion() {
+  border: none;
+  background-color: $color-white;
+  color: darken($color-beige, 15%);
+  font-size: $font-size-13;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+
+  &--disabled {
+    color: $color-beige-light-disabled;
+    cursor: auto;
+  }
+}
+
 @mixin button-reservations($color: $color-beige-light) {
   background-color: $color;
   color: $color-white;

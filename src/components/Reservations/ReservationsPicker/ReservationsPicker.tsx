@@ -7,6 +7,7 @@ import {
   BlockedDaysHours,
   GetBlockedDaysMonthlyRequestBody,
   ReservationsPickerInformation,
+  ReservationsPickerSubmited,
 } from "maalum/core/models/reservations.model";
 import { getBlockedDaysMonthly as getBlockedDaysMonthlyFetch } from "maalum/core/services/reservations/reservations.service";
 import { initialReservationsPickerInformation } from "maalum/utils/reservations/reservations.utils";
@@ -22,16 +23,25 @@ interface ReservationsPickerProps {
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
+  reservationsPickerSubmited: ReservationsPickerSubmited;
+  setReservationsPickerSubmited: React.Dispatch<
+    React.SetStateAction<ReservationsPickerSubmited>
+  >;
+  accordionExpanded: string;
+  setAccordionExpanded: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function ReservationsPicker({
   isPhoneViewport,
   reservationsPickerInformation,
   setReservationsPickerInformation,
+  reservationsPickerSubmited,
+  setReservationsPickerSubmited,
+  accordionExpanded,
+  setAccordionExpanded,
 }: ReservationsPickerProps) {
   const [excludedDays, setExcludedDays] = useState<Date[]>([]);
   const [excludedHours, setExcludedHours] = useState<Date[]>([]);
-  const [accordionExpanded, setAccordionExpanded] = useState<string>("guests");
   const [blockedDaysHours, setBlockedDaysHours] = useState<BlockedDaysHours[]>(
     []
   );
@@ -61,6 +71,12 @@ export function ReservationsPicker({
   );
 
   useEffect(() => {
+    if (reservationsPickerSubmited.guests && accordionExpanded === "guests") {
+      setAccordionExpanded("");
+    }
+  }, [accordionExpanded, reservationsPickerSubmited.guests]);
+
+  useEffect(() => {
     getBlockedDaysMonthly();
   }, [getBlockedDaysMonthly]);
 
@@ -71,6 +87,10 @@ export function ReservationsPicker({
       ...{ adults, children, residents },
     });
     setAccordionExpanded("dates");
+    setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
+      ...prevReservationsPickerSubmited,
+      guests: true,
+    }));
   };
 
   const handleSubmitDatePicker = () => {
@@ -79,10 +99,14 @@ export function ReservationsPicker({
       ...prevReservationsPickerInformation,
       service: "",
     }));
+    setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
+      ...prevReservationsPickerSubmited,
+      dates: true,
+    }));
   };
 
   const accordionElements: {
-    id: string;
+    id: keyof ReservationsPickerSubmited;
     title: string;
     component: JSX.Element;
     paddingBottom?: string;
@@ -152,11 +176,13 @@ export function ReservationsPicker({
               expandIcon={<ExpandMoreIcon fontSize="large" />}
             >
               <h5 className={`heading-cuaternary`}>{title}</h5>
-              <h5
-                className={`heading-cuaternary ${styles["reservations-picker__sub-title--update"]}`}
-              >
-                Update
-              </h5>
+              {reservationsPickerSubmited[id] && (
+                <h5
+                  className={`${styles["reservations-picker__sub-title--update"]}`}
+                >
+                  Update
+                </h5>
+              )}
             </AccordionSummary>
             <AccordionDetails sx={{ paddingBottom }}>
               {component}

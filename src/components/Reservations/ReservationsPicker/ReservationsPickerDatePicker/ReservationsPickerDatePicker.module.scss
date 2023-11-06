@@ -8,6 +8,6 @@
   }
 
   &__button-submit {
-    @include button-reservations();
+    @include button-accordion();
   }
 }

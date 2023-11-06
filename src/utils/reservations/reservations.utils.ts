@@ -9,6 +9,7 @@ import {
   ReservationsConfirmationInformation,
   ReservationsGuestsInformation,
   ReservationsPickerInformation,
+  ReservationsPickerSubmited,
 } from "maalum/core/models/reservations.model";
 
 const initialReservationsPickerInformation: ReservationsPickerInformation = {
@@ -26,6 +27,12 @@ const initialReservationsConfirmationInformation: ReservationsConfirmationInform
     phone: null,
     email: "",
   };
+
+const initialReservationsPickerSubmited: ReservationsPickerSubmited = {
+  guests: false,
+  dates: false,
+  services: false,
+};
 
 const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
   {
@@ -79,4 +86,5 @@ export {
   servicesInformation,
   initialReservationsPickerInformation,
   initialReservationsConfirmationInformation,
+  initialReservationsPickerSubmited,
 };

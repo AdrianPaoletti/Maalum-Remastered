@@ -4,7 +4,10 @@
 .reservations-picker {
   &__sub-title {
     &--update {
-      color: $color-beige;
+      color: $color-gray;
+      font-size: $font-size-13;
+      letter-spacing: 0.08rem;
+      font-weight: 400;
     }
   }
 }

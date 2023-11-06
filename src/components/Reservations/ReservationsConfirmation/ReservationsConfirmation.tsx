@@ -18,6 +18,7 @@ import styles from "./ReservationsConfirmation.module.scss";
 
 interface ReservationConfirmationProps {
   isPhoneViewport: boolean;
+  isError: boolean;
   reservationsPickerInformation: ReservationsPickerInformation;
   reservationsConfirmationInformation: ReservationsConfirmationInformation;
   setReservationsConfirmationInformation: React.Dispatch<
@@ -27,6 +28,7 @@ interface ReservationConfirmationProps {
 
 export function ReservationConfirmation({
   isPhoneViewport,
+  isError,
   reservationsPickerInformation,
   reservationsConfirmationInformation,
   setReservationsConfirmationInformation,
@@ -131,17 +133,19 @@ export function ReservationConfirmation({
             />
           ))}
         </div>
-        <Alert
-          sx={{
-            marginTop: "2rem",
-            display: "flex",
-            alignItems: "center",
-            fontSize: "14px",
-          }}
-          severity="error"
-        >
-          This is an error alert — check it out!
-        </Alert>
+        {isError && (
+          <Alert
+            sx={{
+              marginTop: "2rem",
+              display: "flex",
+              alignItems: "center",
+              fontSize: "14px",
+            }}
+            severity="error"
+          >
+            Incorrect email format
+          </Alert>
+        )}
       </div>
     </article>
   );

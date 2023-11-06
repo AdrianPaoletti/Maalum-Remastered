@@ -16,7 +16,7 @@
     padding-top: 2.5rem;
 
     @include responsive(phone) {
-      @include display-flex(space-between, flex-start);
+      // @include display-flex(space-between, flex-start);
       max-width: 50rem;
     }
 

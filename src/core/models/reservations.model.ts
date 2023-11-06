@@ -48,3 +48,9 @@ export interface FormattedReservationsPickerData {
   guests: string;
   amount: string;
 }
+
+export interface ReservationsPickerSubmited {
+  guests: boolean;
+  dates: boolean;
+  services: boolean;
+}
