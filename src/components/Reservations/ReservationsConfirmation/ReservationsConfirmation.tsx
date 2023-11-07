@@ -17,7 +17,6 @@ import {
 import styles from "./ReservationsConfirmation.module.scss";
 
 interface ReservationConfirmationProps {
-  isPhoneViewport: boolean;
   isError: boolean;
   reservationsPickerInformation: ReservationsPickerInformation;
   reservationsConfirmationInformation: ReservationsConfirmationInformation;
@@ -27,7 +26,6 @@ interface ReservationConfirmationProps {
 }
 
 export function ReservationConfirmation({
-  isPhoneViewport,
   isError,
   reservationsPickerInformation,
   reservationsConfirmationInformation,
@@ -84,7 +82,13 @@ export function ReservationConfirmation({
               </div>
               <div className={`${styles["your-booking__booking-data-block"]}`}>
                 {reservationsPickerData.map(({ id, fontWeight }) => (
-                  <p key={id} style={{ fontWeight }}>
+                  <p
+                    key={id}
+                    style={{
+                      fontWeight,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
                     {formattedReservationsPickerData[id]}
                   </p>
                 ))}

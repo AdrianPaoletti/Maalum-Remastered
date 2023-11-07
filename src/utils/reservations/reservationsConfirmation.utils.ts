@@ -63,29 +63,38 @@ const formatReservationsPickerData = ({
   adults,
   children,
   residents,
-}: ReservationsPickerInformation): FormattedReservationsPickerData => ({
-  date: date?.toLocaleString().split(",")[0] || "",
-  hour:
-    date?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) || "",
-  guests: `${!!adults ? `${adults} ${adults === 1 ? "adult" : "adults"}` : ""}${
+}: ReservationsPickerInformation): FormattedReservationsPickerData => {
+  const adultsText = `${
+    !!adults ? `${adults} ${adults === 1 ? "adult" : "adults"}` : ""
+  }`;
+  const childrenText = `${
     !!children
       ? `${!!adults ? "," : ""} ${children} ${
           children === 1 ? "child" : "children"
         }`
       : ""
-  }${
+  }`;
+  const residentsText = `${
     !!residents
       ? `${!!adults || !!children ? "," : ""} ${residents} ${
           residents === 1 ? "resident" : "residents"
         }`
       : ""
-  }`,
-  amount: `${
-    adults * ADULTS_PRICE +
-    children * CHILDREN_PRICE +
-    residents * RESIDENTS_PRICE
-  }$`,
-});
+  }`;
+  return {
+    date: date?.toLocaleString().split(",")[0] || "",
+    hour:
+      date?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) ||
+      "",
+    guests: `${adultsText}${childrenText}
+  ${!!adults && !!children && !!residents ? "..." : `${residentsText}`}`,
+    amount: `${
+      adults * ADULTS_PRICE +
+      children * CHILDREN_PRICE +
+      residents * RESIDENTS_PRICE
+    }$`,
+  };
+};
 
 export {
   reservationsConfirmationInputs,

@@ -41,6 +41,9 @@ export function ReservationsPickerDatePicker({
   const [minimumDate, setMinimumDate] = useState<Date | null>(null);
   const [minimumHour, setMinimumHour] = useState<Date>(new Date());
   const isButtonDisabled = !(selectedDate && selectedDate.getHours());
+  const timeLisDatePickerHours = document.querySelector(
+    ".react-datepicker__time-list"
+  );
 
   useEffect(() => {
     if (blockedDaysHours.length) {
@@ -62,6 +65,7 @@ export function ReservationsPickerDatePicker({
           : new Date(date.setHours(0, 0, 0)),
       service: "",
     }));
+    timeLisDatePickerHours?.scrollIntoView({ behavior: "smooth" });
     setMinimumHour(getMinimumHour(date));
     setExcludedHours(getExcludedHours(blockedDaysHours, date));
   };

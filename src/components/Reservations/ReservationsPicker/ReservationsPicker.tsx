@@ -71,12 +71,6 @@ export function ReservationsPicker({
   );
 
   useEffect(() => {
-    if (reservationsPickerSubmited.guests && accordionExpanded === "guests") {
-      setAccordionExpanded("");
-    }
-  }, [accordionExpanded, reservationsPickerSubmited.guests]);
-
-  useEffect(() => {
     getBlockedDaysMonthly();
   }, [getBlockedDaysMonthly]);
 
@@ -156,7 +150,10 @@ export function ReservationsPicker({
       ({ id }) => id === accordionExpanded
     );
 
-    return indexAccordionExpanded > indexNumber && id !== accordionExpanded;
+    return (
+      (indexAccordionExpanded > indexNumber && id !== accordionExpanded) ||
+      !accordionExpanded.length
+    );
   };
 
   return (

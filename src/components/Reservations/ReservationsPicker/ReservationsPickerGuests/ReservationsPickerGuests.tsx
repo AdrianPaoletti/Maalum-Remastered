@@ -36,11 +36,6 @@ export function ReservationsPickerGuests({
     const totalGuests = Object.values(reservationsPickerInformation)
       .splice(0, 3)
       .reduce((accumulator, currentValue) => accumulator + currentValue);
-    setReservationsPickerInformation((prevReservationsPickerInformation) =>
-      !totalGuests
-        ? initialReservationsPickerInformation
-        : prevReservationsPickerInformation
-    );
     setIsButtonPlusDisabled(totalGuests === 10 ? true : false);
     setReservationsTotalGuestsCounter(totalGuests);
   }, [reservationsPickerInformation, setReservationsPickerInformation]);
@@ -95,6 +90,8 @@ export function ReservationsPickerGuests({
                       (prevReservationsPickerInformation) => ({
                         ...prevReservationsPickerInformation,
                         [id]: prevReservationsPickerInformation[id] - 1,
+                        service: "",
+                        date: null,
                       })
                     );
                 }}
@@ -119,6 +116,8 @@ export function ReservationsPickerGuests({
                     (prevReservationsPickerInformation) => ({
                       ...prevReservationsPickerInformation,
                       [id]: prevReservationsPickerInformation[id] + 1,
+                      service: "",
+                      date: null,
                     })
                   );
                 }}

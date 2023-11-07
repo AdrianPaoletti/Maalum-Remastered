@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -49,7 +49,6 @@ export function Reservations() {
     useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
   const [accordionExpanded, setAccordionExpanded] = useState<string>("guests");
   const [isError, setIsError] = useState<boolean>(false);
-
   const [
     reservationsConfirmationInformation,
     setReservationsConfirmationInformation,
@@ -118,6 +117,7 @@ export function Reservations() {
           ),
           onClick: () => {
             setReservationStepper("reservationsConfirmation");
+            setAccordionExpanded("");
             setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
               ...prevReservationsPickerSubmited,
               services: true,
@@ -128,7 +128,6 @@ export function Reservations() {
         return {
           component: (
             <ReservationConfirmation
-              isPhoneViewport={isPhoneViewport}
               isError={isError}
               reservationsPickerInformation={reservationsPickerInformation}
               reservationsConfirmationInformation={
