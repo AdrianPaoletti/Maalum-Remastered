@@ -16,6 +16,7 @@ const initialReservationsPickerInformation: ReservationsPickerInformation = {
   adults: 0,
   children: 0,
   residents: 0,
+  totalGuests: 0,
   date: null,
   service: "",
 };
@@ -23,7 +24,7 @@ const initialReservationsPickerInformation: ReservationsPickerInformation = {
 const initialReservationsConfirmationInformation: ReservationsConfirmationInformation =
   {
     firstName: "",
-    secondName: "",
+    lastName: "",
     phone: null,
     email: "",
   };

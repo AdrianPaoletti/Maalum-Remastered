@@ -27,18 +27,28 @@ export interface BlockedDaysHours {
   id: string;
 }
 
+export type GetReservationsMonthlyRequestBody =
+  GetBlockedDaysMonthlyRequestBody;
+
+export interface Reservation {
+  date: Date;
+  totalGuests: number;
+  service: string;
+}
+
 export interface ReservationsPickerInformation {
   adults: number;
   children: number;
   residents: number;
+  totalGuests: number;
   date: Date | null;
   service: string;
 }
 
 export interface ReservationsConfirmationInformation {
   firstName: string;
-  secondName: string;
-  phone: number | null;
+  lastName: string;
+  phone: string | null;
   email: string;
 }
 
@@ -54,3 +64,6 @@ export interface ReservationsPickerSubmited {
   dates: boolean;
   services: boolean;
 }
+
+export type PostReservationRequestBody = ReservationsPickerInformation &
+  ReservationsConfirmationInformation;

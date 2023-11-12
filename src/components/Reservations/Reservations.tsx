@@ -10,13 +10,16 @@ import {
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
 } from "maalum/core/models/reservations.model";
+import { postReservation } from "maalum/core/services/reservations/reservations.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
+import { dateToUTC } from "maalum/utils/formatters/formatters";
 import {
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
   initialReservationsPickerSubmited,
 } from "maalum/utils/reservations/reservations.utils";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
+import ReservationsPayment from "./ReservationsPayment/ReservationsPayment";
 import { ReservationsPicker } from "./ReservationsPicker/ReservationsPicker";
 
 import styles from "./Reservations.module.scss";
@@ -55,19 +58,20 @@ export function Reservations() {
   ] = useState<ReservationsConfirmationInformation>(
     initialReservationsConfirmationInformation
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const isReservationsPickerButtonDisabled = (
     reservationsPickerInformation: ReservationsPickerInformation
   ): boolean => {
-    const totalGuests = Object.values(reservationsPickerInformation)
-      .slice(0, 3)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     const dateServiceValue = Object.values(reservationsPickerInformation).slice(
-      3,
-      5
+      4,
+      6
     );
 
-    return !totalGuests || dateServiceValue.some((value) => !value);
+    return (
+      !reservationsPickerInformation.totalGuests ||
+      dateServiceValue.some((value) => !value)
+    );
   };
 
   const isReservationsConfirmationButtonDisabled = Object.values(
@@ -86,6 +90,39 @@ export function Reservations() {
     document.body.className = `${document.body.classList[0]}`;
   };
 
+  const handleReservationsPickerSubmit = () => {
+    setReservationStepper("reservationsConfirmation");
+    setAccordionExpanded("");
+    setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
+      ...prevReservationsPickerSubmited,
+      services: true,
+    }));
+  };
+
+  const handleReservationConfirmationSubmit = async () => {
+    const isError = !new RegExp(EMAIL_REGEX, "gm").test(
+      reservationsConfirmationInformation.email
+    );
+    setReservationStepper("reservationsPayment");
+
+    if (!isError) {
+      setIsLoading(true);
+
+      try {
+        const response = await postReservation({
+          ...reservationsPickerInformation,
+          ...reservationsConfirmationInformation,
+          date: dateToUTC(reservationsPickerInformation.date as Date),
+        });
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
+    }
+
+    setIsError(isError);
+  };
+
   const renderReservationComponent = (): {
     component: React.ReactNode;
     title: string;
@@ -100,6 +137,9 @@ export function Reservations() {
           component: (
             <ReservationsPicker
               isPhoneViewport={isPhoneViewport}
+              isReservationsPickerButtonDisabled={isReservationsPickerButtonDisabled(
+                reservationsPickerInformation
+              )}
               reservationsPickerInformation={reservationsPickerInformation}
               setReservationsPickerInformation={
                 setReservationsPickerInformation
@@ -115,14 +155,7 @@ export function Reservations() {
           isButtonDisabled: isReservationsPickerButtonDisabled(
             reservationsPickerInformation
           ),
-          onClick: () => {
-            setReservationStepper("reservationsConfirmation");
-            setAccordionExpanded("");
-            setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
-              ...prevReservationsPickerSubmited,
-              services: true,
-            }));
-          },
+          onClick: () => handleReservationsPickerSubmit(),
         };
       case "reservationsConfirmation":
         return {
@@ -141,14 +174,17 @@ export function Reservations() {
           title: "BOOKING CONFIRMATION",
           buttonText: "PROCEED TO BOOK",
           isButtonDisabled: isReservationsConfirmationButtonDisabled,
-          onClick: () => {
-            setIsError(
-              !new RegExp(EMAIL_REGEX, "gm").test(
-                reservationsConfirmationInformation.email
-              )
-            );
-          },
+          onClick: () => handleReservationConfirmationSubmit(),
           hasGoBackIcon: true,
+        };
+      case "reservationsPayment":
+        return {
+          component: <ReservationsPayment isLoading={isLoading} />,
+          title: "PAYMENT CONFIRMATION",
+          buttonText: "CLOSE",
+          isButtonDisabled: isLoading,
+          onClick: () => handleOnClose(),
+          hasGoBackIcon: false,
         };
       default:
         return {

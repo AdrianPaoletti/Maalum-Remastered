@@ -19,8 +19,8 @@ const reservationsConfirmationInputs: {
     label: "FIRST NAME",
   },
   {
-    id: "secondName",
-    label: "SECOND NAME",
+    id: "lastName",
+    label: "LAST NAME",
   },
   {
     id: "email",

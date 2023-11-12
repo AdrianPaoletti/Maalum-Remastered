@@ -22,6 +22,7 @@
 
     &:hover {
       background-color: $color-beige-light;
+      color: $color-white;
     }
 
     &--disabled {
@@ -30,6 +31,7 @@
 
       &:hover {
         background-color: $color-gray-disabled;
+        color: lighten($color-gray, 40%);
       }
     }
 
@@ -167,10 +169,12 @@
 
   & li.react-datepicker__time-list-item--disabled:hover {
     background-color: $color-gray-disabled !important;
+    color: lighten($color-gray, 40%) !important;
   }
 
   & li.react-datepicker__time-list-item:hover {
     background-color: $color-beige-light;
+    color: $color-white;
   }
 }
 

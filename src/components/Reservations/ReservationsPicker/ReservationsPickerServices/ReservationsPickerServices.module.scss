@@ -10,6 +10,10 @@
     min-height: 7.1rem;
     margin-bottom: 1rem;
 
+    &--disabled {
+      background-color: $color-gray-disabled;
+    }
+
     &:nth-child(2) {
       margin-bottom: 1.5rem;
     }

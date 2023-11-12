@@ -31,11 +31,19 @@ button {
   font-size: $font-size-14;
   color: $color-gray;
   line-height: 2.25rem;
+
+  &--disabled {
+    color: lighten($color-gray, 40%);
+  }
 }
 
 .text-secondary {
   font-size: $font-size-15;
   color: $color-gray;
+
+  &--disabled {
+    color: lighten($color-gray, 40%);
+  }
 }
 
 .text-terciary {

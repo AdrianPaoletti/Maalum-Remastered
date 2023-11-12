@@ -35,6 +35,7 @@ export function ReservationConfirmation({
   const formattedReservationsPickerData = formatReservationsPickerData(
     reservationsPickerInformation
   );
+  const { service } = reservationsPickerInformation;
 
   const handleChange = (
     { target: { value } }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -58,7 +59,11 @@ export function ReservationConfirmation({
         <div className={`${styles["your-booking__booking-information"]}`}>
           <div className={`${styles["your-booking__image-container"]}`}>
             <Image
-              src={"/images/instagram-1.jpg"}
+              src={
+                service === "cave"
+                  ? "/images/instagram-1.jpg"
+                  : "/images/instagram-2.jpg"
+              }
               alt="booking-swimming-cave"
               width={isSmallPhoneViewport ? 180 / 1.35 : 180}
               height={isSmallPhoneViewport ? 120 / 1.35 : 120}
@@ -70,7 +75,7 @@ export function ReservationConfirmation({
               className={`${styles["your-booking__booking-data-title"]} heading-cuaternary`}
               style={{ fontWeight: 600 }}
             >
-              Maalum Cave
+              {`Maalum ${service === "cave" ? "Cave" : "Cave and Spa"}`}
             </h5>
             <div
               className={`${styles["your-booking__booking-data-block-container"]}`}

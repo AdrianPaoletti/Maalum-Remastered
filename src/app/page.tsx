@@ -66,7 +66,7 @@ export default function Home() {
             key={id}
             className={`${styles["images__container"]} ${styles["images__container--description"]}`}
           >
-            <Image src={url} alt="swimming cave zanzibar" fill sizes="100vw" />
+            <Image src={url} alt="swimming cave zanzibar" fill sizes="50vw" />
           </div>
         ))}
       </article>

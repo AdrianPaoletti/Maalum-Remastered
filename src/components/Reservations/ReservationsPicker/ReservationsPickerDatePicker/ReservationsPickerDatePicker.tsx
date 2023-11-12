@@ -1,44 +1,53 @@
 import { useEffect, useState } from "react";
 import DatePickerReact from "react-datepicker";
 
+import Loading from "maalum/components/ui/Loading/Loading";
 import { MIN_DAY_HOUR } from "maalum/core/constants/constants";
 import {
   BlockedDaysHours,
+  Reservation,
   ReservationsPickerInformation,
 } from "maalum/core/models/reservations.model";
 import {
   addDaysToDate,
-  getExcludedHours,
+  getBlockedDaysExcludedHours,
   getMinimumHour,
+  getReservationsExcludedHours,
 } from "maalum/utils/reservations/reservationsPicker.utils";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ReservationsPickerDatePicker.module.scss";
 
 interface ReservationsPickerDatePickerProps {
-  getBlockedDaysMonthly: (date?: Date | null) => void;
+  getBlockedDaysReservationsMonthly: (date?: Date | null) => Promise<void>;
   excludedDays: Date[];
   excludedHours: Date[];
   selectedDate: Date | null;
+  reservationsPickerInformation: ReservationsPickerInformation;
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
   setExcludedHours: React.Dispatch<React.SetStateAction<Date[]>>;
   blockedDaysHours: BlockedDaysHours[];
+  reservations: Reservation[];
+  isLoading: boolean;
   handleSubmit: () => void;
 }
 
 export function ReservationsPickerDatePicker({
-  getBlockedDaysMonthly,
+  getBlockedDaysReservationsMonthly,
   excludedDays,
   excludedHours,
   selectedDate,
+  reservationsPickerInformation,
   setReservationsPickerInformation,
   setExcludedHours,
   blockedDaysHours,
+  reservations,
+  isLoading,
   handleSubmit,
 }: ReservationsPickerDatePickerProps) {
-  const [minimumDate, setMinimumDate] = useState<Date | null>(null);
+  const [minimumDate, setMinimumDate] = useState<Date | null>(new Date());
   const [minimumHour, setMinimumHour] = useState<Date>(new Date());
   const [timeLisDatePickerHours, setTimeLisDatePickerHours] =
     useState<Element | null>(null);
@@ -49,14 +58,15 @@ export function ReservationsPickerDatePicker({
       const minimumDate =
         new Date().getHours() > MIN_DAY_HOUR
           ? addDaysToDate(new Date(), 1)
-          : selectedDate;
+          : new Date();
 
       setMinimumDate(minimumDate);
-      setTimeLisDatePickerHours(
-        document.querySelector(".react-datepicker__time-list")
-      );
     }
-  }, [blockedDaysHours, selectedDate]);
+
+    setTimeLisDatePickerHours(
+      document.querySelector(".react-datepicker__time-list")
+    );
+  }, [blockedDaysHours]);
 
   const handleChange = (date: Date): void => {
     setReservationsPickerInformation((prevReservationsPickerInformation) => ({
@@ -67,9 +77,23 @@ export function ReservationsPickerDatePicker({
           : new Date(date.setHours(0, 0, 0)),
       service: "",
     }));
-    timeLisDatePickerHours?.scrollIntoView({ behavior: "smooth" });
     setMinimumHour(getMinimumHour(date));
-    setExcludedHours(getExcludedHours(blockedDaysHours, date));
+    console.log(
+      getReservationsExcludedHours(
+        reservations,
+        reservationsPickerInformation.totalGuests,
+        date
+      )
+    );
+    setExcludedHours([
+      ...getBlockedDaysExcludedHours(blockedDaysHours, date),
+      ...getReservationsExcludedHours(
+        reservations,
+        reservationsPickerInformation.totalGuests,
+        date
+      ),
+    ]);
+    timeLisDatePickerHours?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -78,6 +102,7 @@ export function ReservationsPickerDatePicker({
         event.preventDefault();
         handleSubmit();
       }}
+      className={`${styles["date-picker"]}`}
     >
       <DatePickerReact
         showTimeSelect
@@ -89,7 +114,7 @@ export function ReservationsPickerDatePicker({
         excludeTimes={excludedHours}
         excludeDates={excludedDays}
         onChange={handleChange}
-        onMonthChange={getBlockedDaysMonthly}
+        onMonthChange={getBlockedDaysReservationsMonthly}
       />
       <div className={`${styles["date-picker__button-submit-container"]}`}>
         <button
@@ -102,6 +127,7 @@ export function ReservationsPickerDatePicker({
           CONTINUE
         </button>
       </div>
+      {isLoading && <Loading isLoading={isLoading} opacity={0.6} />}
     </form>
   );
 }

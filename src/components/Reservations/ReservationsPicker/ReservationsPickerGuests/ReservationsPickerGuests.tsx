@@ -6,15 +6,12 @@ import { IconButton, useMediaQuery } from "@mui/material";
 
 import { ReservationsPickerInformation } from "maalum/core/models/reservations.model";
 import { defaultTheme } from "maalum/styles/themes";
-import {
-  initialReservationsPickerInformation,
-  reservationsGuestsInformation,
-} from "maalum/utils/reservations/reservations.utils";
+import { reservationsGuestsInformation } from "maalum/utils/reservations/reservations.utils";
 
 import styles from "./ReservationsPickerGuests.module.scss";
 
 interface ReservationsPickerGuestsProps {
-  handleSubmit: () => void;
+  handleSubmit: (totalGuests: number) => void;
   reservationsPickerInformation: ReservationsPickerInformation;
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
@@ -27,8 +24,7 @@ export function ReservationsPickerGuests({
   setReservationsPickerInformation,
 }: ReservationsPickerGuestsProps) {
   const isSmallPhoneViewPort = useMediaQuery("(max-width:27.2em)");
-  const [reservationsTotalGuestsCounter, setReservationsTotalGuestsCounter] =
-    useState<number>(0);
+  const [totalGuests, setTotalGuests] = useState<number>(0);
   const [isButtonPlusDisabled, setIsButtonPlusDisabled] =
     useState<boolean>(false);
 
@@ -37,7 +33,7 @@ export function ReservationsPickerGuests({
       .splice(0, 3)
       .reduce((accumulator, currentValue) => accumulator + currentValue);
     setIsButtonPlusDisabled(totalGuests === 10 ? true : false);
-    setReservationsTotalGuestsCounter(totalGuests);
+    setTotalGuests(totalGuests);
   }, [reservationsPickerInformation, setReservationsPickerInformation]);
 
   return (
@@ -45,7 +41,7 @@ export function ReservationsPickerGuests({
       className={styles.guests}
       onSubmit={(event) => {
         event.preventDefault();
-        handleSubmit();
+        handleSubmit(totalGuests);
       }}
     >
       {reservationsGuestsInformation.map(
@@ -140,10 +136,9 @@ export function ReservationsPickerGuests({
       <div className={`${styles["guests__button-submit-container"]}`}>
         <button
           className={`${styles["guests__button-submit"]} ${
-            !reservationsTotalGuestsCounter &&
-            styles["guests__button-submit--disabled"]
+            !totalGuests && styles["guests__button-submit--disabled"]
           }`}
-          disabled={!reservationsTotalGuestsCounter}
+          disabled={!totalGuests}
           type="submit"
         >
           CONTINUE

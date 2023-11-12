@@ -6,10 +6,15 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import {
   BlockedDaysHours,
   GetBlockedDaysMonthlyRequestBody,
+  GetReservationsMonthlyRequestBody,
+  Reservation,
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
 } from "maalum/core/models/reservations.model";
-import { getBlockedDaysMonthly as getBlockedDaysMonthlyFetch } from "maalum/core/services/reservations/reservations.service";
+import {
+  getBlockedDaysMonthly as getBlockedDaysMonthlyFetch,
+  getReservationsMonthly,
+} from "maalum/core/services/reservations/reservations.service";
 import { initialReservationsPickerInformation } from "maalum/utils/reservations/reservations.utils";
 import { ReservationsPickerDatePicker } from "./ReservationsPickerDatePicker/ReservationsPickerDatePicker";
 import { ReservationsPickerGuests } from "./ReservationsPickerGuests/ReservationsPickerGuests";
@@ -19,6 +24,7 @@ import styles from "./ReservationsPicker.module.scss";
 
 interface ReservationsPickerProps {
   isPhoneViewport: boolean;
+  isReservationsPickerButtonDisabled: boolean;
   reservationsPickerInformation: ReservationsPickerInformation;
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
@@ -33,6 +39,7 @@ interface ReservationsPickerProps {
 
 export function ReservationsPicker({
   isPhoneViewport,
+  isReservationsPickerButtonDisabled,
   reservationsPickerInformation,
   setReservationsPickerInformation,
   reservationsPickerSubmited,
@@ -45,16 +52,25 @@ export function ReservationsPicker({
   const [blockedDaysHours, setBlockedDaysHours] = useState<BlockedDaysHours[]>(
     []
   );
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getBlockedDaysMonthly = useCallback(
+  const getBlockedDaysReservationsMonthly = useCallback(
     async (date: Date | null = null) => {
-      const requestBody: GetBlockedDaysMonthlyRequestBody = {
+      const requestBody:
+        | GetBlockedDaysMonthlyRequestBody
+        | GetReservationsMonthlyRequestBody = {
         month: date?.getMonth(),
         year: date?.getFullYear(),
       };
 
       try {
-        const blockedDaysHours = await getBlockedDaysMonthlyFetch(requestBody);
+        const [blockedDaysHours, reservations] = await Promise.all([
+          getBlockedDaysMonthlyFetch(requestBody),
+          getReservationsMonthly(requestBody),
+        ]);
+        setIsLoading(false);
+        setReservations(reservations);
         setBlockedDaysHours(blockedDaysHours);
         blockedDaysHours.forEach(
           ({ dates, hours }) =>
@@ -64,27 +80,31 @@ export function ReservationsPicker({
             )
         );
       } catch (error) {
-        console.log("An error had occurred");
+        console.log("An error had occurred", error);
+        setIsLoading(false);
       }
     },
     []
   );
 
   useEffect(() => {
-    getBlockedDaysMonthly();
-  }, [getBlockedDaysMonthly]);
+    setIsLoading(true);
+    getBlockedDaysReservationsMonthly();
+  }, [getBlockedDaysReservationsMonthly]);
 
-  const handleSubmitPickerGuests = () => {
+  const handleSubmitPickerGuests = (totalGuests: number) => {
     const { adults, children, residents } = reservationsPickerInformation;
     setReservationsPickerInformation({
       ...initialReservationsPickerInformation,
       ...{ adults, children, residents },
+      totalGuests,
     });
     setAccordionExpanded("dates");
     setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
       ...prevReservationsPickerSubmited,
       guests: true,
     }));
+    setExcludedHours([]);
   };
 
   const handleSubmitDatePicker = () => {
@@ -97,6 +117,21 @@ export function ReservationsPicker({
       ...prevReservationsPickerSubmited,
       dates: true,
     }));
+  };
+
+  const canExpandAccordion = (id: string, indexNumber: number): boolean => {
+    const indexAccordionExpanded = accordionElements.findIndex(
+      ({ id }) => id === accordionExpanded
+    );
+
+    return (
+      (indexAccordionExpanded > indexNumber && id !== accordionExpanded) ||
+      (!Object.values(reservationsPickerSubmited).some(
+        (value) => value === false
+      ) &&
+        !isReservationsPickerButtonDisabled) ||
+      !accordionExpanded.length
+    );
   };
 
   const accordionElements: {
@@ -121,14 +156,17 @@ export function ReservationsPicker({
       title: "DATES AND TIMES",
       component: (
         <ReservationsPickerDatePicker
-          getBlockedDaysMonthly={getBlockedDaysMonthly}
+          getBlockedDaysReservationsMonthly={getBlockedDaysReservationsMonthly}
           excludedDays={excludedDays}
           excludedHours={excludedHours}
           setExcludedHours={setExcludedHours}
           selectedDate={reservationsPickerInformation.date}
+          reservationsPickerInformation={reservationsPickerInformation}
           setReservationsPickerInformation={setReservationsPickerInformation}
           blockedDaysHours={blockedDaysHours}
+          reservations={reservations}
           handleSubmit={handleSubmitDatePicker}
+          isLoading={isLoading}
         />
       ),
       paddingBottom: "2rem",
@@ -138,23 +176,14 @@ export function ReservationsPicker({
       title: "SERVICES",
       component: (
         <ReservationsPickerServices
+          reservations={reservations}
           selectedService={reservationsPickerInformation.service}
+          reservationsPickerInformation={reservationsPickerInformation}
           setReservationsPickerInformation={setReservationsPickerInformation}
         />
       ),
     },
   ];
-
-  const canExpandAccordion = (id: string, indexNumber: number): boolean => {
-    const indexAccordionExpanded = accordionElements.findIndex(
-      ({ id }) => id === accordionExpanded
-    );
-
-    return (
-      (indexAccordionExpanded > indexNumber && id !== accordionExpanded) ||
-      !accordionExpanded.length
-    );
-  };
 
   return (
     <>

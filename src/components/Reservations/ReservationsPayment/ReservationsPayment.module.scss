@@ -1,0 +1,9 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.reservations-payment {
+  @include display-flex(center, center, column, nowrap);
+  height: 100%;
+  gap: 3rem;
+  font-size: 4.5rem;
+}
