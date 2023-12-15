@@ -48,21 +48,20 @@ export function ReservationsPickerDatePicker({
   handleSubmit,
 }: ReservationsPickerDatePickerProps) {
   const [minimumDate, setMinimumDate] = useState<Date | null>(new Date());
-  const [minimumHour, setMinimumHour] = useState<Date>(new Date());
+  const [minimumHour, setMinimumHour] = useState<Date>(
+    new Date(new Date().setHours(17))
+  );
   const [timeLisDatePickerHours, setTimeLisDatePickerHours] =
     useState<Element | null>(null);
   const isButtonDisabled = !(selectedDate && selectedDate.getHours());
 
   useEffect(() => {
-    if (blockedDaysHours.length) {
-      const minimumDate =
-        new Date().getHours() > MIN_DAY_HOUR
-          ? addDaysToDate(new Date(), 1)
-          : new Date();
+    const minimumDate =
+      new Date().getHours() >= MIN_DAY_HOUR
+        ? addDaysToDate(new Date(), 1)
+        : new Date();
 
-      setMinimumDate(minimumDate);
-    }
-
+    setMinimumDate(minimumDate);
     setTimeLisDatePickerHours(
       document.querySelector(".react-datepicker__time-list")
     );
@@ -74,17 +73,10 @@ export function ReservationsPickerDatePicker({
       date:
         prevReservationsPickerInformation.date?.getDate() === date.getDate()
           ? date
-          : new Date(date.setHours(0, 0, 0)),
+          : new Date(date.setHours(0)),
       service: "",
     }));
     setMinimumHour(getMinimumHour(date));
-    console.log(
-      getReservationsExcludedHours(
-        reservations,
-        reservationsPickerInformation.totalGuests,
-        date
-      )
-    );
     setExcludedHours([
       ...getBlockedDaysExcludedHours(blockedDaysHours, date),
       ...getReservationsExcludedHours(
@@ -93,6 +85,7 @@ export function ReservationsPickerDatePicker({
         date
       ),
     ]);
+
     timeLisDatePickerHours?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -109,7 +102,7 @@ export function ReservationsPickerDatePicker({
         inline
         minDate={minimumDate}
         minTime={minimumHour}
-        maxTime={new Date(new Date().setHours(17, 0, 0))}
+        maxTime={new Date(new Date().setHours(18))}
         selected={selectedDate}
         excludeTimes={excludedHours}
         excludeDates={excludedDays}

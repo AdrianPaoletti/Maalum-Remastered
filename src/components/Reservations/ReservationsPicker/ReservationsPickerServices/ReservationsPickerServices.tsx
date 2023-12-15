@@ -8,7 +8,7 @@ import {
   ReservationsPickerInformation,
 } from "maalum/core/models/reservations.model";
 import { defaultTheme } from "maalum/styles/themes";
-import { dateToUTC } from "maalum/utils/formatters/formatters";
+import { dateToUTC } from "maalum/utils/formatters/formatters.utils";
 import { servicesInformation } from "maalum/utils/reservations/reservations.utils";
 
 import styles from "./ReservationsPickerServices.module.scss";

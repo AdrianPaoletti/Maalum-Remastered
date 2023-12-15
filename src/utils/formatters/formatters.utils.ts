@@ -1,4 +1,4 @@
-const dateToUTC = (date: Date) =>
+const dateToUTC = (date: Date): Date =>
   new Date(
     Date.UTC(
       date.getFullYear(),

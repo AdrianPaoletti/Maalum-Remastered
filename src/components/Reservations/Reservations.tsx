@@ -12,7 +12,7 @@ import {
 } from "maalum/core/models/reservations.model";
 import { postReservation } from "maalum/core/services/reservations/reservations.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
-import { dateToUTC } from "maalum/utils/formatters/formatters";
+import { dateToUTC } from "maalum/utils/formatters/formatters.utils";
 import {
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
@@ -97,13 +97,13 @@ export function Reservations() {
       ...prevReservationsPickerSubmited,
       services: true,
     }));
+    setIsError(false);
   };
 
   const handleReservationConfirmationSubmit = async () => {
     const isError = !new RegExp(EMAIL_REGEX, "gm").test(
       reservationsConfirmationInformation.email
     );
-    setReservationStepper("reservationsPayment");
 
     if (!isError) {
       setIsLoading(true);
@@ -114,6 +114,7 @@ export function Reservations() {
           ...reservationsConfirmationInformation,
           date: dateToUTC(reservationsPickerInformation.date as Date),
         });
+        setReservationStepper("reservationsPayment");
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
