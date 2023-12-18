@@ -107,14 +107,13 @@ export function Reservations() {
 
     if (!isError) {
       setIsLoading(true);
-
+      setReservationStepper("reservationsPayment");
       try {
         const response = await postReservation({
           ...reservationsPickerInformation,
           ...reservationsConfirmationInformation,
           date: dateToUTC(reservationsPickerInformation.date as Date),
         });
-        setReservationStepper("reservationsPayment");
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
