@@ -112,6 +112,7 @@ export function Reservations() {
         const response = await postReservation({
           ...reservationsPickerInformation,
           ...reservationsConfirmationInformation,
+          client: true,
           date: dateToUTC(reservationsPickerInformation.date as Date),
         });
         setIsLoading(false);

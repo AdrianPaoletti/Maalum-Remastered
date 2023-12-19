@@ -66,4 +66,4 @@ export interface ReservationsPickerSubmited {
 }
 
 export type PostReservationRequestBody = ReservationsPickerInformation &
-  ReservationsConfirmationInformation;
+  ReservationsConfirmationInformation & { client: boolean };
