@@ -85,9 +85,12 @@ export function Reservations() {
       initialReservationsConfirmationInformation
     );
     setReservationsPickerSubmited(initialReservationsPickerSubmited);
-    setReservationStepper("reservationsPicker");
     setAccordionExpanded("guests");
     document.body.className = `${document.body.classList[0]}`;
+    const timer = setTimeout(() => {
+      setReservationStepper("reservationsPicker");
+      clearTimeout(timer);
+    }, 2000);
   };
 
   const handleReservationsPickerSubmit = () => {
