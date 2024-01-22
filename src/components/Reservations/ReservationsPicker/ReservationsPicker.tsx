@@ -18,12 +18,11 @@ import {
 import { initialReservationsPickerInformation } from "maalum/utils/reservations/reservations.utils";
 import { ReservationsPickerDatePicker } from "./ReservationsPickerDatePicker/ReservationsPickerDatePicker";
 import { ReservationsPickerGuests } from "./ReservationsPickerGuests/ReservationsPickerGuests";
-import { ReservationsPickerServices } from "./ReservationsPickerServices/ReservationsPickerServices";
+import { ReservationsPickerServicesGuests } from "./ReservationsPickerServicesGuests/ReservationsPickerServicesGuests";
 
 import styles from "./ReservationsPicker.module.scss";
 
 interface ReservationsPickerProps {
-  isPhoneViewport: boolean;
   isReservationsPickerButtonDisabled: boolean;
   reservationsPickerInformation: ReservationsPickerInformation;
   setReservationsPickerInformation: React.Dispatch<
@@ -38,7 +37,6 @@ interface ReservationsPickerProps {
 }
 
 export function ReservationsPicker({
-  isPhoneViewport,
   isReservationsPickerButtonDisabled,
   reservationsPickerInformation,
   setReservationsPickerInformation,
@@ -92,26 +90,26 @@ export function ReservationsPicker({
     getBlockedDaysReservationsMonthly();
   }, [getBlockedDaysReservationsMonthly]);
 
-  const handleSubmitPickerGuests = (totalGuests: number) => {
-    const { adults, children, residents } = reservationsPickerInformation;
-    setReservationsPickerInformation({
-      ...initialReservationsPickerInformation,
-      ...{ adults, children, residents },
-      totalGuests,
-    });
-    setAccordionExpanded("dates");
-    setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
-      ...prevReservationsPickerSubmited,
-      guests: true,
-    }));
-    setExcludedHours([]);
-  };
+  // const handleSubmitPickerGuests = (totalGuests: number) => {
+  //   const { adults, children, residents } = reservationsPickerInformation;
+  //   setReservationsPickerInformation({
+  //     ...initialReservationsPickerInformation,
+  //     ...{ adults, children, residents },
+  //     totalGuests,
+  //   });
+  //   setAccordionExpanded("dates");
+  //   setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
+  //     ...prevReservationsPickerSubmited,
+  //     guests: true,
+  //   }));
+  //   setExcludedHours([]);
+  // };
 
   const handleSubmitDatePicker = () => {
     setAccordionExpanded("services");
     setReservationsPickerInformation((prevReservationsPickerInformation) => ({
       ...prevReservationsPickerInformation,
-      service: "",
+      service: [],
     }));
     setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
       ...prevReservationsPickerSubmited,
@@ -140,17 +138,17 @@ export function ReservationsPicker({
     component: JSX.Element;
     paddingBottom?: string;
   }[] = [
-    {
-      id: "guests",
-      title: "GUESTS",
-      component: (
-        <ReservationsPickerGuests
-          handleSubmit={handleSubmitPickerGuests}
-          reservationsPickerInformation={reservationsPickerInformation}
-          setReservationsPickerInformation={setReservationsPickerInformation}
-        />
-      ),
-    },
+    // {
+    //   id: "guests",
+    //   title: "GUESTS",
+    //   component: (
+    //     <ReservationsPickerGuests
+    //       handleSubmit={handleSubmitPickerGuests}
+    //       reservationsPickerInformation={reservationsPickerInformation}
+    //       setReservationsPickerInformation={setReservationsPickerInformation}
+    //     />
+    //   ),
+    // },
     {
       id: "dates",
       title: "DATES AND TIMES",
@@ -175,9 +173,8 @@ export function ReservationsPicker({
       id: "services",
       title: "SERVICES",
       component: (
-        <ReservationsPickerServices
+        <ReservationsPickerServicesGuests
           reservations={reservations}
-          selectedService={reservationsPickerInformation.service}
           reservationsPickerInformation={reservationsPickerInformation}
           setReservationsPickerInformation={setReservationsPickerInformation}
         />

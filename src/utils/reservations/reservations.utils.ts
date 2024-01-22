@@ -75,8 +75,20 @@ const servicesInformation: {
     disclaimer: "",
   },
   {
-    id: "caveAndSpa",
-    title: "Maalum Cave + Spa",
+    id: "caveAndSpaHead",
+    title: "Maalum Cave + Spa Head",
+    text: "Lorem ipsum ergo ipsum",
+    disclaimer: "Maximum 4 persons per day",
+  },
+  {
+    id: "caveAndSpaShoulders",
+    title: "Maalum Cave + Spa Shoulders",
+    text: "Lorem ipsum ergo ipsum",
+    disclaimer: "Maximum 4 persons per day",
+  },
+  {
+    id: "caveAndSpaKnees",
+    title: "Maalum Cave + Spa Knees",
     text: "Lorem ipsum ergo ipsum",
     disclaimer: "Maximum 4 persons per day",
   },

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -6,13 +6,13 @@ import { Backdrop, IconButton, Slide, useMediaQuery } from "@mui/material";
 
 import { EMAIL_REGEX } from "maalum/core/constants/constants";
 import {
+  ConfirmationState,
   ReservationsConfirmationInformation,
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
 } from "maalum/core/models/reservations.model";
-import { postReservation } from "maalum/core/services/reservations/reservations.service";
+import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
-import { dateToUTC } from "maalum/utils/formatters/formatters.utils";
 import {
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
@@ -50,7 +50,7 @@ export function Reservations() {
     );
   const [reservationsPickerSubmited, setReservationsPickerSubmited] =
     useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
-  const [accordionExpanded, setAccordionExpanded] = useState<string>("guests");
+  const [accordionExpanded, setAccordionExpanded] = useState<string>("dates");
   const [isError, setIsError] = useState<boolean>(false);
   const [
     reservationsConfirmationInformation,
@@ -58,7 +58,10 @@ export function Reservations() {
   ] = useState<ReservationsConfirmationInformation>(
     initialReservationsConfirmationInformation
   );
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [confirmationState, setConfirmationState] =
+    useState<ConfirmationState>("loading");
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
+  const [URLPayment, setURLPayment] = useState<string>("");
 
   const isReservationsPickerButtonDisabled = (
     reservationsPickerInformation: ReservationsPickerInformation
@@ -90,7 +93,7 @@ export function Reservations() {
     const timer = setTimeout(() => {
       setReservationStepper("reservationsPicker");
       clearTimeout(timer);
-    }, 2000);
+    }, 1000);
   };
 
   const handleReservationsPickerSubmit = () => {
@@ -109,18 +112,21 @@ export function Reservations() {
     );
 
     if (!isError) {
-      setIsLoading(true);
+      setConfirmationState("loading");
       setReservationStepper("reservationsPayment");
       try {
-        const response = await postReservation({
-          ...reservationsPickerInformation,
-          ...reservationsConfirmationInformation,
-          client: true,
-          date: dateToUTC(reservationsPickerInformation.date as Date),
-        });
-        setIsLoading(false);
+        // await postReservation({
+        //   ...reservationsPickerInformation,
+        //   ...reservationsConfirmationInformation,
+        //   client: true,
+        //   date: dateToUTC(reservationsPickerInformation.date as Date),
+        // });
+        const URLPesapalPayment = await getURLPesapalPayment();
+        setURLPayment(URLPesapalPayment);
+        setIsPaymentModalOpen(true);
+        // setConfirmationState("resolved");
       } catch (error) {
-        setIsLoading(false);
+        setConfirmationState("rejected");
       }
     }
 
@@ -140,7 +146,6 @@ export function Reservations() {
         return {
           component: (
             <ReservationsPicker
-              isPhoneViewport={isPhoneViewport}
               isReservationsPickerButtonDisabled={isReservationsPickerButtonDisabled(
                 reservationsPickerInformation
               )}
@@ -156,9 +161,7 @@ export function Reservations() {
           ),
           title: "SELECT DATE AND TIME",
           buttonText: "NEXT",
-          isButtonDisabled: isReservationsPickerButtonDisabled(
-            reservationsPickerInformation
-          ),
+          isButtonDisabled: false,
           onClick: () => handleReservationsPickerSubmit(),
         };
       case "reservationsConfirmation":
@@ -183,10 +186,17 @@ export function Reservations() {
         };
       case "reservationsPayment":
         return {
-          component: <ReservationsPayment isLoading={isLoading} />,
+          component: (
+            <ReservationsPayment
+              confirmationState={confirmationState}
+              isPaymentModalOpen={isPaymentModalOpen}
+              setIsPaymentModalOpen={setIsPaymentModalOpen}
+              URLPayment={URLPayment}
+            />
+          ),
           title: "PAYMENT CONFIRMATION",
           buttonText: "CLOSE",
-          isButtonDisabled: isLoading,
+          isButtonDisabled: confirmationState === "loading",
           onClick: () => handleOnClose(),
           hasGoBackIcon: false,
         };

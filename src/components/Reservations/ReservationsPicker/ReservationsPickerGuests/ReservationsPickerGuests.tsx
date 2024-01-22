@@ -11,18 +11,20 @@ import { reservationsGuestsInformation } from "maalum/utils/reservations/reserva
 import styles from "./ReservationsPickerGuests.module.scss";
 
 interface ReservationsPickerGuestsProps {
-  handleSubmit: (totalGuests: number) => void;
+  // handleSubmit: (totalGuests: number) => void;
   reservationsPickerInformation: ReservationsPickerInformation;
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
+  // isOpen: boolean;
 }
 
 export function ReservationsPickerGuests({
-  handleSubmit,
+  // handleSubmit,
   reservationsPickerInformation,
   setReservationsPickerInformation,
-}: ReservationsPickerGuestsProps) {
+}: // isOpen,
+ReservationsPickerGuestsProps) {
   const isSmallPhoneViewPort = useMediaQuery("(max-width:27.2em)");
   const [totalGuests, setTotalGuests] = useState<number>(0);
   const [isButtonPlusDisabled, setIsButtonPlusDisabled] =
@@ -38,11 +40,11 @@ export function ReservationsPickerGuests({
 
   return (
     <form
-      className={styles.guests}
-      onSubmit={(event) => {
-        event.preventDefault();
-        handleSubmit(totalGuests);
-      }}
+      className={`${styles.guests}`}
+      // onSubmit={(event) => {
+      //   event.preventDefault();
+      //   handleSubmit(totalGuests);
+      // }}
     >
       {reservationsGuestsInformation.map(
         ({
@@ -53,10 +55,7 @@ export function ReservationsPickerGuests({
           dollarsPrice,
           shillingPrice,
         }) => (
-          <div
-            key={id}
-            className={`${styles.guests__card} u-padding-horizontal-small-medium u-padding-vertical-small-extra`}
-          >
+          <div key={id} className={`${styles.guests__card}`}>
             <div className={`${styles["guests__text-container"]}`}>
               <p className={`${styles["guests__text-title"]} text-secondary`}>
                 {reservationsPickerInformation[id] > 1 ||
@@ -86,7 +85,7 @@ export function ReservationsPickerGuests({
                       (prevReservationsPickerInformation) => ({
                         ...prevReservationsPickerInformation,
                         [id]: prevReservationsPickerInformation[id] - 1,
-                        service: "",
+                        service: [],
                         date: null,
                       })
                     );
@@ -112,7 +111,7 @@ export function ReservationsPickerGuests({
                     (prevReservationsPickerInformation) => ({
                       ...prevReservationsPickerInformation,
                       [id]: prevReservationsPickerInformation[id] + 1,
-                      service: "",
+                      service: [],
                       date: null,
                     })
                   );
@@ -133,17 +132,6 @@ export function ReservationsPickerGuests({
           </div>
         )
       )}
-      <div className={`${styles["guests__button-submit-container"]}`}>
-        <button
-          className={`${styles["guests__button-submit"]} ${
-            !totalGuests && styles["guests__button-submit--disabled"]
-          }`}
-          disabled={!totalGuests}
-          type="submit"
-        >
-          CONTINUE
-        </button>
-      </div>
     </form>
   );
 }

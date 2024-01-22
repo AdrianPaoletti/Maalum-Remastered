@@ -42,7 +42,7 @@ export interface ReservationsPickerInformation {
   residents: number;
   totalGuests: number;
   date: Date | null;
-  service: string;
+  service: string[];
 }
 
 export interface ReservationsConfirmationInformation {
@@ -64,6 +64,8 @@ export interface ReservationsPickerSubmited {
   dates: boolean;
   services: boolean;
 }
+
+export type ConfirmationState = "loading" | "resolved" | "rejected";
 
 export type PostReservationRequestBody = ReservationsPickerInformation &
   ReservationsConfirmationInformation & { client: boolean };
