@@ -37,12 +37,16 @@ export interface Reservation {
 }
 
 export interface ReservationsPickerInformation {
-  adults: number;
-  children: number;
-  residents: number;
   totalGuests: number;
   date: Date | null;
   service: string[];
+}
+
+export interface ReservationsServiceInformation
+  extends ReservationsGuestsCounter {
+  id: string;
+  type: string;
+  totalGuests: number;
 }
 
 export interface ReservationsConfirmationInformation {

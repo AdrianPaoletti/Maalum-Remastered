@@ -4,8 +4,7 @@
 .services {
   &__card {
     width: 100%;
-    border-radius: 0.5rem;
-    background-color: $color-gray-medium-light;
+    // border-radius: 0.5rem;
     margin-bottom: 1rem;
     cursor: pointer;
 
@@ -16,6 +15,8 @@
 
   &__service {
     @include display-flex(space-between);
+    background-color: $color-gray-medium-light;
+    border-radius: 0.5rem;
     min-height: 7.1rem;
   }
 

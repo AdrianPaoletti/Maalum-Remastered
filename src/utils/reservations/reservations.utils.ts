@@ -1,25 +1,31 @@
 import {
-  ADD_HOURS,
   ADULTS_PRICE,
   CHILDREN_PRICE,
   RESIDENTS_PRICE,
 } from "maalum/core/constants/constants";
 import {
-  BlockedDaysHours,
   ReservationsConfirmationInformation,
   ReservationsGuestsInformation,
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
+  ReservationsServiceInformation,
 } from "maalum/core/models/reservations.model";
 
 const initialReservationsPickerInformation: ReservationsPickerInformation = {
-  adults: 0,
-  children: 0,
-  residents: 0,
   totalGuests: 0,
   date: null,
-  service: "",
+  service: [],
 };
+
+const initialReservationsServicePickerInformation: ReservationsServiceInformation =
+  {
+    type: "",
+    id: "",
+    adults: 0,
+    children: 0,
+    residents: 0,
+    totalGuests: 0,
+  };
 
 const initialReservationsConfirmationInformation: ReservationsConfirmationInformation =
   {
@@ -29,11 +35,11 @@ const initialReservationsConfirmationInformation: ReservationsConfirmationInform
     email: "",
   };
 
-const initialReservationsPickerSubmited: ReservationsPickerSubmited = {
-  guests: false,
-  dates: false,
-  services: false,
-};
+// const initialReservationsPickerSubmited: ReservationsPickerSubmited = {
+//   guests: false,
+//   dates: false,
+//   services: false,
+// };
 
 const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
   {
@@ -64,33 +70,38 @@ const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
 
 const servicesInformation: {
   id: string;
+  type: string;
   title: string;
   text: string;
   disclaimer?: string;
 }[] = [
   {
     id: "cave",
+    type: "cave",
     title: "Maalum Cave",
     text: "Lorem ipsum ergo ipsum",
     disclaimer: "",
   },
   {
-    id: "caveAndSpaHead",
-    title: "Maalum Cave + Spa Head",
+    id: "caveAndNaturalEssence",
+    type: "caveAndSpa",
+    title: "Maalum Cave + Natural essence",
     text: "Lorem ipsum ergo ipsum",
-    disclaimer: "Maximum 4 persons per day",
+    disclaimer: "Maximum 2 persons per hour",
   },
   {
-    id: "caveAndSpaShoulders",
-    title: "Maalum Cave + Spa Shoulders",
+    id: "caveAndTraditionOfBeauty",
+    type: "caveAndSpa",
+    title: "Maalum Cave + Tradition of beauty",
     text: "Lorem ipsum ergo ipsum",
-    disclaimer: "Maximum 4 persons per day",
+    disclaimer: "Maximum 2 persons per hour",
   },
   {
-    id: "caveAndSpaKnees",
-    title: "Maalum Cave + Spa Knees",
+    id: "caveAndMaalumRitual",
+    type: "caveAndSpa",
+    title: "Maalum Cave + Maalum Ritual",
     text: "Lorem ipsum ergo ipsum",
-    disclaimer: "Maximum 4 persons per day",
+    disclaimer: "Maximum 2 persons per hour",
   },
 ];
 
@@ -99,5 +110,6 @@ export {
   servicesInformation,
   initialReservationsPickerInformation,
   initialReservationsConfirmationInformation,
-  initialReservationsPickerSubmited,
+  initialReservationsServicePickerInformation,
+  // initialReservationsPickerSubmited,
 };

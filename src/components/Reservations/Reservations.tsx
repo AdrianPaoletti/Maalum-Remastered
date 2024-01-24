@@ -10,13 +10,14 @@ import {
   ReservationsConfirmationInformation,
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
+  ReservationsServiceInformation,
 } from "maalum/core/models/reservations.model";
 import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 import {
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
-  initialReservationsPickerSubmited,
+  initialReservationsServicePickerInformation,
 } from "maalum/utils/reservations/reservations.utils";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
 import ReservationsPayment from "./ReservationsPayment/ReservationsPayment";
@@ -48,8 +49,8 @@ export function Reservations() {
     useState<ReservationsPickerInformation>(
       initialReservationsPickerInformation
     );
-  const [reservationsPickerSubmited, setReservationsPickerSubmited] =
-    useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
+  // const [reservationsPickerSubmited, setReservationsPickerSubmited] =
+  //   useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
   const [accordionExpanded, setAccordionExpanded] = useState<string>("dates");
   const [isError, setIsError] = useState<boolean>(false);
   const [
@@ -63,20 +64,6 @@ export function Reservations() {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
   const [URLPayment, setURLPayment] = useState<string>("");
 
-  const isReservationsPickerButtonDisabled = (
-    reservationsPickerInformation: ReservationsPickerInformation
-  ): boolean => {
-    const dateServiceValue = Object.values(reservationsPickerInformation).slice(
-      4,
-      6
-    );
-
-    return (
-      !reservationsPickerInformation.totalGuests ||
-      dateServiceValue.some((value) => !value)
-    );
-  };
-
   const isReservationsConfirmationButtonDisabled = Object.values(
     reservationsConfirmationInformation
   ).some((value) => !value || !value?.length);
@@ -87,8 +74,8 @@ export function Reservations() {
     setReservationsConfirmationInformation(
       initialReservationsConfirmationInformation
     );
-    setReservationsPickerSubmited(initialReservationsPickerSubmited);
-    setAccordionExpanded("guests");
+    // setReservationsPickerSubmited(initialReservationsPickerSubmited);
+    setAccordionExpanded("dates");
     document.body.className = `${document.body.classList[0]}`;
     const timer = setTimeout(() => {
       setReservationStepper("reservationsPicker");
@@ -99,10 +86,10 @@ export function Reservations() {
   const handleReservationsPickerSubmit = () => {
     setReservationStepper("reservationsConfirmation");
     setAccordionExpanded("");
-    setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
-      ...prevReservationsPickerSubmited,
-      services: true,
-    }));
+    // setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
+    //   ...prevReservationsPickerSubmited,
+    //   services: true,
+    // }));
     setIsError(false);
   };
 
@@ -146,20 +133,17 @@ export function Reservations() {
         return {
           component: (
             <ReservationsPicker
-              isReservationsPickerButtonDisabled={isReservationsPickerButtonDisabled(
-                reservationsPickerInformation
-              )}
               reservationsPickerInformation={reservationsPickerInformation}
               setReservationsPickerInformation={
                 setReservationsPickerInformation
               }
-              reservationsPickerSubmited={reservationsPickerSubmited}
-              setReservationsPickerSubmited={setReservationsPickerSubmited}
+              // reservationsPickerSubmited={reservationsPickerSubmited}
+              // setReservationsPickerSubmited={setReservationsPickerSubmited}
               accordionExpanded={accordionExpanded}
               setAccordionExpanded={setAccordionExpanded}
             />
           ),
-          title: "SELECT DATE AND TIME",
+          title: "SELECT DATE AND SERVICES",
           buttonText: "NEXT",
           isButtonDisabled: false,
           onClick: () => handleReservationsPickerSubmit(),

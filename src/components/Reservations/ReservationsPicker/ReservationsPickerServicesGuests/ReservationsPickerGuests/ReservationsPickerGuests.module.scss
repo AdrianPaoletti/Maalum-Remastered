@@ -6,14 +6,17 @@
     @include display-flex(space-between);
     width: 100%;
     border-radius: 0.5rem;
-    // background-color: $color-gray-medium-light;
+    border-top: 2px solid $color-white;
+    background-color: $color-gray-disabled;
     min-height: 7.1rem;
-    // margin-bottom: 1rem;
+    margin-top: rem;
   }
 
   &__text-title {
     font-weight: 600;
+    font-size: $font-size-13;
     margin-bottom: 0.4rem;
+    color: $color-gray;
 
     span {
       font-weight: 400;
@@ -21,6 +24,9 @@
   }
 
   &__text-subtitle {
+    color: $color-gray;
+    font-size: 1.1rem;
+
     @include responsive(phone-small) {
       margin-bottom: 0.4rem;
     }
@@ -32,7 +38,7 @@
   }
 
   &__count {
-    font-size: $font-size-15;
+    font-size: $font-size-13;
     font-weight: 600;
     width: 1rem;
   }

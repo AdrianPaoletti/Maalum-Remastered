@@ -15,33 +15,29 @@ import {
   getBlockedDaysMonthly as getBlockedDaysMonthlyFetch,
   getReservationsMonthly,
 } from "maalum/core/services/reservations/reservations.service";
-import { initialReservationsPickerInformation } from "maalum/utils/reservations/reservations.utils";
 import { ReservationsPickerDatePicker } from "./ReservationsPickerDatePicker/ReservationsPickerDatePicker";
-import { ReservationsPickerGuests } from "./ReservationsPickerGuests/ReservationsPickerGuests";
 import { ReservationsPickerServicesGuests } from "./ReservationsPickerServicesGuests/ReservationsPickerServicesGuests";
 
 import styles from "./ReservationsPicker.module.scss";
 
 interface ReservationsPickerProps {
-  isReservationsPickerButtonDisabled: boolean;
   reservationsPickerInformation: ReservationsPickerInformation;
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
-  reservationsPickerSubmited: ReservationsPickerSubmited;
-  setReservationsPickerSubmited: React.Dispatch<
-    React.SetStateAction<ReservationsPickerSubmited>
-  >;
+  // reservationsPickerSubmited: ReservationsPickerSubmited;
+  // setReservationsPickerSubmited: React.Dispatch<
+  //   React.SetStateAction<ReservationsPickerSubmited>
+  // >;
   accordionExpanded: string;
   setAccordionExpanded: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function ReservationsPicker({
-  isReservationsPickerButtonDisabled,
   reservationsPickerInformation,
   setReservationsPickerInformation,
-  reservationsPickerSubmited,
-  setReservationsPickerSubmited,
+  // reservationsPickerSubmited,
+  // setReservationsPickerSubmited,
   accordionExpanded,
   setAccordionExpanded,
 }: ReservationsPickerProps) {
@@ -90,47 +86,46 @@ export function ReservationsPicker({
     getBlockedDaysReservationsMonthly();
   }, [getBlockedDaysReservationsMonthly]);
 
-  // const handleSubmitPickerGuests = (totalGuests: number) => {
-  //   const { adults, children, residents } = reservationsPickerInformation;
-  //   setReservationsPickerInformation({
-  //     ...initialReservationsPickerInformation,
-  //     ...{ adults, children, residents },
-  //     totalGuests,
-  //   });
-  //   setAccordionExpanded("dates");
-  //   setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
-  //     ...prevReservationsPickerSubmited,
-  //     guests: true,
-  //   }));
-  //   setExcludedHours([]);
-  // };
-
   const handleSubmitDatePicker = () => {
     setAccordionExpanded("services");
     setReservationsPickerInformation((prevReservationsPickerInformation) => ({
       ...prevReservationsPickerInformation,
       service: [],
     }));
-    setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
-      ...prevReservationsPickerSubmited,
-      dates: true,
-    }));
+    // setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
+    //   ...prevReservationsPickerSubmited,
+    //   dates: true,
+    // }));
   };
 
-  const canExpandAccordion = (id: string, indexNumber: number): boolean => {
-    const indexAccordionExpanded = accordionElements.findIndex(
-      ({ id }) => id === accordionExpanded
-    );
+  // const isReservationsPickerButtonDisabled = (
+  //   reservationsPickerInformation: ReservationsPickerInformation
+  // ): boolean => {
+  //   const dateServiceValue = Object.values(reservationsPickerInformation).slice(
+  //     4,
+  //     6
+  //   );
 
-    return (
-      (indexAccordionExpanded > indexNumber && id !== accordionExpanded) ||
-      (!Object.values(reservationsPickerSubmited).some(
-        (value) => value === false
-      ) &&
-        !isReservationsPickerButtonDisabled) ||
-      !accordionExpanded.length
-    );
-  };
+  //   return (
+  //     !reservationsPickerInformation.totalGuests ||
+  //     dateServiceValue.some((value) => !value)
+  //   );
+  // };
+
+  // const canExpandAccordion = (id: string, indexNumber: number): boolean => {
+  //   const indexAccordionExpanded = accordionElements.findIndex(
+  //     ({ id }) => id === accordionExpanded
+  //   );
+
+  //   return (
+  //     (indexAccordionExpanded > indexNumber && id !== accordionExpanded) ||
+  //     (!Object.values(reservationsPickerSubmited).some(
+  //       (value) => value === false
+  //     ) &&
+  //       !isReservationsPickerButtonDisabled) ||
+  //     !accordionExpanded.length
+  //   );
+  // };
 
   const accordionElements: {
     id: keyof ReservationsPickerSubmited;
@@ -138,17 +133,6 @@ export function ReservationsPicker({
     component: JSX.Element;
     paddingBottom?: string;
   }[] = [
-    // {
-    //   id: "guests",
-    //   title: "GUESTS",
-    //   component: (
-    //     <ReservationsPickerGuests
-    //       handleSubmit={handleSubmitPickerGuests}
-    //       reservationsPickerInformation={reservationsPickerInformation}
-    //       setReservationsPickerInformation={setReservationsPickerInformation}
-    //     />
-    //   ),
-    // },
     {
       id: "dates",
       title: "DATES AND TIMES",
@@ -194,18 +178,19 @@ export function ReservationsPicker({
           >
             <AccordionSummary
               onClick={() =>
-                canExpandAccordion(id, indexNumber) && setAccordionExpanded(id)
+                // canExpandAccordion(id, indexNumber) &&
+                setAccordionExpanded(id)
               }
               expandIcon={<ExpandMoreIcon fontSize="large" />}
             >
               <h5 className={`heading-cuaternary`}>{title}</h5>
-              {reservationsPickerSubmited[id] && (
-                <h5
-                  className={`${styles["reservations-picker__sub-title--update"]}`}
-                >
-                  Update
-                </h5>
-              )}
+              {/* {reservationsPickerSubmited[id] && ( */}
+              <h5
+                className={`${styles["reservations-picker__sub-title--update"]}`}
+              >
+                Update
+              </h5>
+              {/* )} */}
             </AccordionSummary>
             <AccordionDetails sx={{ paddingBottom }}>
               {component}

@@ -6,11 +6,11 @@ import { MAX_DISABLE_CAVE } from "maalum/core/constants/constants";
 import {
   Reservation,
   ReservationsPickerInformation,
+  ReservationsServiceInformation,
 } from "maalum/core/models/reservations.model";
-import { defaultTheme } from "maalum/styles/themes";
 import { dateToUTC } from "maalum/utils/formatters/formatters.utils";
 import { servicesInformation } from "maalum/utils/reservations/reservations.utils";
-import { ReservationsPickerGuests } from "../ReservationsPickerGuests/ReservationsPickerGuests";
+import { ReservationsPickerGuests } from "./ReservationsPickerGuests/ReservationsPickerGuests";
 
 import styles from "./ReservationsPickerServicesGuests.module.scss";
 
@@ -28,8 +28,11 @@ export function ReservationsPickerServicesGuests({
   setReservationsPickerInformation,
 }: ReservationsPickerServicesGuestsProps) {
   const [isCaveDisabled, setIsCaveDisabled] = useState<boolean>(false);
-  const [serviceSelected, setServiceSelected] = useState<string>("");
   const [isSpa, setIsSpa] = useState<boolean>(false);
+  const [serviceSelected, setServiceSelected] = useState<string>("");
+  const [serviceInformation, setServiceInformation] = useState<
+    ReservationsServiceInformation[]
+  >([]);
   const { date: reservationsPickerDate } = reservationsPickerInformation;
 
   useEffect(() => {
@@ -53,6 +56,12 @@ export function ReservationsPickerServicesGuests({
       );
     }
   }, [reservations, reservationsPickerDate]);
+
+  const handleClick = (id: string) => {
+    setServiceSelected((prevServiceSelected) =>
+      prevServiceSelected === id ? "" : id
+    );
+  };
 
   // const handleClick = (id: string) => {
   //   if (reservationsPickerService.includes(id)) {
@@ -84,17 +93,13 @@ export function ReservationsPickerServicesGuests({
             key={id}
             className={`${styles.services__card} ${
               isDisabled && styles["services__card--disabled"]
-            } u-padding-horizontal-small-medium u-padding-vertical-small-extra`}
-            onClick={() =>
-              setServiceSelected((prevServiceSelected) =>
-                prevServiceSelected === id ? "" : id
-              )
-            }
+            }`}
           >
             <div
               className={`${styles.services__service} ${
                 isDisabled && styles["services__service--disabled"]
-              }`}
+              } u-padding-horizontal-small-medium u-padding-vertical-small-extra`}
+              onClick={() => handleClick(id)}
             >
               <div className={`${styles["services__text-container"]}`}>
                 <p
@@ -112,7 +117,7 @@ export function ReservationsPickerServicesGuests({
                   {text}
                 </p>
               </div>
-              <div className={`${styles["services__checkbox"]}`}>
+              {/* <div className={`${styles["services__checkbox"]}`}>
                 <Radio
                   disableRipple
                   sx={{
@@ -123,18 +128,17 @@ export function ReservationsPickerServicesGuests({
                       color: defaultTheme.palette.beige.light,
                     },
                   }}
-                  // onClick={() => handleClick(id)}
+                  onClick={() => handleClick(id)}
                   disabled={isDisabled}
-                  // checked={reservationsPickerService.includes(id)}
+                  checked={reservationsPickerService.includes(id)}
                 />
-              </div>
+              </div> */}
             </div>
             <Collapse in={serviceSelected === id}>
               <ReservationsPickerGuests
-                reservationsPickerInformation={reservationsPickerInformation}
-                setReservationsPickerInformation={
-                  setReservationsPickerInformation
-                }
+                serviceSelected={serviceSelected}
+                serviceInformation={serviceInformation}
+                setServiceInformation={setServiceInformation}
                 // isOpen={serviceSelected === id}
               />
             </Collapse>
