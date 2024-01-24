@@ -60,7 +60,7 @@ export function ReservationConfirmation({
           <div className={`${styles["your-booking__image-container"]}`}>
             <Image
               src={
-                service === "cave"
+                service[0] === "cave"
                   ? "/images/instagram-1.jpg"
                   : "/images/instagram-2.jpg"
               }
@@ -75,7 +75,7 @@ export function ReservationConfirmation({
               className={`${styles["your-booking__booking-data-title"]} heading-cuaternary`}
               style={{ fontWeight: 600 }}
             >
-              {`Maalum ${"Cave"}`}
+              {`Maalum ${service[0] === "cave" ? "Cave" : "Cave and Spa"}`}
             </h5>
             <div
               className={`${styles["your-booking__booking-data-block-container"]}`}
