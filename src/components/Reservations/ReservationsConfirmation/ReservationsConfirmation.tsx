@@ -75,7 +75,7 @@ export function ReservationConfirmation({
               className={`${styles["your-booking__booking-data-title"]} heading-cuaternary`}
               style={{ fontWeight: 600 }}
             >
-              {`Maalum ${service === "cave" ? "Cave" : "Cave and Spa"}`}
+              {`Maalum ${"Cave"}`}
             </h5>
             <div
               className={`${styles["your-booking__booking-data-block-container"]}`}
