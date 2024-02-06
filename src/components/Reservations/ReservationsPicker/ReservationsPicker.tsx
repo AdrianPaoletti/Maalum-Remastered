@@ -10,6 +10,7 @@ import {
   Reservation,
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
+  ReservationsServiceInformation,
 } from "maalum/core/models/reservations.model";
 import {
   getBlockedDaysMonthly as getBlockedDaysMonthlyFetch,
@@ -46,6 +47,10 @@ export function ReservationsPicker({
   const [blockedDaysHours, setBlockedDaysHours] = useState<BlockedDaysHours[]>(
     []
   );
+  const [serviceReservationPicker, setServiceReservationPicker] =
+    useState<ReservationsServiceInformation[]>(
+      []
+    );
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

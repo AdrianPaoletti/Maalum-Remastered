@@ -39,27 +39,30 @@ export default function Home() {
 
   return (
     <main>
-      <article
-        className={`${styles.description} u-padding-vertical-large-extra u-padding-horizontal-huge`}
-      >
-        <h2 className={`${styles["description__title"]} heading-secundary`}>
-          TAKE A BREATH <span>LOVE NATURE</span>
-        </h2>
-        <div className={`${styles["description__text"]} u-padding-top-large`}>
-          <p className="text-primary">
-            Welcome to Maalum, a unique natural swimming pool in Paje, Zanzibar.
-          </p>
-          <p className="text-primary">
-            A special place to reconnect with nature, explore the underground
-            life, relax and enjoy the peace.
-          </p>
-          <p className="text-primary">
-            The word Maalum means Special in Swahili language.
-          </p>
+      <article className={`${styles.description}`}>
+        <div
+          className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
+        >
+          <h2 className={`${styles["description__title"]} heading-secundary`}>
+            TAKE A BREATH <span>LOVE NATURE</span>
+          </h2>
+          <div className={`${styles["description__text"]} u-padding-top-large`}>
+            <p className="text-primary">
+              Welcome to Maalum, a unique natural swimming pool in Paje,
+              Zanzibar.
+            </p>
+            <p className="text-primary">
+              A special place to reconnect with nature, explore the underground
+              life, relax and enjoy the peace.
+            </p>
+            <p className="text-primary">
+              The word Maalum means Special in Swahili language.
+            </p>
+          </div>
         </div>
       </article>
       <article
-        className={`${styles["images"]} ${styles["images--description"]} u-padding-horizontal-huge u-padding-vertical-large-extra`}
+        className={`${styles.container} ${styles["images"]} ${styles["images--description"]} u-padding-horizontal-huge u-padding-vertical-large-extra`}
       >
         {imagesDescription.map(({ url, id }) => (
           <div
@@ -70,45 +73,47 @@ export default function Home() {
           </div>
         ))}
       </article>
-      <article
-        className={`${styles["book-now"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
-      >
-        <h2 className={`heading-secundary`}>BOOK NOW</h2>
+      <article className={`${styles["book-now"]}`}>
         <div
-          className={`${styles["book-now__text-container"]} u-padding-vertical-large`}
+          className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
         >
-          <div className={`${styles["book-now__description"]} col-1-of-2`}>
-            <h3 className={`text-primary u-padding-bottom-medium`}>
-              NATURAL SWIMMING POOL
-            </h3>
-            <p className="text-primary">
-              Ensure your spot by booking in advance
-            </p>
-            <p className="text-primary">
-              The duration of the slot is 90 min. inside the cave area
-            </p>
+          <h2 className={`heading-secundary`}>BOOK NOW</h2>
+          <div
+            className={`${styles["book-now__text-container"]} u-padding-vertical-large`}
+          >
+            <div className={`${styles["book-now__description"]} col-1-of-2`}>
+              <h3 className={`text-primary u-padding-bottom-medium`}>
+                NATURAL SWIMMING POOL
+              </h3>
+              <p className="text-primary">
+                Ensure your spot by booking in advance
+              </p>
+              <p className="text-primary">
+                The duration of the slot is 90 min. inside the cave area
+              </p>
+            </div>
+            <ul className={`${styles["book-now__list"]} col-1-of-2`}>
+              {bookNowListItem.map(({ id, url, text, size }) => (
+                <li key={id} className={`${styles["book-now__list-item"]}`}>
+                  <Image
+                    src={url}
+                    alt="zanzibar swimming cave services"
+                    width={size || 22}
+                    height={size || 22}
+                    sizes="50vw"
+                  />
+                  <p className="text-primary">{text}</p>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className={`${styles["book-now__list"]} col-1-of-2`}>
-            {bookNowListItem.map(({ id, url, text, size }) => (
-              <li key={id} className={`${styles["book-now__list-item"]}`}>
-                <Image
-                  src={url}
-                  alt="zanzibar swimming cave services"
-                  width={size || 22}
-                  height={size || 22}
-                  sizes="50vw"
-                />
-                <p className="text-primary">{text}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={`${styles["book-now__button"]}`}>
-          <span className="text-primary">BOOK NOW</span>
+          <div className={`${styles["book-now__button"]}`}>
+            <span className="text-primary">BOOK NOW</span>
+          </div>
         </div>
       </article>
       <article
-        className={`${styles["restaurant"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
+        className={`${styles.container} ${styles["restaurant"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
       >
         <h2 className={`heading-secundary`}>OUR RESTAURANT</h2>
         <div
@@ -135,13 +140,13 @@ export default function Home() {
                   {paragraph}
                 </p>
               ))}
-              {!!indexNumber && (
+              {/* {!!indexNumber && (
                 <p className={`text-primary u-padding-top-small`}>
                   <a className={`${styles["restaurant__food-menu"]}`}>
                     Food Menu
                   </a>
                 </p>
-              )}
+              )} */}
             </div>
           ))}
         </div>
@@ -160,55 +165,67 @@ export default function Home() {
           ))}
         </div>
       </article>
-      <article
-        className={`${styles["spa"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
-      >
-        <Carousel images={carouselImages} />
-        <div className={`${styles["spa__text-container"]} col-1-of-2`}>
-          {spaInformation.map(({ id, title, subtitle, text }) => (
-            <div key={id}>
-              <h2 className={`heading-secundary`}>{title}</h2>
-              <h3
-                className={`${styles["spa__subtitle"]} text-primary u-padding-top-large`}
-              >
-                {subtitle}
-              </h3>
-              {text.map(({ id, paragraph }) => (
-                <p key={id} className={`text-primary u-padding-top-small`}>
-                  {paragraph}
-                </p>
-              ))}
+      <article className={`${styles["spa-container"]}`}>
+        <div
+          className={`${styles.container} ${styles["spa"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
+        >
+          <Carousel images={carouselImages} />
+          <div className={`${styles["spa__text-container"]} col-1-of-2`}>
+            {spaInformation.map(({ id, title, subtitle, text }) => (
+              <div key={id}>
+                <h2 className={`heading-secundary`}>{title}</h2>
+                <h3
+                  className={`${styles["spa__subtitle"]} text-primary ${
+                    subtitle.length && "u-padding-top-large"
+                  }`}
+                >
+                  {subtitle}
+                </h3>
+                {text.map(({ id, paragraph }) => (
+                  <p key={id} className={`text-primary u-padding-top-small`}>
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            ))}
+            <div className={`${styles["spa__button"]} u-padding-top-large`}>
+              <span className="text-primary">RESERVE NOW</span>
             </div>
-          ))}
-          <div className={`${styles["spa__button"]} u-padding-top-large`}>
-            <span className="text-primary">RESERVE NOW</span>
           </div>
         </div>
       </article>
-      <article
-        className={`${styles["experiences"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
-      >
-        <div className={`${styles["experiences__text-container"]} col-1-of-2`}>
-          {experiencesInformation.map(({ id, title, subtitle, text }) => (
-            <div key={id}>
-              <h2 className={`heading-secundary`}>{title}</h2>
-              <h3
-                className={`${styles["experiences__subtitle"]} text-primary u-padding-top-large`}
-              >
-                {subtitle}
-              </h3>
-              {text.map(({ id, paragraph }) => (
-                <p key={id} className={`text-primary u-padding-top-small`}>
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          ))}
+      <article className={`${styles["experiences-container"]}`}>
+        <div
+          className={`${styles.container} ${styles["experiences"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
+        >
+          <div
+            className={`${styles["experiences__text-container"]} col-1-of-2`}
+          >
+            {experiencesInformation.map(
+              ({ id, title, subtitle, text }, index) => (
+                <div key={id}>
+                  <h2 className={`heading-secundary`}>{title}</h2>
+                  <h3
+                    className={`${
+                      styles["experiences__subtitle"]
+                    } text-primary ${"u-padding-top-large"}`}
+                  >
+                    {subtitle}
+                  </h3>
+                  {text.map(({ id, paragraph }) => (
+                    <p key={id} className={`text-primary u-padding-top-small`}>
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              )
+            )}
+          </div>
+          <Carousel images={carouselImages} />
         </div>
-        <Carousel images={carouselImages} />
       </article>
       <article
-        className={`${styles["instagram"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
+        className={`${styles.container} ${styles["instagram"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
       >
         <h2 className={`heading-secundary`}>FOLLOW US ON INSTAGRAM</h2>
         <div
@@ -226,64 +243,69 @@ export default function Home() {
           ))}
         </div>
       </article>
-      <article
-        className={`${styles["contact-us"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
-        id={"contact"}
-      >
-        <h2 className={`heading-secundary`}>CONTACT US</h2>
+      <article className={`${styles["contact-us"]}`} id={"contact"}>
         <div
-          className={`${styles["contact-us__container"]} u-padding-top-large`}
+          className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
         >
-          <div className={`${styles["contact-us__text-container"]} col-1-of-2`}>
-            <h3 className="heading-terciary">CONTACT</h3>{" "}
-            <p
-              className={`${styles["contact-us__text"]} text-primary u-padding-top-small`}
+          <h2 className={`heading-secundary`}>CONTACT US</h2>
+          <div
+            className={`${styles["contact-us__container"]} u-padding-top-large`}
+          >
+            <div
+              className={`${styles["contact-us__text-container"]} col-1-of-2`}
             >
-              <span>Information: </span>EMAIL |{" "}
-              <Link
-                className={`${styles["contact-us__link-mail"]}`}
-                href="mailto:info@maalumzanzibar.com"
+              <h3 className="heading-terciary">CONTACT</h3>{" "}
+              <p
+                className={`${styles["contact-us__text"]} text-primary u-padding-top-small`}
               >
-                info@maalumzanzibar.com
-              </Link>
-            </p>
-            <h3 className="heading-terciary u-padding-top-medium-large">
-              OUR LOCATION
-            </h3>
-            <p
-              className={`${styles["contact-us__text"]} text-primary u-padding-top-small`}
+                <span>Information: </span>EMAIL |{" "}
+                <Link
+                  className={`${styles["contact-us__link-mail"]}`}
+                  href="mailto:info@maalumzanzibar.com"
+                >
+                  info@maalumzanzibar.com
+                </Link>
+              </p>
+              <h3 className="heading-terciary u-padding-top-medium-large">
+                OUR LOCATION
+              </h3>
+              <p
+                className={`${styles["contact-us__text"]} text-primary u-padding-top-small`}
+              >
+                Paje
+              </p>
+            </div>
+            <div
+              className={`${styles["contact-us__map-container"]} col-1-of-2`}
             >
-              Paje
-            </p>
-          </div>
-          <div className={`${styles["contact-us__map-container"]} col-1-of-2`}>
-            <div className={`${styles["contact-us__map"]}`}>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15863.580284911572!2d39.5308595!3d-6.2775242!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xad0717d2fee3609e!2sMAALUM!5e0!3m2!1ses!2ses!4v1655978628957!5m2!1ses!2ses"
-                width="600"
-                height="450"
-                frameBorder="0"
-                title="maalum zanzibar swimming cave"
-              />
+              <div className={`${styles["contact-us__map"]}`}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15863.580284911572!2d39.5308595!3d-6.2775242!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xad0717d2fee3609e!2sMAALUM!5e0!3m2!1ses!2ses!4v1655978628957!5m2!1ses!2ses"
+                  width="600"
+                  height="450"
+                  frameBorder="0"
+                  title="maalum zanzibar swimming cave"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          className={`${styles["contact-us__social-media"]} u-padding-top-large`}
-        >
-          {socialMediaLogos.map(({ id, white, black, altText, href }) => (
-            <Link href={href} key={id}>
-              <Image
-                id={id}
-                src={isSocialMediaHover[id] ? black : white}
-                width={30}
-                height={30}
-                alt={altText}
-                onMouseEnter={handleSocialMediaMouseEvent}
-                onMouseLeave={handleSocialMediaMouseEvent}
-              />
-            </Link>
-          ))}
+          <div
+            className={`${styles["contact-us__social-media"]} u-padding-top-large`}
+          >
+            {socialMediaLogos.map(({ id, white, black, altText, href }) => (
+              <Link href={href} key={id}>
+                <Image
+                  id={id}
+                  src={isSocialMediaHover[id] ? black : white}
+                  width={30}
+                  height={30}
+                  alt={altText}
+                  onMouseEnter={handleSocialMediaMouseEvent}
+                  onMouseLeave={handleSocialMediaMouseEvent}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </article>
     </main>

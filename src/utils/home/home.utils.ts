@@ -192,35 +192,42 @@ const restaurantInformation = [
 const experiencesInformation = [
   {
     id: 1,
-    title: "EXPERIENCES",
-    subtitle: "EXPERIENCES #1",
+    title: "OUR TYPES",
+    subtitle: "NATURAL ESSENCE",
     text: [
       {
         id: 1,
         paragraph:
-          "After a magical swim at Maalum Natural Swimming Pool, relax on our sun beds, drink one of our refreshing tropical fruit smoothies and enjoy our local cuisine surrounded by nature.",
-      },
-      {
-        id: 2,
-        paragraph:
-          "We carefully select fresh food from the garden and adapt to your preferences and suggestions. Come and enjoy a day full of flavours with us.",
+          "Maalum massage surrounded by nature and tailored to individual preferences. This immersive experience invites you to feel a deep connection with your inner self and the special rhythms around you.",
       },
     ],
   },
   {
     id: 2,
     title: "",
-    subtitle: "EXPERIENCES #2",
+    subtitle: "MAALUM RITUAL",
+    text: [
+      // {
+      //   id: 1,
+      //   paragraph:
+      //     "Maalum massage surrounded by nature and tailored to individual preferences. This immersive experience invites you to feel a deep connection with your inner self and the special rhythms around you.",
+      // },
+      {
+        id: 1,
+        paragraph:
+          "Pure relaxation with facial and head massage 35min combo. Boost circulation and leave your skin feeling refreshed with a radiant glow.",
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: "",
+    subtitle: "TRADITION OF BEAUTY",
     text: [
       {
         id: 1,
         paragraph:
-          "Zanzibar is often described as a cultural melting pot, due to the different people who have settled on the island over time and therefore so is its cuisine.",
-      },
-      {
-        id: 2,
-        paragraph:
-          "Tasting the typical delicacies of a country is the perfect way to enter in its culture, history and traditions, are you ready to taste the delicious costal East African cuisine?",
+          "Discover the ancient secret of Japanese beauty with the Japanase facial lifting massage. This ancient skincare technique is combined with nourishing ingredients to cleanse, balance and renew your skin, leaving you with a rejuvenated and revitalized feeling.",
       },
     ],
   },
