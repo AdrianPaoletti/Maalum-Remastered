@@ -10,14 +10,12 @@ import {
   ReservationsConfirmationInformation,
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
-  ReservationsServiceInformation,
 } from "maalum/core/models/reservations.model";
 import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 import {
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
-  initialReservationsServicePickerInformation,
 } from "maalum/utils/reservations/reservations.utils";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
 import ReservationsPayment from "./ReservationsPayment/ReservationsPayment";
@@ -51,7 +49,7 @@ export function Reservations() {
     );
   // const [reservationsPickerSubmited, setReservationsPickerSubmited] =
   //   useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
-  const [accordionExpanded, setAccordionExpanded] = useState<string>("dates");
+  const [accordionExpanded, setAccordionExpanded] = useState<string>("guests");
   const [isError, setIsError] = useState<boolean>(false);
   const [
     reservationsConfirmationInformation,

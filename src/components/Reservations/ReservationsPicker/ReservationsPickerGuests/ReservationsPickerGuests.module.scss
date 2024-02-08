@@ -2,6 +2,34 @@
 @import "src/styles/abstracts/variables";
 
 .guests {
+  &-container {
+    &__card {
+      width: 100%;
+      margin-bottom: 1rem;
+
+      &--disabled {
+        background-color: $color-gray-disabled;
+      }
+    }
+
+    &__service {
+      @include display-flex(space-between);
+      background-color: $color-gray-medium-light;
+      border-radius: 0.5rem;
+      min-height: 7.1rem;
+    }
+
+    &__text-title {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    &__button-submit-container {
+      @include button-reservations();
+      text-align: end;
+    }
+  }
+
   &__card {
     @include display-flex(space-between);
     width: 100%;
@@ -9,7 +37,7 @@
     border-top: 2px solid $color-white;
     background-color: $color-gray-disabled;
     min-height: 7.1rem;
-    margin-top: rem;
+    margin-top: 0.3rem;
   }
 
   &__text-title {

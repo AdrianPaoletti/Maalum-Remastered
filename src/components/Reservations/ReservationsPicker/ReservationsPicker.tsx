@@ -10,14 +10,14 @@ import {
   Reservation,
   ReservationsPickerInformation,
   ReservationsPickerSubmited,
-  ReservationsServiceInformation,
 } from "maalum/core/models/reservations.model";
 import {
   getBlockedDaysMonthly as getBlockedDaysMonthlyFetch,
   getReservationsMonthly,
 } from "maalum/core/services/reservations/reservations.service";
 import { ReservationsPickerDatePicker } from "./ReservationsPickerDatePicker/ReservationsPickerDatePicker";
-import { ReservationsPickerServicesGuests } from "./ReservationsPickerServicesGuests/ReservationsPickerServicesGuests";
+import { ReservationsPickerGuests } from "./ReservationsPickerGuests/ReservationsPickerGuests";
+import { ReservationsPickerSpa } from "./ReservationsPickerSpa/ReservationsPickerSpa";
 
 import styles from "./ReservationsPicker.module.scss";
 
@@ -47,10 +47,6 @@ export function ReservationsPicker({
   const [blockedDaysHours, setBlockedDaysHours] = useState<BlockedDaysHours[]>(
     []
   );
-  const [serviceReservationPicker, setServiceReservationPicker] =
-    useState<ReservationsServiceInformation[]>(
-      []
-    );
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -93,10 +89,10 @@ export function ReservationsPicker({
 
   const handleSubmitDatePicker = () => {
     setAccordionExpanded("services");
-    setReservationsPickerInformation((prevReservationsPickerInformation) => ({
-      ...prevReservationsPickerInformation,
-      service: [],
-    }));
+    // setReservationsPickerInformation((prevReservationsPickerInformation) => ({
+    //   ...prevReservationsPickerInformation,
+    //   service: [],
+    // }));
     // setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
     //   ...prevReservationsPickerSubmited,
     //   dates: true,
@@ -139,6 +135,29 @@ export function ReservationsPicker({
     paddingBottom?: string;
   }[] = [
     {
+      id: "guests",
+      title: "GUESTS",
+      component: (
+        <ReservationsPickerGuests
+          submit={() => {
+            setAccordionExpanded("spa");
+          }}
+          reservationsPickerInformation={reservationsPickerInformation}
+          setReservationsPickerInformation={setReservationsPickerInformation}
+        />
+      ),
+    },
+    {
+      id: "spa",
+      title: "UPGRADE YOUR EXPERIENCE",
+      component: (
+        <ReservationsPickerSpa
+          reservationsPickerInformation={reservationsPickerInformation}
+          setReservationsPickerInformation={setReservationsPickerInformation}
+        />
+      ),
+    },
+    {
       id: "dates",
       title: "DATES AND TIMES",
       component: (
@@ -157,17 +176,6 @@ export function ReservationsPicker({
         />
       ),
       paddingBottom: "2rem",
-    },
-    {
-      id: "services",
-      title: "SERVICES",
-      component: (
-        <ReservationsPickerServicesGuests
-          reservations={reservations}
-          reservationsPickerInformation={reservationsPickerInformation}
-          setReservationsPickerInformation={setReservationsPickerInformation}
-        />
-      ),
     },
   ];
 

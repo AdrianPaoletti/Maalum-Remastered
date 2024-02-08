@@ -68,14 +68,14 @@ export function ReservationsPickerDatePicker({
   }, [blockedDaysHours]);
 
   const handleChange = (date: Date): void => {
-    setReservationsPickerInformation((prevReservationsPickerInformation) => ({
-      ...prevReservationsPickerInformation,
-      date:
-        prevReservationsPickerInformation.date?.getDate() === date.getDate()
-          ? date
-          : new Date(date.setHours(0)),
-      service: "",
-    }));
+    // setReservationsPickerInformation((prevReservationsPickerInformation) => ({
+    //   ...prevReservationsPickerInformation,
+    //   date:
+    //     prevReservationsPickerInformation.date?.getDate() === date.getDate()
+    //       ? date
+    //       : new Date(date.setHours(0)),
+    //   service: "",
+    // }));
     setMinimumHour(getMinimumHour(date));
     setExcludedHours([
       ...getBlockedDaysExcludedHours(blockedDaysHours, date),

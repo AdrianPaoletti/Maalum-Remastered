@@ -13,6 +13,12 @@ export interface ReservationsGuestsCounter {
   residents: number;
 }
 
+export interface ReservationsSpaCounter {
+  naturalEssence: number;
+  traditionOfBeauty: number;
+  maalumRitual: number;
+}
+
 export interface GetBlockedDaysMonthlyRequestBody {
   month: number | undefined;
   year: number | undefined;
@@ -36,17 +42,11 @@ export interface Reservation {
   service: string;
 }
 
-export interface ReservationsPickerInformation {
+export interface ReservationsPickerInformation
+  extends ReservationsGuestsCounter,
+    ReservationsSpaCounter {
   totalGuests: number;
   date: Date | null;
-  service: string[];
-}
-
-export interface ReservationsServiceInformation
-  extends ReservationsGuestsCounter {
-  id: string;
-  type: string;
-  totalGuests: number;
 }
 
 export interface ReservationsConfirmationInformation {
@@ -66,7 +66,7 @@ export interface FormattedReservationsPickerData {
 export interface ReservationsPickerSubmited {
   guests: boolean;
   dates: boolean;
-  services: boolean;
+  spa: boolean;
 }
 
 export type ConfirmationState = "loading" | "resolved" | "rejected";

@@ -192,7 +192,7 @@ const restaurantInformation = [
 const experiencesInformation = [
   {
     id: 1,
-    title: "OUR TYPES",
+    title: "EXPERIENCES",
     subtitle: "NATURAL ESSENCE",
     text: [
       {
