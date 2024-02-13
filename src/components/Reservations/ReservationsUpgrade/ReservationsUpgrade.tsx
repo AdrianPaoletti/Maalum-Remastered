@@ -101,82 +101,96 @@ export function ReservationsUpgrade({
         })}
       </nav>
       <ul className={`${styles["reservations-upgrade__cards"]}`}>
-        {cardElements.map(({ id, title, price, description }) => (
-          <li key={id} className={`${styles["reservations-upgrade__card"]}`}>
-            <div
-              className={`${styles["reservations-upgrade__image-container"]}`}
-            >
-              <Image
-                src="/images/restaurant-main.jpg"
-                alt="fotos"
-                layout="fill"
-                objectFit="cover"
-                style={{
-                  borderTopLeftRadius: "1rem",
-                  borderTopRightRadius: "1rem",
-                }}
-              />
-            </div>
-            <div className={`${styles["reservations-upgrade__info"]}`}>
-              <div className={`${styles["reservations-upgrade__titles"]}`}>
-                <h4 className={`${styles["reservations-upgrade__title"]}`}>
-                  {title}
-                </h4>
-                <div className={`${styles["reservations-upgrade__price"]}`}>
-                  <p>
-                    For{" "}
-                    <span>
-                      {` ${price}`}$ | {price * 2}
-                      ,000tsh
-                    </span>
-                  </p>
-                  <p>Includes cave and spa</p>
-                </div>
+        {cardElements.map(({ id, title, price, description }) => {
+          const hourSpa = getHour(hour ?? "");
+          const disableHour = hourSpa === "SOLD OUT";
+
+          return (
+            <li key={id} className={`${styles["reservations-upgrade__card"]}`}>
+              <div
+                className={`${styles["reservations-upgrade__image-container"]}`}
+              >
+                <Image
+                  src="/images/restaurant-main.jpg"
+                  alt="fotos"
+                  layout="fill"
+                  objectFit="cover"
+                  style={{
+                    borderTopLeftRadius: "1rem",
+                    borderTopRightRadius: "1rem",
+                  }}
+                />
               </div>
-              <p className={`${styles["reservations-upgrade__description"]}`}>
-                {description}
-              </p>
-              <div className={`${styles["reservations-upgrade__guests"]}`}>
-                <span className={`${styles["reservations-upgrade__hour"]}`}>
-                  {getHour(hour ?? "")}
-                </span>
-                <div className={`${styles["reservations-upgrade__counter"]}`}>
-                  <IconButton
-                    onClick={() => handleMinus(id)}
-                    disabled={!reservationsPickerInformation[id]}
-                    className={`${styles["reservations-upgrade__button"]}`}
-                    sx={{
-                      "&.Mui-disabled": {
-                        backgroundColor: defaultTheme.palette.beige.disabled,
-                        color: defaultTheme.palette.white,
-                      },
-                    }}
-                    disableRipple
+              <div className={`${styles["reservations-upgrade__info"]}`}>
+                <div className={`${styles["reservations-upgrade__titles"]}`}>
+                  <h4 className={`${styles["reservations-upgrade__title"]}`}>
+                    {title}
+                  </h4>
+                  <div className={`${styles["reservations-upgrade__price"]}`}>
+                    <p>
+                      For{" "}
+                      <span>
+                        {` ${price}`}$ | {price * 2}
+                        ,000tsh
+                      </span>
+                    </p>
+                    <p>Includes cave and spa</p>
+                  </div>
+                </div>
+                <p className={`${styles["reservations-upgrade__description"]}`}>
+                  {description}
+                </p>
+                <div className={`${styles["reservations-upgrade__guests"]}`}>
+                  <span
+                    className={`${styles["reservations-upgrade__hour"]} ${
+                      disableHour &&
+                      styles["reservations-upgrade__hour--disabled"]
+                    }`}
                   >
-                    <RemoveIcon fontSize="inherit" />
-                  </IconButton>
-                  <span className={`${styles["reservations-upgrade__count"]}`}>
-                    {reservationsPickerInformation[id]}
+                    {hourSpa}
                   </span>
-                  <IconButton
-                    onClick={() => handlePlus(id)}
-                    disabled={buttonPlusDisabled}
-                    className={`${styles["reservations-upgrade__button"]}`}
-                    sx={{
-                      "&.Mui-disabled": {
-                        backgroundColor: defaultTheme.palette.beige.disabled,
-                        color: defaultTheme.palette.white,
-                      },
-                    }}
-                    disableRipple
-                  >
-                    <AddIcon fontSize="inherit" />
-                  </IconButton>
+                  <div className={`${styles["reservations-upgrade__counter"]}`}>
+                    <IconButton
+                      onClick={() => handleMinus(id)}
+                      disabled={
+                        !reservationsPickerInformation[id] || disableHour
+                      }
+                      className={`${styles["reservations-upgrade__button"]}`}
+                      sx={{
+                        "&.Mui-disabled": {
+                          backgroundColor: defaultTheme.palette.beige.disabled,
+                          color: defaultTheme.palette.white,
+                        },
+                      }}
+                      disableRipple
+                    >
+                      <RemoveIcon fontSize="inherit" />
+                    </IconButton>
+                    <span
+                      className={`${styles["reservations-upgrade__count"]}`}
+                    >
+                      {reservationsPickerInformation[id]}
+                    </span>
+                    <IconButton
+                      onClick={() => handlePlus(id)}
+                      disabled={buttonPlusDisabled || disableHour}
+                      className={`${styles["reservations-upgrade__button"]}`}
+                      sx={{
+                        "&.Mui-disabled": {
+                          backgroundColor: defaultTheme.palette.beige.disabled,
+                          color: defaultTheme.palette.white,
+                        },
+                      }}
+                      disableRipple
+                    >
+                      <AddIcon fontSize="inherit" />
+                    </IconButton>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

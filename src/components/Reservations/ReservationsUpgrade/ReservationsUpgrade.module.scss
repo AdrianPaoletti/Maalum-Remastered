@@ -115,8 +115,14 @@
     font-size: $font-size-13;
     padding: 1rem;
     color: $color-white;
+    font-weight: 500;
     background-color: $color-beige-light;
     border-radius: 1rem;
+
+    &--disabled {
+      background-color: $color-beige-light-disabled;
+      color: $color-white;
+    }
   }
 
   &__counter {

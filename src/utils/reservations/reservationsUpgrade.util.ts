@@ -40,6 +40,6 @@ export const getHour = (hour: string) => {
       return "16:00";
 
     default:
-      return "";
+      return "SOLD OUT";
   }
 };
