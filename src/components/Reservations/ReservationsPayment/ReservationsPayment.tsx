@@ -54,25 +54,18 @@ const ReservationsPayment = ({
   const { icon, title } = getReservationsPaymentData(confirmationState);
   return (
     <div className={styles["reservations-payment"]}>
-      {confirmationState !== "loading" ? (
-        <>
-          {icon}
-          <h4 className={`heading-cuaternary`}>{title}</h4>
-        </>
-      ) : (
-        <iframe
-          width={"100%"}
-          height={"100%"}
-          allow="fullscreen"
-          onLoadCapture={({
-            target,
-          }: SyntheticEvent<HTMLIFrameElement, Event>) => {
-            target as HTMLIFrameElement;
-          }}
-          // sandbox="allow-forms allow-scripts allow-same-origin"
-          src={URLPayment}
-        />
-      )}
+      <iframe
+        width={"100%"}
+        // height={"100%"}
+        allow="fullscreen"
+        onLoadCapture={({
+          target,
+        }: SyntheticEvent<HTMLIFrameElement, Event>) => {
+          target as HTMLIFrameElement;
+        }}
+        // sandbox="allow-forms allow-scripts allow-same-origin"
+        src={URLPayment}
+      />
     </div>
   );
 };

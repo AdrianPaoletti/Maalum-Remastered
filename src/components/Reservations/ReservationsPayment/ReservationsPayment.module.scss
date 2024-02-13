@@ -3,7 +3,28 @@
 
 .reservations-payment {
   @include display-flex(center, center, column, nowrap);
-  height: 100%;
   gap: 3rem;
-  font-size: 4.5rem;
+  // height: calc(100vh - 58px - 2rem - 2rem);
+
+  @include responsive(phone-small) {
+    // height: calc(100vh - 58px - 5.75rem);
+  }
+
+  iframe {
+    @include display-flex(center, center, column, nowrap);
+    gap: 3rem;
+    font-size: 4.5rem;
+    padding: 1rem 2.9rem 0 3rem;
+    overflow-y: scroll;
+    height: calc(100vh - 58px - 2rem - 2rem);
+    color: $color-gray;
+
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+
+    @include responsive(phone-small) {
+      padding: 1rem 1.7rem 0 1.7rem;
+      height: calc(100vh - 58px - 5.75rem);
+    }
+  }
 }

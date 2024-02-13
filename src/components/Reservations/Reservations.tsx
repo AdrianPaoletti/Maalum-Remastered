@@ -223,6 +223,7 @@ export function Reservations() {
     hasGoBackIcon,
     isButtonDisabled,
   } = renderReservationComponent();
+  const showFooter = title !== "PAYMENT CONFIRMATION";
 
   return (
     <ReservationsWrapper
@@ -272,19 +273,21 @@ export function Reservations() {
           <article className={`${styles["reservations__body"]}`}>
             {component}
           </article>
-          <footer className={`${styles.reservations__footer}`}>
-            <button
-              className={`${styles["reservations__footer-button"]} ${
-                isButtonDisabled &&
-                styles["reservations__footer-button--disabled"]
-              }`}
-              disabled={isButtonDisabled}
-              type="button"
-              onClick={onClick}
-            >
-              {buttonText}
-            </button>
-          </footer>
+          {showFooter && (
+            <footer className={`${styles.reservations__footer}`}>
+              <button
+                className={`${styles["reservations__footer-button"]} ${
+                  isButtonDisabled &&
+                  styles["reservations__footer-button--disabled"]
+                }`}
+                disabled={isButtonDisabled}
+                type="button"
+                onClick={onClick}
+              >
+                {buttonText}
+              </button>
+            </footer>
+          )}
         </div>
       </section>
     </ReservationsWrapper>
