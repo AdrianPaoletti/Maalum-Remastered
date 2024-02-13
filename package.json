@@ -34,6 +34,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/react-datepicker": "^4.15.0",
     "@types/uuid": "^9.0.7",
     "eslint-config-prettier": "^8.10.0"

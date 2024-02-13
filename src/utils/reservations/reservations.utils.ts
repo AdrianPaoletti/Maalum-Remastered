@@ -32,12 +32,6 @@ const initialReservationsConfirmationInformation: ReservationsConfirmationInform
     email: "",
   };
 
-// const initialReservationsPickerSubmited: ReservationsPickerSubmited = {
-//   guests: false,
-//   dates: false,
-//   services: false,
-// };
-
 const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
   {
     id: "adults",
@@ -76,7 +70,7 @@ const spaInformation: {
   {
     id: "naturalEssence",
     type: "caveAndSpa",
-    title: "Natural essence + Maalum Cave",
+    title: "Natural essence",
     subtitle: "Lorem ipsum ergo ipsum",
     dollarsPrice: NATURAL_ESSENCE_PRICE,
     shillingPrice: `${NATURAL_ESSENCE_PRICE * 2},000`,
@@ -84,7 +78,7 @@ const spaInformation: {
   {
     id: "traditionOfBeauty",
     type: "caveAndSpa",
-    title: "Tradition of beauty + Maalum Cave",
+    title: "Tradition of beauty",
     subtitle: "Lorem ipsum ergo ipsum",
     dollarsPrice: TRADITION_BEAUTY_PRICE,
     shillingPrice: `${TRADITION_BEAUTY_PRICE * 2},000`,
@@ -92,7 +86,7 @@ const spaInformation: {
   {
     id: "maalumRitual",
     type: "caveAndSpa",
-    title: "Maalum Ritual + Maalum Cave",
+    title: "Maalum Ritual",
     subtitle: "Lorem ipsum ergo ipsum",
     dollarsPrice: RITUAL_PRICE,
     shillingPrice: `${RITUAL_PRICE * 2},000`,
@@ -104,5 +98,4 @@ export {
   spaInformation,
   initialReservationsPickerInformation,
   initialReservationsConfirmationInformation,
-  // initialReservationsPickerSubmited,
 };

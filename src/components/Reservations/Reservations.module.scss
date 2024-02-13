@@ -65,15 +65,14 @@
   }
 
   &__body {
-    padding: 1rem 2.9rem 0 3rem;
-    overflow-y: scroll;
-    height: calc(100vh - 58px - 71px - 2rem - 2rem);
-    color: $color-gray;
+    // overflow-y: scroll;
+    // height: calc(100vh - 58px - 71px - 2rem - 2rem);
+    // color: $color-gray;
 
-    @include responsive(phone-small) {
-      padding: 1rem 1.7rem 0 1.7rem;
-      height: calc(100vh - 58px - 71px - 5.75rem);
-    }
+    // @include responsive(phone-small) {
+    //   padding: 1rem 1.7rem 0 1.7rem;
+    //   height: calc(100vh - 58px - 71px - 5.75rem);
+    // }
   }
 
   &__title {

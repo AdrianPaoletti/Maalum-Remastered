@@ -2,49 +2,21 @@
 @import "src/styles/abstracts/variables";
 
 .guests {
-  &-container {
-    &__card {
-      width: 100%;
-      margin-bottom: 1rem;
-
-      &--disabled {
-        background-color: $color-gray-disabled;
-      }
-    }
-
-    &__service {
-      @include display-flex(space-between);
-      background-color: $color-gray-medium-light;
-      border-radius: 0.5rem;
-      min-height: 7.1rem;
-    }
-
-    &__text-title {
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    &__button-submit-container {
-      @include button-reservations();
-      text-align: end;
-    }
-  }
-
   &__card {
     @include display-flex(space-between);
     width: 100%;
     border-radius: 0.5rem;
-    border-top: 2px solid $color-white;
-    background-color: $color-gray-disabled;
+    background-color: $color-gray-medium-light;
     min-height: 7.1rem;
-    margin-top: 0.3rem;
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 
   &__text-title {
     font-weight: 600;
-    font-size: $font-size-13;
     margin-bottom: 0.4rem;
-    color: $color-gray;
 
     span {
       font-weight: 400;
@@ -52,11 +24,12 @@
   }
 
   &__text-subtitle {
+    font-size: 1.3rem;
+    line-height: 2.25rem;
     color: $color-gray;
-    font-size: 1.1rem;
 
     @include responsive(phone-small) {
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.25rem;
     }
   }
 
@@ -66,7 +39,7 @@
   }
 
   &__count {
-    font-size: $font-size-13;
+    font-size: $font-size-14;
     font-weight: 600;
     width: 1rem;
   }
@@ -75,10 +48,6 @@
     margin-top: 2rem;
     text-align: end;
     margin-right: 0;
-  }
-
-  &__button-submit {
-    @include button-accordion();
   }
 }
 

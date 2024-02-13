@@ -63,11 +63,11 @@ export interface FormattedReservationsPickerData {
   amount: string;
 }
 
-export interface ReservationsPickerSubmited {
-  guests: boolean;
-  dates: boolean;
-  spa: boolean;
-}
+export type ReservationStepper =
+  | "reservationsPicker"
+  | "reservationsUpgrade"
+  | "reservationsConfirmation"
+  | "reservationsPayment";
 
 export type ConfirmationState = "loading" | "resolved" | "rejected";
 

@@ -9,7 +9,7 @@ import {
   ConfirmationState,
   ReservationsConfirmationInformation,
   ReservationsPickerInformation,
-  ReservationsPickerSubmited,
+  ReservationStepper,
 } from "maalum/core/models/reservations.model";
 import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
@@ -20,6 +20,7 @@ import {
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
 import ReservationsPayment from "./ReservationsPayment/ReservationsPayment";
 import { ReservationsPicker } from "./ReservationsPicker/ReservationsPicker";
+import { ReservationsUpgrade } from "./ReservationsUpgrade/ReservationsUpgrade";
 
 import styles from "./Reservations.module.scss";
 
@@ -42,14 +43,13 @@ export function Reservations() {
   const { isReservationsOpen, setIsReservationsOpen } =
     useContext(MaalumContext);
   const [reservationStepper, setReservationStepper] =
-    useState<string>("reservationsPicker");
+    useState<ReservationStepper>("reservationsPicker");
   const [reservationsPickerInformation, setReservationsPickerInformation] =
     useState<ReservationsPickerInformation>(
       initialReservationsPickerInformation
     );
   // const [reservationsPickerSubmited, setReservationsPickerSubmited] =
   //   useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
-  const [accordionExpanded, setAccordionExpanded] = useState<string>("guests");
   const [isError, setIsError] = useState<boolean>(false);
   const [
     reservationsConfirmationInformation,
@@ -61,10 +61,13 @@ export function Reservations() {
     useState<ConfirmationState>("loading");
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
   const [URLPayment, setURLPayment] = useState<string>("");
-
   const isReservationsConfirmationButtonDisabled = Object.values(
     reservationsConfirmationInformation
   ).some((value) => !value || !value?.length);
+  const isButtonDisabledPicker =
+    !reservationsPickerInformation.totalGuests ||
+    !reservationsPickerInformation.date?.getHours();
+  console.log();
 
   const handleOnClose = () => {
     setIsReservationsOpen(false);
@@ -73,7 +76,6 @@ export function Reservations() {
       initialReservationsConfirmationInformation
     );
     // setReservationsPickerSubmited(initialReservationsPickerSubmited);
-    setAccordionExpanded("dates");
     document.body.className = `${document.body.classList[0]}`;
     const timer = setTimeout(() => {
       setReservationStepper("reservationsPicker");
@@ -82,12 +84,7 @@ export function Reservations() {
   };
 
   const handleReservationsPickerSubmit = () => {
-    setReservationStepper("reservationsConfirmation");
-    setAccordionExpanded("");
-    // setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
-    //   ...prevReservationsPickerSubmited,
-    //   services: true,
-    // }));
+    setReservationStepper("reservationsUpgrade");
     setIsError(false);
   };
 
@@ -118,6 +115,18 @@ export function Reservations() {
     setIsError(isError);
   };
 
+  const handleGoBack = () => {
+    if (reservationStepper === "reservationsUpgrade") {
+      setReservationStepper("reservationsPicker");
+      return;
+    }
+
+    if (reservationStepper === "reservationsConfirmation") {
+      setReservationStepper("reservationsUpgrade");
+      return;
+    }
+  };
+
   const renderReservationComponent = (): {
     component: React.ReactNode;
     title: string;
@@ -135,16 +144,29 @@ export function Reservations() {
               setReservationsPickerInformation={
                 setReservationsPickerInformation
               }
-              // reservationsPickerSubmited={reservationsPickerSubmited}
-              // setReservationsPickerSubmited={setReservationsPickerSubmited}
-              accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}
             />
           ),
-          title: "SELECT DATE AND SERVICES",
+          title: "SELECT GUESTS AND DATES",
+          buttonText: "NEXT",
+          isButtonDisabled: isButtonDisabledPicker,
+          onClick: () => handleReservationsPickerSubmit(),
+        };
+      case "reservationsUpgrade":
+        return {
+          component: (
+            <ReservationsUpgrade
+              reservationsPickerInformation={reservationsPickerInformation}
+              setReservationsPickerInformation={
+                setReservationsPickerInformation
+              }
+              setReservationStepper={setReservationStepper}
+            />
+          ),
+          title: "UPGRADE YOUR EXPERIENCE",
           buttonText: "NEXT",
           isButtonDisabled: false,
-          onClick: () => handleReservationsPickerSubmit(),
+          onClick: () => setReservationStepper("reservationsConfirmation"),
+          hasGoBackIcon: true,
         };
       case "reservationsConfirmation":
         return {
@@ -222,11 +244,11 @@ export function Reservations() {
         onClick={(event) => event.stopPropagation()}
       >
         <div className={`${styles["reservations__container"]}`}>
-          <article className={`${styles.reservations__header}`}>
+          <header className={`${styles.reservations__header}`}>
             <div className={`${styles["reservations__title-container"]}`}>
               {hasGoBackIcon && (
                 <IconButton
-                  onClick={() => setReservationStepper("reservationsPicker")}
+                  onClick={handleGoBack}
                   sx={{ color: "inherit", fontSize: 22, paddingLeft: 0 }}
                   disableRipple
                 >
@@ -246,11 +268,11 @@ export function Reservations() {
             >
               <CloseIcon fontSize="inherit" />
             </IconButton>
-          </article>
+          </header>
           <article className={`${styles["reservations__body"]}`}>
             {component}
           </article>
-          <article className={`${styles.reservations__footer}`}>
+          <footer className={`${styles.reservations__footer}`}>
             <button
               className={`${styles["reservations__footer-button"]} ${
                 isButtonDisabled &&
@@ -262,7 +284,7 @@ export function Reservations() {
             >
               {buttonText}
             </button>
-          </article>
+          </footer>
         </div>
       </section>
     </ReservationsWrapper>

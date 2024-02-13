@@ -2,6 +2,21 @@
 @import "src/styles/abstracts/variables";
 
 .reservations-picker {
+  padding: 1rem 2.9rem 0 3rem;
+  overflow-y: scroll;
+  height: calc(100vh - 58px - 71px - 2rem - 2rem);
+  color: $color-gray;
+
+  @include responsive(phone-small) {
+    padding: 1rem 1.7rem 0 1.7rem;
+    height: calc(100vh - 58px - 71px - 5.75rem);
+  }
+
+  &__title {
+    margin-right: 2rem;
+    line-height: 2.1rem;
+  }
+
   &__sub-title {
     &--update {
       color: $color-gray;
@@ -9,5 +24,15 @@
       letter-spacing: 0.08rem;
       font-weight: 400;
     }
+  }
+
+  &__space {
+    width: 100%;
+    display: inline-block;
+    border-bottom: 1px solid $color-gray-footer;
+  }
+
+  &__dates {
+    margin-top: 2.5rem;
   }
 }

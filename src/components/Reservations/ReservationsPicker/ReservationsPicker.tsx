@@ -1,15 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-
 import {
   BlockedDaysHours,
   GetBlockedDaysMonthlyRequestBody,
   GetReservationsMonthlyRequestBody,
   Reservation,
   ReservationsPickerInformation,
-  ReservationsPickerSubmited,
 } from "maalum/core/models/reservations.model";
 import {
   getBlockedDaysMonthly as getBlockedDaysMonthlyFetch,
@@ -17,7 +13,6 @@ import {
 } from "maalum/core/services/reservations/reservations.service";
 import { ReservationsPickerDatePicker } from "./ReservationsPickerDatePicker/ReservationsPickerDatePicker";
 import { ReservationsPickerGuests } from "./ReservationsPickerGuests/ReservationsPickerGuests";
-import { ReservationsPickerSpa } from "./ReservationsPickerSpa/ReservationsPickerSpa";
 
 import styles from "./ReservationsPicker.module.scss";
 
@@ -26,21 +21,11 @@ interface ReservationsPickerProps {
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
-  // reservationsPickerSubmited: ReservationsPickerSubmited;
-  // setReservationsPickerSubmited: React.Dispatch<
-  //   React.SetStateAction<ReservationsPickerSubmited>
-  // >;
-  accordionExpanded: string;
-  setAccordionExpanded: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function ReservationsPicker({
   reservationsPickerInformation,
   setReservationsPickerInformation,
-  // reservationsPickerSubmited,
-  // setReservationsPickerSubmited,
-  accordionExpanded,
-  setAccordionExpanded,
 }: ReservationsPickerProps) {
   const [excludedDays, setExcludedDays] = useState<Date[]>([]);
   const [excludedHours, setExcludedHours] = useState<Date[]>([]);
@@ -49,6 +34,7 @@ export function ReservationsPicker({
   );
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  console.log(reservationsPickerInformation);
 
   const getBlockedDaysReservationsMonthly = useCallback(
     async (date: Date | null = null) => {
@@ -87,83 +73,28 @@ export function ReservationsPicker({
     getBlockedDaysReservationsMonthly();
   }, [getBlockedDaysReservationsMonthly]);
 
-  const handleSubmitDatePicker = () => {
-    setAccordionExpanded("services");
-    // setReservationsPickerInformation((prevReservationsPickerInformation) => ({
-    //   ...prevReservationsPickerInformation,
-    //   service: [],
-    // }));
-    // setReservationsPickerSubmited((prevReservationsPickerSubmited) => ({
-    //   ...prevReservationsPickerSubmited,
-    //   dates: true,
-    // }));
-  };
-
-  // const isReservationsPickerButtonDisabled = (
-  //   reservationsPickerInformation: ReservationsPickerInformation
-  // ): boolean => {
-  //   const dateServiceValue = Object.values(reservationsPickerInformation).slice(
-  //     4,
-  //     6
-  //   );
-
-  //   return (
-  //     !reservationsPickerInformation.totalGuests ||
-  //     dateServiceValue.some((value) => !value)
-  //   );
-  // };
-
-  // const canExpandAccordion = (id: string, indexNumber: number): boolean => {
-  //   const indexAccordionExpanded = accordionElements.findIndex(
-  //     ({ id }) => id === accordionExpanded
-  //   );
-
-  //   return (
-  //     (indexAccordionExpanded > indexNumber && id !== accordionExpanded) ||
-  //     (!Object.values(reservationsPickerSubmited).some(
-  //       (value) => value === false
-  //     ) &&
-  //       !isReservationsPickerButtonDisabled) ||
-  //     !accordionExpanded.length
-  //   );
-  // };
-
-  const accordionElements: {
-    id: keyof ReservationsPickerSubmited;
-    title: string;
-    component: JSX.Element;
-    paddingBottom?: string;
-  }[] = [
-    {
-      id: "guests",
-      title: "GUESTS",
-      component: (
-        <ReservationsPickerGuests
-          submit={() => {
-            setAccordionExpanded("spa");
-          }}
-          reservationsPickerInformation={reservationsPickerInformation}
-          setReservationsPickerInformation={setReservationsPickerInformation}
-        />
-      ),
-    },
-    {
-      id: "spa",
-      title: "UPGRADE YOUR EXPERIENCE",
-      component: (
-        <ReservationsPickerSpa
-          reservationsPickerInformation={reservationsPickerInformation}
-          setReservationsPickerInformation={setReservationsPickerInformation}
-        />
-      ),
-    },
-    {
-      id: "dates",
-      title: "DATES AND TIMES",
-      component: (
+  return (
+    <div className={`${styles["reservations-picker"]}`}>
+      <h5
+        className={`${styles["reservations-picker__title"]} heading-cuaternary u-padding-top-small`}
+      >
+        {"GUESTS"}
+      </h5>
+      <ReservationsPickerGuests
+        reservationsPickerInformation={reservationsPickerInformation}
+        setReservationsPickerInformation={setReservationsPickerInformation}
+      />
+      <span className={`${styles["reservations-picker__space"]}`} />
+      <div className={`${styles["reservations-picker__dates"]}`}>
+        <h5
+          className={`${styles["reservations-picker__title"]} heading-cuaternary`}
+        >
+          {"DATES / TIMES"}
+        </h5>
         <ReservationsPickerDatePicker
           getBlockedDaysReservationsMonthly={getBlockedDaysReservationsMonthly}
           excludedDays={excludedDays}
+          setExcludedDays={setExcludedDays}
           excludedHours={excludedHours}
           setExcludedHours={setExcludedHours}
           selectedDate={reservationsPickerInformation.date}
@@ -171,46 +102,9 @@ export function ReservationsPicker({
           setReservationsPickerInformation={setReservationsPickerInformation}
           blockedDaysHours={blockedDaysHours}
           reservations={reservations}
-          handleSubmit={handleSubmitDatePicker}
           isLoading={isLoading}
         />
-      ),
-      paddingBottom: "2rem",
-    },
-  ];
-
-  return (
-    <>
-      {accordionElements.map(
-        ({ id, title, component, paddingBottom }, indexNumber) => (
-          <Accordion
-            key={id}
-            expanded={id === accordionExpanded}
-            disableGutters
-            square
-          >
-            <AccordionSummary
-              onClick={() =>
-                // canExpandAccordion(id, indexNumber) &&
-                setAccordionExpanded(id)
-              }
-              expandIcon={<ExpandMoreIcon fontSize="large" />}
-            >
-              <h5 className={`heading-cuaternary`}>{title}</h5>
-              {/* {reservationsPickerSubmited[id] && ( */}
-              <h5
-                className={`${styles["reservations-picker__sub-title--update"]}`}
-              >
-                Update
-              </h5>
-              {/* )} */}
-            </AccordionSummary>
-            <AccordionDetails sx={{ paddingBottom }}>
-              {component}
-            </AccordionDetails>
-          </Accordion>
-        )
-      )}
-    </>
+      </div>
+    </div>
   );
 }

@@ -2,14 +2,10 @@
 @import "src/styles/abstracts/variables";
 
 .date-picker {
-  position: relative;
+  // position: relative;
 
-  &__button-submit-container {
-    margin-top: 2rem;
-    text-align: end;
-  }
-
-  &__button-submit {
-    @include button-accordion();
-  }
+  // &__button-submit-container {
+  //   margin-top: 2rem;
+  //   text-align: end;
+  // }
 }

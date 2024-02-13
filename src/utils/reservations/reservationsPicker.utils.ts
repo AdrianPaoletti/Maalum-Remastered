@@ -85,9 +85,13 @@ const addDaysToDate = (date: Date, days: number): Date =>
 const addHoursToTime = (date: Date, hours: number): Date =>
   new Date(date.setTime(date.getTime() + hours * 60 * 60 * 1000));
 
+const getLastDayMonth = () =>
+  new Date(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0));
+
 export {
   getBlockedDaysExcludedHours,
   getReservationsExcludedHours,
+  getLastDayMonth,
   getMinimumHour,
   addDaysToDate,
   addHoursToTime,

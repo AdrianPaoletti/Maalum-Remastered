@@ -2,7 +2,17 @@
 @import "src/styles/abstracts/variables";
 
 .reservations-confirmation {
-  padding: 2rem 0;
+  padding: 3rem 2.9rem 1rem 3rem;
+  overflow-y: scroll;
+  height: calc(100vh - 58px - 71px - 2rem - 2rem);
+  color: $color-gray;
+
+  @include responsive(phone-small) {
+    padding: 3rem 1.7rem 1rem 1.7rem;
+    height: calc(100vh - 58px - 71px - 5.75rem);
+  }
+
+  // padding: 2rem 0;
 
   &__sub-title {
     color: $color-black-sub-title;
