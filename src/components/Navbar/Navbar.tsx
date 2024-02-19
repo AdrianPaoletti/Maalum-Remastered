@@ -38,15 +38,22 @@ export function Navbar({}: NavbarProps) {
   const menuItems: {
     id: string;
     title: string;
-    refference?: string;
     onClick: () => void;
   }[] = [
     {
-      id: "contact",
+      id: "",
       title: "CONTACT US",
-      refference: "contact",
       onClick: () => {
         document.body.className = `${document.body.classList[0]}`;
+        const section = document.getElementById("contact");
+
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+          window.scrollTo({
+            top: section.offsetTop - 128,
+            behavior: "smooth",
+          });
+        }
       },
     },
     {
@@ -76,19 +83,20 @@ export function Navbar({}: NavbarProps) {
       }`}
     >
       <div className={`${styles.navbar__container}`}>
-        <Link href="/#header">
-          <Image
-            src={
-              hasScrollMoved
-                ? "/images/logo-beige.png"
-                : "/images/logo-white.png"
-            }
-            alt="maalum-zanzibar-logo"
-            className={styles.navbar__image}
-            width={157}
-            height={41}
-          />
-        </Link>
+        <Image
+          src={
+            hasScrollMoved ? "/images/logo-beige.png" : "/images/logo-white.png"
+          }
+          alt="maalum-zanzibar-logo"
+          className={styles.navbar__image}
+          onClick={() =>
+            document
+              .getElementById("header")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+          width={157}
+          height={41}
+        />
         <div
           className={`${styles["menu__burger-container"]}`}
           onClick={handleBurgerMenuClick}
@@ -109,7 +117,7 @@ export function Navbar({}: NavbarProps) {
             isMenuExpanded && styles["menu__list--active"]
           }`}
         >
-          {menuItems.map(({ id, title, refference, onClick }) => (
+          {menuItems.map(({ id, title, onClick }) => (
             <li
               key={id}
               className={`navbar-list-item ${styles["menu__item"]} ${
@@ -120,16 +128,7 @@ export function Navbar({}: NavbarProps) {
                 onClick();
               }}
             >
-              {refference ? (
-                <Link
-                  href={`/#${refference}`}
-                  className={`${styles["menu__link-item"]}`}
-                >
-                  {title}
-                </Link>
-              ) : (
-                title
-              )}
+              {title}
             </li>
           ))}
         </ul>

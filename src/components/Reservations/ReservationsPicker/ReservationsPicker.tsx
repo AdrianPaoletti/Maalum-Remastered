@@ -34,7 +34,6 @@ export function ReservationsPicker({
   );
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  console.log(reservationsPickerInformation);
 
   const getBlockedDaysReservationsMonthly = useCallback(
     async (date: Date | null = null) => {
@@ -61,7 +60,6 @@ export function ReservationsPicker({
             )
         );
       } catch (error) {
-        console.log("An error had occurred", error);
         setIsLoading(false);
       }
     },

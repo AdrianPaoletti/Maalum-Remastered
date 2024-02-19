@@ -22,37 +22,53 @@ export const defaultTheme: Theme = createTheme({
     white: "#fff",
   },
   components: {
-    // MuiAccordion: {
-    //   styleOverrides: {
-    //     root: {
-    //       boxShadow: "none",
-    //       borderTop: "none",
-    //       borderBottom: "1px solid #c7c7c7",
-    //     },
-    //   },
-    // },
-    // MuiAccordionDetails: {
-    //   styleOverrides: {
-    //     root: {
-    //       padding: "1rem 0 3rem 0",
-    //     },
-    //   },
-    // },
-    // MuiAccordionSummary: {
-    //   styleOverrides: {
-    //     root: {
-    //       fontSize: 14,
-    //       padding: 0,
-    //     },
-    //     content: {
-    //       margin: "2rem 0",
-    //       display: "flex",
-    //       justifyContent: "space-between",
-    //       alignItems: "center",
-    //       paddingRight: "1rem",
-    //     },
-    //   },
-    // },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+          borderTop: "none",
+          borderBottom: "none",
+
+          "&.Mui-expanded": {
+            marginTop: 0,
+          },
+
+          "&:before": {
+            backgroundColor: "#fff",
+          },
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: "1.75rem 0 0",
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+          padding: 0,
+          minHeight: 0,
+          "&.Mui-expanded": {
+            minHeight: 0,
+          },
+        },
+        content: {
+          margin: 0,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingRight: "1rem",
+
+          "&.Mui-expanded": {
+            margin: 0,
+          },
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {

@@ -1,16 +1,12 @@
 import {
   ADULTS_PRICE,
   CHILDREN_PRICE,
-  NATURAL_ESSENCE_PRICE,
   RESIDENTS_PRICE,
-  RITUAL_PRICE,
-  TRADITION_BEAUTY_PRICE,
 } from "maalum/core/constants/constants";
 import {
   ReservationsConfirmationInformation,
   ReservationsGuestsInformation,
   ReservationsPickerInformation,
-  ReservationsSpaCounter,
 } from "maalum/core/models/reservations.model";
 
 const initialReservationsPickerInformation: ReservationsPickerInformation = {
@@ -19,7 +15,6 @@ const initialReservationsPickerInformation: ReservationsPickerInformation = {
   residents: 0,
   totalGuests: 0,
   naturalEssence: 0,
-  traditionOfBeauty: 0,
   maalumRitual: 0,
   date: null,
 };
@@ -31,6 +26,11 @@ const initialReservationsConfirmationInformation: ReservationsConfirmationInform
     phone: null,
     email: "",
   };
+
+const initialUpgradeGuestsValue = {
+  naturalEssence: new Map<string, number>(),
+  maalumRitual: new Map<string, number>(),
+};
 
 const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
   {
@@ -59,43 +59,9 @@ const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
   },
 ];
 
-const spaInformation: {
-  id: keyof ReservationsSpaCounter;
-  type: string;
-  title: string;
-  subtitle: string;
-  dollarsPrice: number;
-  shillingPrice: string;
-}[] = [
-  {
-    id: "naturalEssence",
-    type: "caveAndSpa",
-    title: "Natural essence",
-    subtitle: "Lorem ipsum ergo ipsum",
-    dollarsPrice: NATURAL_ESSENCE_PRICE,
-    shillingPrice: `${NATURAL_ESSENCE_PRICE * 2},000`,
-  },
-  {
-    id: "traditionOfBeauty",
-    type: "caveAndSpa",
-    title: "Tradition of beauty",
-    subtitle: "Lorem ipsum ergo ipsum",
-    dollarsPrice: TRADITION_BEAUTY_PRICE,
-    shillingPrice: `${TRADITION_BEAUTY_PRICE * 2},000`,
-  },
-  {
-    id: "maalumRitual",
-    type: "caveAndSpa",
-    title: "Maalum Ritual",
-    subtitle: "Lorem ipsum ergo ipsum",
-    dollarsPrice: RITUAL_PRICE,
-    shillingPrice: `${RITUAL_PRICE * 2},000`,
-  },
-];
-
 export {
   reservationsGuestsInformation,
-  spaInformation,
   initialReservationsPickerInformation,
   initialReservationsConfirmationInformation,
+  initialUpgradeGuestsValue,
 };

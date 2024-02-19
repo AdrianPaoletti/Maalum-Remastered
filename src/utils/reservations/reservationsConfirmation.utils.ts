@@ -44,8 +44,8 @@ const reservationsPickerData: {
     title: "DATE",
   },
   {
-    id: "hour",
-    title: "HOUR",
+    id: "caveHour",
+    title: "CAVE HOUR",
   },
   {
     id: "guests",
@@ -83,7 +83,7 @@ const formatReservationsPickerData = ({
   }`;
   return {
     date: date?.toLocaleString().split(",")[0] || "",
-    hour:
+    caveHour:
       date?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) ||
       "",
     guests: `${adultsText}${childrenText}

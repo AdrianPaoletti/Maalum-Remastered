@@ -1,14 +1,29 @@
+import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import AddIcon from "@mui/icons-material/Add";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { IconButton } from "@mui/material";
-
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  ClickAwayListener,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+
+import { WHATSAPP_LINK } from "maalum/core/constants/constants";
+import {
+  ReservationsGuestsCounter,
   ReservationsPickerInformation,
   ReservationStepper,
+  UpgradeGuests,
 } from "maalum/core/models/reservations.model";
 import { defaultTheme } from "maalum/styles/themes";
+import { reservationsGuestsInformation } from "maalum/utils/reservations/reservations.utils";
 import {
   cardElements,
   getHour,
@@ -26,23 +41,47 @@ interface ReservationsUpgradeProps {
   setReservationStepper: React.Dispatch<
     React.SetStateAction<ReservationStepper>
   >;
+  upgradeGuests: UpgradeGuests;
+  setUpgradeGuests: React.Dispatch<React.SetStateAction<UpgradeGuests>>;
 }
 
 export function ReservationsUpgrade({
   reservationsPickerInformation,
   setReservationsPickerInformation,
   setReservationStepper,
+  upgradeGuests,
+  setUpgradeGuests,
 }: ReservationsUpgradeProps) {
-  const hour = reservationsPickerInformation.date?.toLocaleTimeString("es-ES", {
-    hour: "numeric",
-    minute: "2-digit",
-  });
+  // const [isExpanded, setIsExpanded] = useState<{ [key: string]: boolean }>({
+  //   naturalEssence: false,
+  //   maalumRitual: false,
+  // });
+  const [tooltipOpen, setTooltipOpen] = useState<{
+    card: "naturalEssence" | "maalumRitual" | null;
+    guest: keyof ReservationsGuestsCounter | null;
+  }>({ card: null, guest: null });
+  const [timer, setTimer] = useState<NodeJS.Timeout>();
+  // const refCard = {
+  //   naturalEssence: useRef<HTMLDivElement>(null),
+  //   maalumRitual: useRef<HTMLDivElement>(null),
+  // };
+  const formattedDate = reservationsPickerInformation.date
+    ?.toLocaleDateString("es-ES", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    })
+    .split(",") as string[];
   const totalUpgradeGuests = cardElements.reduce(
     (accum, { id }) => accum + reservationsPickerInformation[id],
     0
   );
-  const buttonPlusDisabled =
-    totalUpgradeGuests >= reservationsPickerInformation.totalGuests;
+  const guestsAvailable =
+    reservationsPickerInformation.totalGuests - totalUpgradeGuests;
+  const guests = reservationsGuestsInformation.filter(
+    ({ id }) => reservationsPickerInformation[id]
+  );
 
   const navbarElements: {
     id: "date" | "totalGuests";
@@ -66,17 +105,70 @@ export function ReservationsUpgrade({
     },
   ];
 
-  const handlePlus = (id: "naturalEssence" | "maalumRitual") =>
+  // const handleClick = (id: "naturalEssence" | "maalumRitual") => {
+  //   if (!isExpanded[id]) {
+  //     refCard[id].current?.scrollIntoView({
+  //       behavior: "smooth",
+  //       inline: "start",
+  //     });
+  //     setIsExpanded({ ...isExpanded, [id]: true });
+  //     return;
+  //   }
+
+  //   setIsExpanded({ ...isExpanded, [id]: false });
+  // };
+
+  const handlePlus = (
+    id: "naturalEssence" | "maalumRitual",
+    idGuests: keyof ReservationsGuestsCounter
+  ) => {
+    if (totalUpgradeGuests >= 2) {
+      setTooltipOpen({ card: id, guest: idGuests });
+      setTimer(setTimeout(() => handleTooltipClose(), 3000));
+      return;
+    }
+
+    setUpgradeGuests((prevUpgradeGuests) => ({
+      ...prevUpgradeGuests,
+      [id]: prevUpgradeGuests[id].set(
+        idGuests,
+        (upgradeGuests[id].get(idGuests) ?? 0) + 1
+      ),
+    }));
+
     setReservationsPickerInformation((prevReservationsPickerInformation) => ({
       ...prevReservationsPickerInformation,
       [id]: prevReservationsPickerInformation[id] + 1,
     }));
+  };
 
-  const handleMinus = (id: "naturalEssence" | "maalumRitual") =>
+  const handleMinus = (
+    id: "naturalEssence" | "maalumRitual",
+    idGuests: keyof ReservationsGuestsCounter
+  ) => {
+    setUpgradeGuests((prevUpgradeGuests) => ({
+      ...prevUpgradeGuests,
+      [id]: prevUpgradeGuests[id].set(
+        idGuests,
+        (upgradeGuests[id].get(idGuests) ?? 0) - 1
+      ),
+    }));
     setReservationsPickerInformation((prevReservationsPickerInformation) => ({
       ...prevReservationsPickerInformation,
       [id]: prevReservationsPickerInformation[id] - 1,
     }));
+  };
+
+  const handleShowTooltip = (
+    id: "naturalEssence" | "maalumRitual",
+    idGuests: keyof ReservationsGuestsCounter
+  ) => tooltipOpen.card === id && tooltipOpen.guest === idGuests;
+
+  const handleTooltipClose = () => {
+    setTooltipOpen({ card: null, guest: null });
+
+    clearTimeout(timer);
+  };
 
   return (
     <div className={styles["reservations-upgrade"]}>
@@ -101,12 +193,30 @@ export function ReservationsUpgrade({
         })}
       </nav>
       <ul className={`${styles["reservations-upgrade__cards"]}`}>
+        <Link
+          className={`${styles["reservations-upgrade__card"]} ${styles["reservations-upgrade__card--whatsapp"]}`}
+          href={WHATSAPP_LINK}
+          target="_blank"
+        >
+          <WhatsAppIcon fontSize="large" style={{ color: "green" }} />
+          <p>
+            For more than 2 guests or specific request, please{" "}
+            <span>click here</span> to contact us throw whatsapp.
+          </p>
+        </Link>
         {cardElements.map(({ id, title, price, description }) => {
-          const hourSpa = getHour(hour ?? "");
-          const disableHour = hourSpa === "SOLD OUT";
+          const hourSpa = getHour(formattedDate[1] ?? "");
+          const isSoldOut = hourSpa === "SOLD OUT";
 
           return (
             <li key={id} className={`${styles["reservations-upgrade__card"]}`}>
+              <span
+                className={`${styles["reservations-upgrade__card-availability"]}`}
+              >
+                {`${guestsAvailable} ${
+                  guestsAvailable === 1 ? "place" : "places"
+                } left`}
+              </span>
               <div
                 className={`${styles["reservations-upgrade__image-container"]}`}
               >
@@ -140,53 +250,150 @@ export function ReservationsUpgrade({
                 <p className={`${styles["reservations-upgrade__description"]}`}>
                   {description}
                 </p>
-                <div className={`${styles["reservations-upgrade__guests"]}`}>
-                  <span
-                    className={`${styles["reservations-upgrade__hour"]} ${
-                      disableHour &&
-                      styles["reservations-upgrade__hour--disabled"]
-                    }`}
+                {/* <div
+                  className={`${styles["reservations-upgrade__sub-description"]}`}
+                >
+                  <p>Max 2 guests</p>
+                </div> */}
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon fontSize="large" />}
+                    // onClick={() => handleClick(id)}
                   >
-                    {hourSpa}
-                  </span>
-                  <div className={`${styles["reservations-upgrade__counter"]}`}>
-                    <IconButton
-                      onClick={() => handleMinus(id)}
-                      disabled={
-                        !reservationsPickerInformation[id] || disableHour
-                      }
-                      className={`${styles["reservations-upgrade__button"]}`}
-                      sx={{
-                        "&.Mui-disabled": {
-                          backgroundColor: defaultTheme.palette.beige.disabled,
-                          color: defaultTheme.palette.white,
-                        },
-                      }}
-                      disableRipple
-                    >
-                      <RemoveIcon fontSize="inherit" />
-                    </IconButton>
                     <span
-                      className={`${styles["reservations-upgrade__count"]}`}
+                      className={`${styles["reservations-upgrade__hour"]} ${
+                        isSoldOut &&
+                        styles["reservations-upgrade__hour--disabled"]
+                      }`}
                     >
-                      {reservationsPickerInformation[id]}
+                      <Calendar />{" "}
+                      {isSoldOut ? hourSpa : `${formattedDate[0]} - ${hourSpa}`}
                     </span>
-                    <IconButton
-                      onClick={() => handlePlus(id)}
-                      disabled={buttonPlusDisabled || disableHour}
-                      className={`${styles["reservations-upgrade__button"]}`}
-                      sx={{
-                        "&.Mui-disabled": {
-                          backgroundColor: defaultTheme.palette.beige.disabled,
-                          color: defaultTheme.palette.white,
-                        },
-                      }}
-                      disableRipple
+                    <p
+                      className={`${styles["reservations-upgrade__text-title"]} ${styles["reservations-upgrade__text-title--accordion"]}`}
                     >
-                      <AddIcon fontSize="inherit" />
-                    </IconButton>
-                  </div>
-                </div>
+                      Select guests
+                    </p>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {guests.map(
+                      ({ id: idGuests, pluralTitle, singleTitle }) => {
+                        const isMoreGuests = cardElements.some(
+                          ({ id: idSpa }) =>
+                            (upgradeGuests[idSpa].get(idGuests) as number) >=
+                            reservationsPickerInformation[idGuests]
+                        );
+                        const isTooltip = handleShowTooltip(id, idGuests);
+
+                        return (
+                          <div
+                            key={idGuests}
+                            className={`${styles["reservations-upgrade__guests"]}`}
+                            // ref={refCard[id]}
+                          >
+                            <p
+                              className={`${styles["reservations-upgrade__text-title"]}`}
+                            >
+                              {reservationsPickerInformation[idGuests] > 1 ||
+                              !reservationsPickerInformation[idGuests]
+                                ? pluralTitle
+                                : singleTitle}
+                            </p>
+                            <div
+                              className={`${styles["reservations-upgrade__counter"]}`}
+                            >
+                              <IconButton
+                                onClick={() => handleMinus(id, idGuests)}
+                                disabled={
+                                  !upgradeGuests[id].get(idGuests) || isSoldOut
+                                }
+                                className={`${styles["reservations-upgrade__button"]}`}
+                                sx={{
+                                  "&.Mui-disabled": {
+                                    backgroundColor:
+                                      defaultTheme.palette.beige.disabled,
+                                    color: defaultTheme.palette.white,
+                                  },
+                                }}
+                                disableRipple
+                              >
+                                <RemoveIcon fontSize="inherit" />
+                              </IconButton>
+                              <span
+                                className={`${styles["reservations-upgrade__count"]}`}
+                              >
+                                {upgradeGuests[id].get(idGuests) ?? 0}
+                              </span>
+                              <ClickAwayListener
+                                onClickAway={() =>
+                                  isTooltip && handleTooltipClose()
+                                }
+                                touchEvent={false}
+                              >
+                                <Tooltip
+                                  disableFocusListener
+                                  disableHoverListener
+                                  disableTouchListener
+                                  placement="bottom-end"
+                                  open={isTooltip}
+                                  onClose={handleTooltipClose}
+                                  title={
+                                    <Link
+                                      className={`${styles["reservations-upgrade__tooltip"]}`}
+                                      href={WHATSAPP_LINK}
+                                      target="_blank"
+                                    >
+                                      {/* <WhatsAppIcon
+                                        fontSize="large"
+                                        style={{ color: "green" }}
+                                      /> */}
+                                      <p>
+                                        For more than 2 guests, please{" "}
+                                        <span>click here</span> to contact us
+                                        throw whatsapp.
+                                      </p>
+                                    </Link>
+                                  }
+                                  slotProps={{
+                                    popper: {
+                                      modifiers: [
+                                        {
+                                          name: "offset",
+                                          options: {
+                                            offset: [17, 0],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  }}
+                                  PopperProps={{
+                                    style: { maxWidth: "25rem" },
+                                  }}
+                                >
+                                  <IconButton
+                                    onClick={() => handlePlus(id, idGuests)}
+                                    disabled={isMoreGuests || isSoldOut}
+                                    className={`${styles["reservations-upgrade__button"]}`}
+                                    sx={{
+                                      "&.Mui-disabled": {
+                                        backgroundColor:
+                                          defaultTheme.palette.beige.disabled,
+                                        color: defaultTheme.palette.white,
+                                      },
+                                    }}
+                                    disableRipple
+                                  >
+                                    <AddIcon fontSize="inherit" />
+                                  </IconButton>
+                                </Tooltip>
+                              </ClickAwayListener>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )}
+                  </AccordionDetails>
+                </Accordion>
               </div>
             </li>
           );

@@ -26,7 +26,7 @@ export const cardElements: {
 ];
 
 export const getHour = (hour: string) => {
-  switch (hour) {
+  switch (hour.trim()) {
     case "8:00":
       return "9:30";
 

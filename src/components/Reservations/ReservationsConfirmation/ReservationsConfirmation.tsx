@@ -47,6 +47,8 @@ export function ReservationConfirmation({
       })
     );
 
+  console.log(reservationsPickerInformation);
+
   return (
     <article className={`${styles["reservations-confirmation"]}`}>
       <div className={`${styles["your-booking"]}`}>
@@ -55,47 +57,53 @@ export function ReservationConfirmation({
         >
           YOUR BOOKING
         </h5>
-        <div className={`${styles["your-booking__booking-information"]}`}>
-          <div className={`${styles["your-booking__image-container"]}`}>
-            <Image
-              src={"/images/instagram-1.jpg"}
-              alt="booking-swimming-cave"
-              width={isSmallPhoneViewport ? 180 / 1.35 : 180}
-              height={isSmallPhoneViewport ? 120 / 1.35 : 120}
-              sizes="50vw"
-            />
-          </div>
-          <div className={`${styles["your-booking__booking-data"]}`}>
-            <h5
-              className={`${styles["your-booking__booking-data-title"]} heading-cuaternary`}
-              style={{ fontWeight: 600 }}
-            >
-              {`Maalum "Cave"`}
-            </h5>
-            <div
-              className={`${styles["your-booking__booking-data-block-container"]}`}
-            >
-              <div className={`${styles["your-booking__booking-data-block"]}`}>
-                {reservationsPickerData.map(({ id, title }) => (
-                  <span key={id}>{title}:</span>
-                ))}
-              </div>
-              <div className={`${styles["your-booking__booking-data-block"]}`}>
-                {reservationsPickerData.map(({ id, fontWeight }) => (
-                  <p
-                    key={id}
-                    style={{
-                      fontWeight,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {formattedReservationsPickerData[id]}
-                  </p>
-                ))}
+        <ul>
+          <li className={`${styles["your-booking__booking-information"]}`}>
+            <div className={`${styles["your-booking__image-container"]}`}>
+              <Image
+                src={"/images/instagram-1.jpg"}
+                alt="booking-swimming-cave"
+                width={isSmallPhoneViewport ? 180 / 1.35 : 180}
+                height={isSmallPhoneViewport ? 120 / 1.35 : 120}
+                sizes="50vw"
+              />
+            </div>
+            <div className={`${styles["your-booking__booking-data"]}`}>
+              <h5
+                className={`${styles["your-booking__booking-data-title"]} heading-cuaternary`}
+                style={{ fontWeight: 600 }}
+              >
+                {`Maalum "Cave"`}
+              </h5>
+              <div
+                className={`${styles["your-booking__booking-data-block-container"]}`}
+              >
+                <div
+                  className={`${styles["your-booking__booking-data-block"]}`}
+                >
+                  {reservationsPickerData.map(({ id, title }) => (
+                    <span key={id}>{title}:</span>
+                  ))}
+                </div>
+                <div
+                  className={`${styles["your-booking__booking-data-block"]}`}
+                >
+                  {reservationsPickerData.map(({ id, fontWeight }) => (
+                    <p
+                      key={id}
+                      style={{
+                        fontWeight,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {formattedReservationsPickerData[id]}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
       <div className={`${styles["contact-information"]}`}>
         <h5

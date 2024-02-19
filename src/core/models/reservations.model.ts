@@ -15,7 +15,6 @@ export interface ReservationsGuestsCounter {
 
 export interface ReservationsSpaCounter {
   naturalEssence: number;
-  traditionOfBeauty: number;
   maalumRitual: number;
 }
 
@@ -58,7 +57,7 @@ export interface ReservationsConfirmationInformation {
 
 export interface FormattedReservationsPickerData {
   date: string;
-  hour: string;
+  caveHour: string;
   guests: string;
   amount: string;
 }
@@ -69,7 +68,10 @@ export type ReservationStepper =
   | "reservationsConfirmation"
   | "reservationsPayment";
 
-export type ConfirmationState = "loading" | "resolved" | "rejected";
+export interface UpgradeGuests {
+  naturalEssence: Map<string, number>;
+  maalumRitual: Map<string, number>;
+}
 
 export type PostReservationRequestBody = ReservationsPickerInformation &
   ReservationsConfirmationInformation & { client: boolean };

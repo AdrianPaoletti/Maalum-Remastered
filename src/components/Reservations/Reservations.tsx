@@ -6,16 +6,17 @@ import { Backdrop, IconButton, Slide, useMediaQuery } from "@mui/material";
 
 import { EMAIL_REGEX } from "maalum/core/constants/constants";
 import {
-  ConfirmationState,
   ReservationsConfirmationInformation,
   ReservationsPickerInformation,
   ReservationStepper,
+  UpgradeGuests,
 } from "maalum/core/models/reservations.model";
 import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 import {
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
+  initialUpgradeGuestsValue,
 } from "maalum/utils/reservations/reservations.utils";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
 import ReservationsPayment from "./ReservationsPayment/ReservationsPayment";
@@ -57,17 +58,16 @@ export function Reservations() {
   ] = useState<ReservationsConfirmationInformation>(
     initialReservationsConfirmationInformation
   );
-  const [confirmationState, setConfirmationState] =
-    useState<ConfirmationState>("loading");
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
   const [URLPayment, setURLPayment] = useState<string>("");
+  const [upgradeGuests, setUpgradeGuests] = useState<UpgradeGuests>(
+    initialUpgradeGuestsValue
+  );
   const isReservationsConfirmationButtonDisabled = Object.values(
     reservationsConfirmationInformation
   ).some((value) => !value || !value?.length);
   const isButtonDisabledPicker =
     !reservationsPickerInformation.totalGuests ||
     !reservationsPickerInformation.date?.getHours();
-  console.log();
 
   const handleOnClose = () => {
     setIsReservationsOpen(false);
@@ -75,7 +75,6 @@ export function Reservations() {
     setReservationsConfirmationInformation(
       initialReservationsConfirmationInformation
     );
-    // setReservationsPickerSubmited(initialReservationsPickerSubmited);
     document.body.className = `${document.body.classList[0]}`;
     const timer = setTimeout(() => {
       setReservationStepper("reservationsPicker");
@@ -86,6 +85,14 @@ export function Reservations() {
   const handleReservationsPickerSubmit = () => {
     setReservationStepper("reservationsUpgrade");
     setIsError(false);
+    setReservationsPickerInformation((prevReservationsPickerInformation) => ({
+      ...prevReservationsPickerInformation,
+      naturalEssence: 0,
+      maalumRitual: 0,
+    }));
+    Object.keys(upgradeGuests).forEach((key) =>
+      upgradeGuests[key as keyof UpgradeGuests].clear()
+    );
   };
 
   const handleReservationConfirmationSubmit = async () => {
@@ -94,7 +101,6 @@ export function Reservations() {
     );
 
     if (!isError) {
-      setConfirmationState("loading");
       setReservationStepper("reservationsPayment");
       try {
         // await postReservation({
@@ -105,11 +111,8 @@ export function Reservations() {
         // });
         const URLPesapalPayment = await getURLPesapalPayment();
         setURLPayment(URLPesapalPayment);
-        setIsPaymentModalOpen(true);
         // setConfirmationState("resolved");
-      } catch (error) {
-        setConfirmationState("rejected");
-      }
+      } catch (error) {}
     }
 
     setIsError(isError);
@@ -160,6 +163,8 @@ export function Reservations() {
                 setReservationsPickerInformation
               }
               setReservationStepper={setReservationStepper}
+              upgradeGuests={upgradeGuests}
+              setUpgradeGuests={setUpgradeGuests}
             />
           ),
           title: "UPGRADE YOUR EXPERIENCE",
@@ -190,17 +195,10 @@ export function Reservations() {
         };
       case "reservationsPayment":
         return {
-          component: (
-            <ReservationsPayment
-              confirmationState={confirmationState}
-              isPaymentModalOpen={isPaymentModalOpen}
-              setIsPaymentModalOpen={setIsPaymentModalOpen}
-              URLPayment={URLPayment}
-            />
-          ),
+          component: <ReservationsPayment URLPayment={URLPayment} />,
           title: "PAYMENT CONFIRMATION",
           buttonText: "CLOSE",
-          isButtonDisabled: confirmationState === "loading",
+          isButtonDisabled: false,
           onClick: () => handleOnClose(),
           hasGoBackIcon: false,
         };
