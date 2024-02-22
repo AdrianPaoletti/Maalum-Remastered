@@ -38,7 +38,7 @@ const registerIPNPesapalPayment = async (token: string): Promise<string> => {
       `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/URLSetup/RegisterIPN`,
       {
         url: "http://localhost:8000/reservations/prueba",
-        ipn_notification_type: "POST",
+        ipn_notification_type: "GET",
       },
       {
         headers: {

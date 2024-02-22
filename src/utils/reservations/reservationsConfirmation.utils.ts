@@ -6,8 +6,10 @@ import {
 import {
   FormattedReservationsPickerData,
   ReservationsConfirmationInformation,
+  ReservationsGuestsCounter,
   ReservationsPickerInformation,
 } from "maalum/core/models/reservations.model";
+import { getHour } from "./reservationsUpgrade.util";
 
 const reservationsConfirmationInputs: {
   id: keyof ReservationsConfirmationInformation;
@@ -48,6 +50,10 @@ const reservationsPickerData: {
     title: "CAVE HOUR",
   },
   {
+    id: "spaHour",
+    title: "SPA HOUR",
+  },
+  {
     id: "guests",
     title: "GUESTS",
   },
@@ -63,7 +69,11 @@ const formatReservationsPickerData = ({
   adults,
   children,
   residents,
-}: ReservationsPickerInformation): FormattedReservationsPickerData => {
+  spaPrice,
+}: ReservationsGuestsCounter & {
+  date: Date | null;
+  spaPrice?: number;
+}): FormattedReservationsPickerData => {
   const adultsText = `${
     !!adults ? `${adults} ${adults === 1 ? "adult" : "adults"}` : ""
   }`;
@@ -81,23 +91,35 @@ const formatReservationsPickerData = ({
         }`
       : ""
   }`;
+  const totalGuests = adults + children + residents;
+  const hour = date?.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const hourSpa = getHour(hour as string);
+
   return {
     date: date?.toLocaleString().split(",")[0] || "",
-    caveHour:
-      date?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) ||
-      "",
+    caveHour: hour || "",
+    ...(spaPrice && { spaHour: hourSpa || "" }),
     guests: `${adultsText}${childrenText}
   ${!!adults && !!children && !!residents ? "..." : `${residentsText}`}`,
-    amount: `${
-      adults * ADULTS_PRICE +
-      children * CHILDREN_PRICE +
-      residents * RESIDENTS_PRICE
-    }$`,
+    amount: spaPrice
+      ? `${(spaPrice as number) * totalGuests}$`
+      : `${
+          adults * ADULTS_PRICE +
+          children * CHILDREN_PRICE +
+          residents * RESIDENTS_PRICE
+        }$`,
   };
 };
+
+const includeInBookingData = (guests: ReservationsGuestsCounter) =>
+  Object.values(guests).some((value) => value);
 
 export {
   reservationsConfirmationInputs,
   reservationsPickerData,
   formatReservationsPickerData,
+  includeInBookingData,
 };

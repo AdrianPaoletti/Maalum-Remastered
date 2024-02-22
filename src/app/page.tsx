@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Carousel } from "maalum/components/ui/Carousel/Carousel";
 import { IsSocialMedia } from "maalum/core/models/home.model";
+import MaalumContext from "maalum/core/store/context/MaalumContext";
 import {
   bookNowListItem,
   carouselImages,
@@ -21,6 +22,7 @@ import {
 import styles from "./page.module.scss";
 
 export default function Home() {
+  const { setIsReservationsOpen } = useContext(MaalumContext);
   const [isSocialMediaHover, setIsSocialMediaHover] = useState<IsSocialMedia>({
     instagram: false,
     facebook: false,
@@ -188,7 +190,10 @@ export default function Home() {
                 ))}
               </div>
             ))}
-            <div className={`${styles["spa__button"]} u-padding-top-large`}>
+            <div
+              className={`${styles["spa__button"]} u-padding-top-large`}
+              onClick={() => setIsReservationsOpen(true)}
+            >
               <span className="text-primary">RESERVE NOW</span>
             </div>
           </div>

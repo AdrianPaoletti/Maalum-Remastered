@@ -6,6 +6,7 @@ import {
   GetReservationsMonthlyRequestBody,
   Reservation,
   ReservationsPickerInformation,
+  UpgradeGuests,
 } from "maalum/core/models/reservations.model";
 import {
   getBlockedDaysMonthly as getBlockedDaysMonthlyFetch,
@@ -21,11 +22,13 @@ interface ReservationsPickerProps {
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
+  upgradeGuests: UpgradeGuests;
 }
 
 export function ReservationsPicker({
   reservationsPickerInformation,
   setReservationsPickerInformation,
+  upgradeGuests,
 }: ReservationsPickerProps) {
   const [excludedDays, setExcludedDays] = useState<Date[]>([]);
   const [excludedHours, setExcludedHours] = useState<Date[]>([]);
@@ -81,6 +84,7 @@ export function ReservationsPicker({
       <ReservationsPickerGuests
         reservationsPickerInformation={reservationsPickerInformation}
         setReservationsPickerInformation={setReservationsPickerInformation}
+        upgradeGuests={upgradeGuests}
       />
       <span className={`${styles["reservations-picker__space"]}`} />
       <div className={`${styles["reservations-picker__dates"]}`}>
@@ -101,6 +105,7 @@ export function ReservationsPicker({
           blockedDaysHours={blockedDaysHours}
           reservations={reservations}
           isLoading={isLoading}
+          upgradeGuests={upgradeGuests}
         />
       </div>
     </div>

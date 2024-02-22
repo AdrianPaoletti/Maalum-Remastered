@@ -58,6 +58,7 @@ export interface ReservationsConfirmationInformation {
 export interface FormattedReservationsPickerData {
   date: string;
   caveHour: string;
+  spaHour?: string;
   guests: string;
   amount: string;
 }

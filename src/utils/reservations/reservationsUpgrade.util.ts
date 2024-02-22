@@ -2,8 +2,16 @@ import {
   NATURAL_ESSENCE_PRICE,
   RITUAL_PRICE,
 } from "maalum/core/constants/constants";
+import {
+  ReservationsGuestsCounter,
+  UpgradeGuests,
+} from "maalum/core/models/reservations.model";
+import {
+  initialGuestsCounter,
+  reservationsGuestsInformation,
+} from "./reservations.utils";
 
-export const cardElements: {
+const cardElements: {
   id: "naturalEssence" | "maalumRitual";
   title: string;
   price: number;
@@ -25,7 +33,7 @@ export const cardElements: {
   },
 ];
 
-export const getHour = (hour: string) => {
+const getHour = (hour: string) => {
   switch (hour.trim()) {
     case "8:00":
       return "9:30";
@@ -43,3 +51,46 @@ export const getHour = (hour: string) => {
       return "SOLD OUT";
   }
 };
+
+const sumUpgradeGuests = (
+  ...spaGuests: ReservationsGuestsCounter[]
+): ReservationsGuestsCounter => {
+  return spaGuests.reduce(
+    (acc, curr) => {
+      return {
+        adults: acc.adults + curr.adults,
+        children: acc.children + curr.children,
+        residents: acc.residents + curr.residents,
+      };
+    },
+    { adults: 0, children: 0, residents: 0 }
+  );
+};
+
+const formatUpgradeGuests = (upgradeGuests: UpgradeGuests) => {
+  let formattedUpgradeGuests: {
+    [key in keyof UpgradeGuests]: ReservationsGuestsCounter;
+  } = {
+    naturalEssence: initialGuestsCounter,
+    maalumRitual: initialGuestsCounter,
+  };
+
+  Object.keys(upgradeGuests).forEach((key) => {
+    if (upgradeGuests[key as keyof UpgradeGuests].size) {
+      reservationsGuestsInformation.forEach(({ id }) => {
+        const value = upgradeGuests[key as keyof UpgradeGuests].get(id);
+
+        if (value) {
+          formattedUpgradeGuests[key as keyof UpgradeGuests] = {
+            ...formattedUpgradeGuests[key as keyof UpgradeGuests],
+            [id]: value,
+          };
+        }
+      });
+    }
+  });
+
+  return formattedUpgradeGuests;
+};
+
+export { cardElements, getHour, formatUpgradeGuests, sumUpgradeGuests };

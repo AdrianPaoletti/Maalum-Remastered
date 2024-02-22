@@ -7,6 +7,7 @@ import { IconButton, useMediaQuery } from "@mui/material";
 import {
   ReservationsGuestsCounter,
   ReservationsPickerInformation,
+  UpgradeGuests,
 } from "maalum/core/models/reservations.model";
 import { defaultTheme } from "maalum/styles/themes";
 import { reservationsGuestsInformation } from "maalum/utils/reservations/reservations.utils";
@@ -18,11 +19,13 @@ interface ReservationsPickerGuestsProps {
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
+  upgradeGuests: UpgradeGuests;
 }
 
 export function ReservationsPickerGuests({
   reservationsPickerInformation,
   setReservationsPickerInformation,
+  upgradeGuests,
 }: ReservationsPickerGuestsProps) {
   const isSmallPhoneViewPort = useMediaQuery("(max-width:27.2em)");
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
@@ -33,21 +36,29 @@ export function ReservationsPickerGuests({
     setIsButtonDisabled(isDisabled);
   }, [reservationsPickerInformation.totalGuests]);
 
-  const handlePlus = (id: keyof ReservationsGuestsCounter) =>
+  const handlePlus = (id: keyof ReservationsGuestsCounter) => {
     setReservationsPickerInformation((prevReservationsPickerInformation) => ({
       ...prevReservationsPickerInformation,
       [id]: prevReservationsPickerInformation[id] + 1,
       totalGuests: prevReservationsPickerInformation.totalGuests + 1,
       date: null,
     }));
+    Object.keys(upgradeGuests).forEach((key) =>
+      upgradeGuests[key as keyof UpgradeGuests].clear()
+    );
+  };
 
-  const handleMinus = (id: keyof ReservationsGuestsCounter) =>
+  const handleMinus = (id: keyof ReservationsGuestsCounter) => {
     setReservationsPickerInformation((prevReservationsPickerInformation) => ({
       ...prevReservationsPickerInformation,
       [id]: prevReservationsPickerInformation[id] - 1,
       totalGuests: prevReservationsPickerInformation.totalGuests - 1,
       date: null,
     }));
+    Object.keys(upgradeGuests).forEach((key) =>
+      upgradeGuests[key as keyof UpgradeGuests].clear()
+    );
+  };
 
   return (
     <form className={`${styles.guests} u-padding-vertical-small-medium`}>

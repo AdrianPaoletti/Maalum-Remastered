@@ -7,6 +7,7 @@ import { Backdrop, IconButton, Slide, useMediaQuery } from "@mui/material";
 import { EMAIL_REGEX } from "maalum/core/constants/constants";
 import {
   ReservationsConfirmationInformation,
+  ReservationsGuestsCounter,
   ReservationsPickerInformation,
   ReservationStepper,
   UpgradeGuests,
@@ -14,11 +15,16 @@ import {
 import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 import {
+  initialGuestsCounter,
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
   initialUpgradeGuestsValue,
 } from "maalum/utils/reservations/reservations.utils";
-import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationsConfirmation";
+import {
+  formatUpgradeGuests,
+  sumUpgradeGuests,
+} from "maalum/utils/reservations/reservationsUpgrade.util";
+import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationConfirmation";
 import ReservationsPayment from "./ReservationsPayment/ReservationsPayment";
 import { ReservationsPicker } from "./ReservationsPicker/ReservationsPicker";
 import { ReservationsUpgrade } from "./ReservationsUpgrade/ReservationsUpgrade";
@@ -58,6 +64,8 @@ export function Reservations() {
   ] = useState<ReservationsConfirmationInformation>(
     initialReservationsConfirmationInformation
   );
+  const [caveGuests, setCaveGuests] =
+    useState<ReservationsGuestsCounter>(initialGuestsCounter);
   const [URLPayment, setURLPayment] = useState<string>("");
   const [upgradeGuests, setUpgradeGuests] = useState<UpgradeGuests>(
     initialUpgradeGuestsValue
@@ -90,9 +98,22 @@ export function Reservations() {
       naturalEssence: 0,
       maalumRitual: 0,
     }));
-    Object.keys(upgradeGuests).forEach((key) =>
-      upgradeGuests[key as keyof UpgradeGuests].clear()
+  };
+
+  const handleReservationsUpgradeSubmit = () => {
+    const formattedUpgradeGuests = formatUpgradeGuests(upgradeGuests);
+    const sumSpaGuests = sumUpgradeGuests(
+      formattedUpgradeGuests.maalumRitual,
+      formattedUpgradeGuests.naturalEssence
     );
+    setCaveGuests({
+      adults: reservationsPickerInformation.adults - sumSpaGuests.adults,
+      children: reservationsPickerInformation.children - sumSpaGuests.children,
+      residents:
+        reservationsPickerInformation.residents - sumSpaGuests.residents,
+    });
+
+    setReservationStepper("reservationsConfirmation");
   };
 
   const handleReservationConfirmationSubmit = async () => {
@@ -147,6 +168,7 @@ export function Reservations() {
               setReservationsPickerInformation={
                 setReservationsPickerInformation
               }
+              upgradeGuests={upgradeGuests}
             />
           ),
           title: "SELECT GUESTS AND DATES",
@@ -170,7 +192,7 @@ export function Reservations() {
           title: "UPGRADE YOUR EXPERIENCE",
           buttonText: "NEXT",
           isButtonDisabled: false,
-          onClick: () => setReservationStepper("reservationsConfirmation"),
+          onClick: () => handleReservationsUpgradeSubmit(),
           hasGoBackIcon: true,
         };
       case "reservationsConfirmation":
@@ -179,6 +201,8 @@ export function Reservations() {
             <ReservationConfirmation
               isError={isError}
               reservationsPickerInformation={reservationsPickerInformation}
+              formattedUpgradeGuests={formatUpgradeGuests(upgradeGuests)}
+              caveGuests={caveGuests}
               reservationsConfirmationInformation={
                 reservationsConfirmationInformation
               }

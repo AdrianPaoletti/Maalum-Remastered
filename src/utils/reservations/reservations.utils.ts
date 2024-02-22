@@ -9,10 +9,14 @@ import {
   ReservationsPickerInformation,
 } from "maalum/core/models/reservations.model";
 
-const initialReservationsPickerInformation: ReservationsPickerInformation = {
+const initialGuestsCounter = {
   adults: 0,
   children: 0,
   residents: 0,
+};
+
+const initialReservationsPickerInformation: ReservationsPickerInformation = {
+  ...initialGuestsCounter,
   totalGuests: 0,
   naturalEssence: 0,
   maalumRitual: 0,
@@ -61,6 +65,7 @@ const reservationsGuestsInformation: ReservationsGuestsInformation[] = [
 
 export {
   reservationsGuestsInformation,
+  initialGuestsCounter,
   initialReservationsPickerInformation,
   initialReservationsConfirmationInformation,
   initialUpgradeGuestsValue,

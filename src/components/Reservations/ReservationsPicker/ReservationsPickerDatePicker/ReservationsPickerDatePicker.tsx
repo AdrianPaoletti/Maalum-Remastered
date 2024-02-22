@@ -7,6 +7,7 @@ import {
   BlockedDaysHours,
   Reservation,
   ReservationsPickerInformation,
+  UpgradeGuests,
 } from "maalum/core/models/reservations.model";
 import {
   addDaysToDate,
@@ -32,6 +33,7 @@ interface ReservationsPickerDatePickerProps {
   blockedDaysHours: BlockedDaysHours[];
   reservations: Reservation[];
   isLoading: boolean;
+  upgradeGuests: UpgradeGuests;
 }
 
 export function ReservationsPickerDatePicker({
@@ -46,6 +48,7 @@ export function ReservationsPickerDatePicker({
   blockedDaysHours,
   reservations,
   isLoading,
+  upgradeGuests,
 }: ReservationsPickerDatePickerProps) {
   const [minimumDate, setMinimumDate] = useState<Date | null>(new Date());
   const [minimumHour, setMinimumHour] = useState<Date>(
@@ -111,7 +114,9 @@ export function ReservationsPickerDatePicker({
         date
       ),
     ]);
-
+    Object.keys(upgradeGuests).forEach((key) =>
+      upgradeGuests[key as keyof UpgradeGuests].clear()
+    );
     timeLisDatePickerHours?.scrollIntoView({ behavior: "smooth" });
   };
 
