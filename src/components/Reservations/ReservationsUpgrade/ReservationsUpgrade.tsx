@@ -258,6 +258,7 @@ export function ReservationsUpgrade({
                 <Accordion>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon fontSize="large" />}
+                    disabled={isSoldOut}
                     // onClick={() => handleClick(id)}
                   >
                     <span

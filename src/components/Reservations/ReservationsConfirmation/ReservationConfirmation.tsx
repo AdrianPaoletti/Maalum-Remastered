@@ -19,6 +19,7 @@ import {
   includeInBookingData,
   reservationsConfirmationInputs,
   reservationsPickerData,
+  totalPrice,
 } from "maalum/utils/reservations/reservationsConfirmation.utils";
 import { sumUpgradeGuests } from "maalum/utils/reservations/reservationsUpgrade.util";
 
@@ -46,7 +47,7 @@ export function ReservationConfirmation({
   caveGuests,
 }: ReservationConfirmationProps) {
   const isSmallPhoneViewport = useMediaQuery("(max-width:27.2em)");
-
+  console.log(reservationsPickerInformation);
   const bookingData = [
     {
       id: "cave",
@@ -94,6 +95,14 @@ export function ReservationConfirmation({
         [id]: value,
       })
     );
+
+  console.log(
+    totalPrice({
+      ...caveGuests,
+      maalumRitual: reservationsPickerInformation.maalumRitual,
+      naturalEssence: reservationsPickerInformation.naturalEssence,
+    })
+  );
 
   return (
     <article className={`${styles["reservations-confirmation"]}`}>
@@ -158,6 +167,19 @@ export function ReservationConfirmation({
               </div>
             </li>
           ))}
+          <li className={`${styles["your-booking__booking-information"]}`}>
+            <h5
+              className={`${styles["your-booking__booking-data-title"]} heading-cuaternary`}
+              style={{
+                fontWeight: 600,
+                width: "100%",
+                textAlign: "right",
+                marginTop: ".5rem",
+              }}
+            >
+              Total <span>{reservationsPickerInformation.totalPrice}$</span>
+            </h5>
+          </li>
         </ul>
       </div>
       <span className={`${styles["reservations-confirmation__space"]}`} />

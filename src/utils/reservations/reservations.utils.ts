@@ -21,6 +21,7 @@ const initialReservationsPickerInformation: ReservationsPickerInformation = {
   naturalEssence: 0,
   maalumRitual: 0,
   date: null,
+  totalPrice: 0,
 };
 
 const initialReservationsConfirmationInformation: ReservationsConfirmationInformation =

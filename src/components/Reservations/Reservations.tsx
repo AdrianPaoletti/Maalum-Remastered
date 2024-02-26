@@ -14,12 +14,14 @@ import {
 } from "maalum/core/models/reservations.model";
 import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
+import { dateToUTC } from "maalum/utils/formatters/formatters.utils";
 import {
   initialGuestsCounter,
   initialReservationsConfirmationInformation,
   initialReservationsPickerInformation,
   initialUpgradeGuestsValue,
 } from "maalum/utils/reservations/reservations.utils";
+import { totalPrice as totalPriceSum } from "maalum/utils/reservations/reservationsConfirmation.utils";
 import {
   formatUpgradeGuests,
   sumUpgradeGuests,
@@ -106,13 +108,23 @@ export function Reservations() {
       formattedUpgradeGuests.maalumRitual,
       formattedUpgradeGuests.naturalEssence
     );
-    setCaveGuests({
+    const caveGuests = {
       adults: reservationsPickerInformation.adults - sumSpaGuests.adults,
       children: reservationsPickerInformation.children - sumSpaGuests.children,
       residents:
         reservationsPickerInformation.residents - sumSpaGuests.residents,
+    };
+    const totalPrice = totalPriceSum({
+      ...caveGuests,
+      maalumRitual: reservationsPickerInformation.maalumRitual,
+      naturalEssence: reservationsPickerInformation.naturalEssence,
     });
 
+    setCaveGuests(caveGuests);
+    setReservationsPickerInformation((prevReservationsPickerInformation) => ({
+      ...prevReservationsPickerInformation,
+      totalPrice,
+    }));
     setReservationStepper("reservationsConfirmation");
   };
 
@@ -130,9 +142,21 @@ export function Reservations() {
         //   client: true,
         //   date: dateToUTC(reservationsPickerInformation.date as Date),
         // });
-        const URLPesapalPayment = await getURLPesapalPayment();
-        setURLPayment(URLPesapalPayment);
-        // setConfirmationState("resolved");
+        const { url, ipnId } = await getURLPesapalPayment({
+          ...reservationsPickerInformation,
+          ...reservationsConfirmationInformation,
+        });
+        setURLPayment(url);
+        localStorage.setItem(
+          "reservation",
+          JSON.stringify({
+            ...reservationsPickerInformation,
+            ...reservationsConfirmationInformation,
+            client: true,
+            date: dateToUTC(reservationsPickerInformation.date as Date),
+            ipnId,
+          })
+        );
       } catch (error) {}
     }
 

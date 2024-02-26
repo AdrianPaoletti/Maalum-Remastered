@@ -46,6 +46,7 @@ export interface ReservationsPickerInformation
     ReservationsSpaCounter {
   totalGuests: number;
   date: Date | null;
+  totalPrice: number;
 }
 
 export interface ReservationsConfirmationInformation {

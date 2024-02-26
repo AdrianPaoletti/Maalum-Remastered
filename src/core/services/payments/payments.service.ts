@@ -1,12 +1,22 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
-const getURLPesapalPayment = async (): Promise<string> => {
+import {
+  ReservationsConfirmationInformation,
+  ReservationsPickerInformation,
+} from "maalum/core/models/reservations.model";
+
+const getURLPesapalPayment = async (
+  body: ReservationsPickerInformation & ReservationsConfirmationInformation
+): Promise<{
+  url: string;
+  ipnId: string;
+}> => {
   try {
     const token = await authPesapalPayment();
     const ipnId = await registerIPNPesapalPayment(token);
-    const url = await submitOrderPesapalPayment(token, ipnId);
-    return url;
+    const url = await submitOrderPesapalPayment(token, body, ipnId);
+    return { url, ipnId };
   } catch (error) {
     throw error;
   }
@@ -55,6 +65,7 @@ const registerIPNPesapalPayment = async (token: string): Promise<string> => {
 
 const submitOrderPesapalPayment = async (
   token: string,
+  body: ReservationsPickerInformation & ReservationsConfirmationInformation,
   ipnId: string
 ): Promise<string> => {
   try {
@@ -62,7 +73,7 @@ const submitOrderPesapalPayment = async (
       data: { redirect_url: redirectUrl },
     } = await axios.post(
       `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/Transactions/SubmitOrderRequest`,
-      temporalBody(ipnId),
+      requestBody(body, ipnId),
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -76,26 +87,28 @@ const submitOrderPesapalPayment = async (
   }
 };
 
-const temporalBody = (ipnId: string) => ({
+const requestBody = (
+  {
+    totalPrice,
+    email,
+    phone,
+    firstName,
+    lastName,
+  }: ReservationsPickerInformation & ReservationsConfirmationInformation,
+  ipnId: string
+) => ({
   id: uuidv4(),
-  currency: "EUR",
-  amount: 0.01,
-  description: "Hello hello",
+  currency: "USD",
+  amount: totalPrice,
+  description: "Maalum reservation",
   callback_url: "http://localhost:3000/",
+  cancellation_url: "http://localhost:3000/",
   notification_id: ipnId,
   billing_address: {
-    email_address: "john.doe@example.com",
-    phone_number: "",
-    country_code: "KE",
-    first_name: "John",
-    middle_name: "Example",
-    last_name: "Doe",
-    line_1: "",
-    line_2: "",
-    city: "",
-    state: "",
-    postal_code: "",
-    zip_code: "",
+    email_address: email,
+    phone_number: phone,
+    first_name: firstName,
+    last_name: lastName,
   },
 });
 

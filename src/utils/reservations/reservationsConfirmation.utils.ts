@@ -1,15 +1,26 @@
 import {
   ADULTS_PRICE,
   CHILDREN_PRICE,
+  NATURAL_ESSENCE_PRICE,
   RESIDENTS_PRICE,
+  RITUAL_PRICE,
 } from "maalum/core/constants/constants";
 import {
   FormattedReservationsPickerData,
   ReservationsConfirmationInformation,
   ReservationsGuestsCounter,
   ReservationsPickerInformation,
+  ReservationsSpaCounter,
 } from "maalum/core/models/reservations.model";
 import { getHour } from "./reservationsUpgrade.util";
+
+const prices: ReservationsSpaCounter & ReservationsGuestsCounter = {
+  adults: ADULTS_PRICE,
+  children: CHILDREN_PRICE,
+  residents: RESIDENTS_PRICE,
+  naturalEssence: NATURAL_ESSENCE_PRICE,
+  maalumRitual: RITUAL_PRICE,
+};
 
 const reservationsConfirmationInputs: {
   id: keyof ReservationsConfirmationInformation;
@@ -117,9 +128,25 @@ const formatReservationsPickerData = ({
 const includeInBookingData = (guests: ReservationsGuestsCounter) =>
   Object.values(guests).some((value) => value);
 
+const totalPrice = (
+  pickerInformation: ReservationsSpaCounter & ReservationsGuestsCounter
+) =>
+  Object.keys(prices).reduce(
+    (accumulator, key) =>
+      accumulator +
+      pickerInformation[
+        key as keyof ReservationsSpaCounter & keyof ReservationsGuestsCounter
+      ] *
+        prices[
+          key as keyof ReservationsSpaCounter & keyof ReservationsGuestsCounter
+        ],
+    0
+  );
+
 export {
   reservationsConfirmationInputs,
   reservationsPickerData,
   formatReservationsPickerData,
   includeInBookingData,
+  totalPrice,
 };
