@@ -39,6 +39,7 @@ export interface Reservation {
   date: Date;
   totalGuests: number;
   service: string;
+  spaType: string;
 }
 
 export interface ReservationsPickerInformation

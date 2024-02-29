@@ -1,4 +1,4 @@
-export const MIN_DAY_HOUR = 13;
+export const MIN_DAY_HOUR = 12;
 export const ADD_HOURS = 4;
 
 export const ADULTS_PRICE = 20;
@@ -12,4 +12,4 @@ export const RITUAL_PRICE = 90;
 export const WHATSAPP_LINK =
   "https://wa.me/255772628924?text=Hi%20Maalum,%20I%20would%20like%20...";
 
-export const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
+export const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;

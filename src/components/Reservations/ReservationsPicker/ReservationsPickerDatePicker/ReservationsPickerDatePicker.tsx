@@ -74,7 +74,9 @@ export function ReservationsPickerDatePicker({
         getLastDayMonth(),
       ]);
       setIsLastDay(true);
-      setMinimumDate(getLastDayMonth());
+      new Date().getDay() !== getLastDayMonth().getDay()
+        ? setMinimumDate(getLastDayMonth())
+        : setMinimumDate(minimumDate);
       return;
     }
 
@@ -106,6 +108,13 @@ export function ReservationsPickerDatePicker({
           : new Date(date.setHours(0)),
     }));
     setMinimumHour(getMinimumHour(date));
+    console.log(
+      getReservationsExcludedHours(
+        reservations,
+        reservationsPickerInformation.totalGuests,
+        date
+      )
+    );
     setExcludedHours([
       ...getBlockedDaysExcludedHours(blockedDaysHours, date),
       ...getReservationsExcludedHours(

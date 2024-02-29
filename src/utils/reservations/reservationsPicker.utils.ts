@@ -5,6 +5,7 @@ import {
 import {
   BlockedDaysHours,
   Reservation,
+  ReservationsSpaCounter,
 } from "maalum/core/models/reservations.model";
 
 const getBlockedDaysExcludedHours = (
@@ -32,9 +33,8 @@ const getBlockedDaysExcludedHours = (
   return excludedHours;
 };
 
-const getReservationsExcludedHours = (
+const getAccumulatedDates = (
   reservations: Reservation[],
-  totalGuests: number,
   selectedDate: Date
 ) => {
   const accumulatedDates: Reservation[] = [];
@@ -57,6 +57,19 @@ const getReservationsExcludedHours = (
     accumulatedDates.push({ ...reservation });
   });
 
+  return accumulatedDates;
+};
+
+const getReservationsExcludedHours = (
+  reservations: Reservation[],
+  totalGuests: number,
+  selectedDate: Date
+) => {
+  const accumulatedDates: Reservation[] = getAccumulatedDates(
+    reservations,
+    selectedDate
+  );
+
   return accumulatedDates
     .filter(
       ({ totalGuests: totalReservationsGuests }) =>
@@ -68,6 +81,38 @@ const getReservationsExcludedHours = (
 
       return new Date(date.getTime() + userTimezoneOffset);
     });
+};
+
+const getReseravtionsSpaGuests = (
+  reservations: Reservation[],
+  selectedDate: Date
+): ReservationsSpaCounter => {
+  const accumulatedDates: Reservation[] = getAccumulatedDates(
+    reservations,
+    selectedDate
+  )
+    .map((reservation) => ({
+      ...reservation,
+      date: new Date(
+        new Date(reservation.date).setHours(
+          new Date(reservation.date).getHours() - 3
+        )
+      ),
+    }))
+    .filter(
+      ({ service, date }) =>
+        date.getHours() === selectedDate.getHours() && service === "caveAndSpa"
+    );
+
+  return accumulatedDates.reduce(
+    (accum, value) => {
+      const { spaType, totalGuests } = value;
+      accum[spaType as keyof ReservationsSpaCounter] =
+        (accum[spaType as keyof ReservationsSpaCounter] || 0) + totalGuests;
+      return accum;
+    },
+    { naturalEssence: 0, maalumRitual: 0 }
+  );
 };
 
 const getMinimumHour = (selectedDate: Date): Date => {
@@ -91,6 +136,7 @@ const getLastDayMonth = () =>
 export {
   getBlockedDaysExcludedHours,
   getReservationsExcludedHours,
+  getReseravtionsSpaGuests,
   getLastDayMonth,
   getMinimumHour,
   addDaysToDate,

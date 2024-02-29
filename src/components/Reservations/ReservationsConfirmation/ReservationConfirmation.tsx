@@ -47,16 +47,16 @@ export function ReservationConfirmation({
   caveGuests,
 }: ReservationConfirmationProps) {
   const isSmallPhoneViewport = useMediaQuery("(max-width:27.2em)");
-  console.log(reservationsPickerInformation);
   const bookingData = [
-    {
+    ...(Object.values(caveGuests).some((guests) => guests)
+    ? [{
       id: "cave",
       data: formatReservationsPickerData({
         ...reservationsPickerInformation,
         ...caveGuests,
       }),
       title: "Maalum cave",
-    },
+    }] : []),
     ...(includeInBookingData(formattedUpgradeGuests.naturalEssence)
       ? [
           {
@@ -95,14 +95,6 @@ export function ReservationConfirmation({
         [id]: value,
       })
     );
-
-  console.log(
-    totalPrice({
-      ...caveGuests,
-      maalumRitual: reservationsPickerInformation.maalumRitual,
-      naturalEssence: reservationsPickerInformation.naturalEssence,
-    })
-  );
 
   return (
     <article className={`${styles["reservations-confirmation"]}`}>

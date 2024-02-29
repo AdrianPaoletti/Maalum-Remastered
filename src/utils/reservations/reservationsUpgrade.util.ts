@@ -54,6 +54,22 @@ const getHour = (hour: string) => {
   }
 };
 
+const getSpaDate = (date: Date) => {
+  const hour = date?.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const hourSpa = getHour(hour as string);
+
+  if (hourSpa !== "SOLD OUT") {
+    const [hour, minutes] = hourSpa.split(":");
+
+    return new Date(new Date(date.setHours(+hour)).setMinutes(+minutes));
+  }
+
+  return date;
+};
+
 const sumUpgradeGuests = (
   ...spaGuests: ReservationsGuestsCounter[]
 ): ReservationsGuestsCounter => {
@@ -95,4 +111,10 @@ const formatUpgradeGuests = (upgradeGuests: UpgradeGuests) => {
   return formattedUpgradeGuests;
 };
 
-export { cardElements, getHour, formatUpgradeGuests, sumUpgradeGuests };
+export {
+  cardElements,
+  getHour,
+  formatUpgradeGuests,
+  sumUpgradeGuests,
+  getSpaDate,
+};

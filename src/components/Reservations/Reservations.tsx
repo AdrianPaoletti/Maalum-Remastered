@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -6,13 +6,19 @@ import { Backdrop, IconButton, Slide, useMediaQuery } from "@mui/material";
 
 import { EMAIL_REGEX } from "maalum/core/constants/constants";
 import {
+  Reservation,
   ReservationsConfirmationInformation,
   ReservationsGuestsCounter,
   ReservationsPickerInformation,
+  ReservationsSpaCounter,
   ReservationStepper,
   UpgradeGuests,
 } from "maalum/core/models/reservations.model";
-import { getURLPesapalPayment } from "maalum/core/services/payments/payments.service";
+import {
+  getTransactionStatus,
+  getURLPesapalPayment,
+} from "maalum/core/services/payments/payments.service";
+import { postReservation } from "maalum/core/services/reservations/reservations.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 import { dateToUTC } from "maalum/utils/formatters/formatters.utils";
 import {
@@ -22,8 +28,10 @@ import {
   initialUpgradeGuestsValue,
 } from "maalum/utils/reservations/reservations.utils";
 import { totalPrice as totalPriceSum } from "maalum/utils/reservations/reservationsConfirmation.utils";
+import { getReseravtionsSpaGuests } from "maalum/utils/reservations/reservationsPicker.utils";
 import {
   formatUpgradeGuests,
+  getSpaDate,
   sumUpgradeGuests,
 } from "maalum/utils/reservations/reservationsUpgrade.util";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationConfirmation";
@@ -49,6 +57,7 @@ function ReservationsWrapper({
 
 export function Reservations() {
   const isPhoneViewport = useMediaQuery("(max-width:43.75em)");
+  const [isLoadingPayment, setIsLoadingPayment] = useState<boolean>(false);
   const { isReservationsOpen, setIsReservationsOpen } =
     useContext(MaalumContext);
   const [reservationStepper, setReservationStepper] =
@@ -57,8 +66,6 @@ export function Reservations() {
     useState<ReservationsPickerInformation>(
       initialReservationsPickerInformation
     );
-  // const [reservationsPickerSubmited, setReservationsPickerSubmited] =
-  //   useState<ReservationsPickerSubmited>(initialReservationsPickerSubmited);
   const [isError, setIsError] = useState<boolean>(false);
   const [
     reservationsConfirmationInformation,
@@ -72,12 +79,43 @@ export function Reservations() {
   const [upgradeGuests, setUpgradeGuests] = useState<UpgradeGuests>(
     initialUpgradeGuestsValue
   );
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [spaExcluded, setSpaExcluded] = useState<ReservationsSpaCounter>();
   const isReservationsConfirmationButtonDisabled = Object.values(
     reservationsConfirmationInformation
   ).some((value) => !value || !value?.length);
   const isButtonDisabledPicker =
     !reservationsPickerInformation.totalGuests ||
     !reservationsPickerInformation.date?.getHours();
+
+  const createReservation = useCallback(
+    async (reservationParsed: any) => {
+      const { orderTrackingId, token } = reservationParsed;
+      try {
+        const { payment_status_description: status } =
+          await getTransactionStatus(orderTrackingId, token);
+
+        localStorage.removeItem("reservation");
+        if (status !== "Failed") {
+          setReservationStepper("reservationsPayment");
+          setIsLoadingPayment(true);
+          setIsReservationsOpen(true);
+          await postReservation(reservationParsed);
+          setIsLoadingPayment(false);
+        }
+      } catch (error) {}
+    },
+    [setIsReservationsOpen]
+  );
+
+  useEffect(() => {
+    const reservation = localStorage.getItem("reservation");
+
+    if (reservation) {
+      const reservationParsed = JSON.parse(reservation);
+      createReservation(reservationParsed);
+    }
+  }, [createReservation]);
 
   const handleOnClose = () => {
     setIsReservationsOpen(false);
@@ -100,6 +138,12 @@ export function Reservations() {
       naturalEssence: 0,
       maalumRitual: 0,
     }));
+    setSpaExcluded(
+      getReseravtionsSpaGuests(
+        reservations,
+        reservationsPickerInformation.date as Date
+      )
+    );
   };
 
   const handleReservationsUpgradeSubmit = () => {
@@ -129,20 +173,15 @@ export function Reservations() {
   };
 
   const handleReservationConfirmationSubmit = async () => {
-    const isError = !new RegExp(EMAIL_REGEX, "gm").test(
+    const isError = !new RegExp(EMAIL_REGEX).test(
       reservationsConfirmationInformation.email
     );
 
     if (!isError) {
       setReservationStepper("reservationsPayment");
+      setIsLoadingPayment(true);
       try {
-        // await postReservation({
-        //   ...reservationsPickerInformation,
-        //   ...reservationsConfirmationInformation,
-        //   client: true,
-        //   date: dateToUTC(reservationsPickerInformation.date as Date),
-        // });
-        const { url, ipnId } = await getURLPesapalPayment({
+        const { url, orderTrackingId, token } = await getURLPesapalPayment({
           ...reservationsPickerInformation,
           ...reservationsConfirmationInformation,
         });
@@ -154,7 +193,13 @@ export function Reservations() {
             ...reservationsConfirmationInformation,
             client: true,
             date: dateToUTC(reservationsPickerInformation.date as Date),
-            ipnId,
+            spaDate: dateToUTC(
+              getSpaDate(reservationsPickerInformation.date as Date)
+            ),
+            token,
+            orderTrackingId,
+            caveGuests,
+            ...formatUpgradeGuests(upgradeGuests),
           })
         );
       } catch (error) {}
@@ -182,6 +227,7 @@ export function Reservations() {
     isButtonDisabled: boolean;
     onClick: () => void;
     hasGoBackIcon?: boolean;
+    hideCloseIcon?: boolean;
   } => {
     switch (reservationStepper) {
       case "reservationsPicker":
@@ -192,6 +238,8 @@ export function Reservations() {
               setReservationsPickerInformation={
                 setReservationsPickerInformation
               }
+              reservations={reservations}
+              setReservations={setReservations}
               upgradeGuests={upgradeGuests}
             />
           ),
@@ -208,9 +256,10 @@ export function Reservations() {
               setReservationsPickerInformation={
                 setReservationsPickerInformation
               }
-              setReservationStepper={setReservationStepper}
               upgradeGuests={upgradeGuests}
               setUpgradeGuests={setUpgradeGuests}
+              spaExcluded={spaExcluded as ReservationsSpaCounter}
+              setReservationStepper={setReservationStepper}
             />
           ),
           title: "UPGRADE YOUR EXPERIENCE",
@@ -243,12 +292,19 @@ export function Reservations() {
         };
       case "reservationsPayment":
         return {
-          component: <ReservationsPayment URLPayment={URLPayment} />,
+          component: (
+            <ReservationsPayment
+              URLPayment={URLPayment}
+              isLoading={isLoadingPayment}
+              setIsLoading={setIsLoadingPayment}
+            />
+          ),
           title: "PAYMENT CONFIRMATION",
           buttonText: "CLOSE",
           isButtonDisabled: false,
           onClick: () => handleOnClose(),
           hasGoBackIcon: false,
+          hideCloseIcon: !!URLPayment,
         };
       default:
         return {
@@ -268,6 +324,7 @@ export function Reservations() {
     onClick,
     hasGoBackIcon,
     isButtonDisabled,
+    hideCloseIcon,
   } = renderReservationComponent();
   const showFooter = title !== "PAYMENT CONFIRMATION";
 
@@ -310,15 +367,17 @@ export function Reservations() {
             </div>
             <IconButton
               onClick={handleOnClose}
-              sx={{ color: "inherit", fontSize: 22 }}
+              sx={{
+                color: "inherit",
+                fontSize: 22,
+                visibility: hideCloseIcon && "hidden",
+              }}
               disableRipple
             >
               <CloseIcon fontSize="inherit" />
             </IconButton>
           </header>
-          <article className={`${styles["reservations__body"]}`}>
-            {component}
-          </article>
+          {component}
           {showFooter && (
             <footer className={`${styles.reservations__footer}`}>
               <button

@@ -22,12 +22,16 @@ interface ReservationsPickerProps {
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
+  reservations: Reservation[];
+  setReservations: React.Dispatch<React.SetStateAction<Reservation[]>>;
   upgradeGuests: UpgradeGuests;
 }
 
 export function ReservationsPicker({
   reservationsPickerInformation,
   setReservationsPickerInformation,
+  reservations,
+  setReservations,
   upgradeGuests,
 }: ReservationsPickerProps) {
   const [excludedDays, setExcludedDays] = useState<Date[]>([]);
@@ -35,7 +39,6 @@ export function ReservationsPicker({
   const [blockedDaysHours, setBlockedDaysHours] = useState<BlockedDaysHours[]>(
     []
   );
-  const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getBlockedDaysReservationsMonthly = useCallback(

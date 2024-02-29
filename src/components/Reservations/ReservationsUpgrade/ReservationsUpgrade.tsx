@@ -19,11 +19,13 @@ import { WHATSAPP_LINK } from "maalum/core/constants/constants";
 import {
   ReservationsGuestsCounter,
   ReservationsPickerInformation,
+  ReservationsSpaCounter,
   ReservationStepper,
   UpgradeGuests,
 } from "maalum/core/models/reservations.model";
 import { defaultTheme } from "maalum/styles/themes";
 import { reservationsGuestsInformation } from "maalum/utils/reservations/reservations.utils";
+import { getReseravtionsSpaGuests } from "maalum/utils/reservations/reservationsPicker.utils";
 import {
   cardElements,
   getHour,
@@ -38,11 +40,12 @@ interface ReservationsUpgradeProps {
   setReservationsPickerInformation: React.Dispatch<
     React.SetStateAction<ReservationsPickerInformation>
   >;
+  upgradeGuests: UpgradeGuests;
+  setUpgradeGuests: React.Dispatch<React.SetStateAction<UpgradeGuests>>;
+  spaExcluded: ReservationsSpaCounter;
   setReservationStepper: React.Dispatch<
     React.SetStateAction<ReservationStepper>
   >;
-  upgradeGuests: UpgradeGuests;
-  setUpgradeGuests: React.Dispatch<React.SetStateAction<UpgradeGuests>>;
 }
 
 export function ReservationsUpgrade({
@@ -51,20 +54,13 @@ export function ReservationsUpgrade({
   setReservationStepper,
   upgradeGuests,
   setUpgradeGuests,
+  spaExcluded,
 }: ReservationsUpgradeProps) {
-  // const [isExpanded, setIsExpanded] = useState<{ [key: string]: boolean }>({
-  //   naturalEssence: false,
-  //   maalumRitual: false,
-  // });
   const [tooltipOpen, setTooltipOpen] = useState<{
     card: "naturalEssence" | "maalumRitual" | null;
     guest: keyof ReservationsGuestsCounter | null;
   }>({ card: null, guest: null });
   const [timer, setTimer] = useState<NodeJS.Timeout>();
-  // const refCard = {
-  //   naturalEssence: useRef<HTMLDivElement>(null),
-  //   maalumRitual: useRef<HTMLDivElement>(null),
-  // };
   const formattedDate = reservationsPickerInformation.date
     ?.toLocaleDateString("es-ES", {
       month: "short",
@@ -77,8 +73,9 @@ export function ReservationsUpgrade({
     (accum, { id }) => accum + reservationsPickerInformation[id],
     0
   );
-  const guestsAvailable =
-    reservationsPickerInformation.totalGuests - totalUpgradeGuests;
+  const totalSpaExcluded =
+    spaExcluded.maalumRitual + spaExcluded.naturalEssence;
+  const guestsAvailable = 2 - totalSpaExcluded - totalUpgradeGuests;
   const guests = reservationsGuestsInformation.filter(
     ({ id }) => reservationsPickerInformation[id]
   );
@@ -104,19 +101,6 @@ export function ReservationsUpgrade({
       icon: <Guests />,
     },
   ];
-
-  // const handleClick = (id: "naturalEssence" | "maalumRitual") => {
-  //   if (!isExpanded[id]) {
-  //     refCard[id].current?.scrollIntoView({
-  //       behavior: "smooth",
-  //       inline: "start",
-  //     });
-  //     setIsExpanded({ ...isExpanded, [id]: true });
-  //     return;
-  //   }
-
-  //   setIsExpanded({ ...isExpanded, [id]: false });
-  // };
 
   const handlePlus = (
     id: "naturalEssence" | "maalumRitual",
@@ -205,7 +189,8 @@ export function ReservationsUpgrade({
           </p>
         </Link>
         {cardElements.map(({ id, title, price, description }) => {
-          const hourSpa = getHour(formattedDate[1] ?? "");
+          const hourSpa =
+            totalSpaExcluded < 2 ? getHour(formattedDate[1] ?? "") : "SOLD OUT";
           const isSoldOut = hourSpa === "SOLD OUT";
 
           return (
