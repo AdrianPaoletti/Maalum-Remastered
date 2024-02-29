@@ -370,7 +370,7 @@ export function Reservations() {
               sx={{
                 color: "inherit",
                 fontSize: 22,
-                visibility: hideCloseIcon && "hidden",
+                visibility: hideCloseIcon ? "hidden" : "visible",
               }}
               disableRipple
             >
