@@ -176,7 +176,6 @@ export function Reservations() {
     const isError = !new RegExp(EMAIL_REGEX).test(
       reservationsConfirmationInformation.email
     );
-
     if (!isError) {
       setReservationStepper("reservationsPayment");
       setIsLoadingPayment(true);
