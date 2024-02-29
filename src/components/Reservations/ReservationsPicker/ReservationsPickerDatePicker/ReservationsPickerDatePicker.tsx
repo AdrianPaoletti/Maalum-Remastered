@@ -108,13 +108,6 @@ export function ReservationsPickerDatePicker({
           : new Date(date.setHours(0)),
     }));
     setMinimumHour(getMinimumHour(date));
-    console.log(
-      getReservationsExcludedHours(
-        reservations,
-        reservationsPickerInformation.totalGuests,
-        date
-      )
-    );
     setExcludedHours([
       ...getBlockedDaysExcludedHours(blockedDaysHours, date),
       ...getReservationsExcludedHours(

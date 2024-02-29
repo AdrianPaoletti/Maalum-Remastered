@@ -51,7 +51,10 @@ const registerIPNPesapalPayment = async (token: string): Promise<string> => {
       data: { ipn_id: ipnId },
     } = await axios.post(
       `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/URLSetup/RegisterIPN`,
-      {},
+      {
+        url: "",
+        ipn_notification_type: "GET",
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
