@@ -110,7 +110,12 @@ export default function Home() {
             </ul>
           </div>
           <div className={`${styles["book-now__button"]}`}>
-            <span className="text-primary">BOOK NOW</span>
+            <span
+              className="text-primary"
+              onClick={() => setIsReservationsOpen(true)}
+            >
+              BOOK NOW
+            </span>
           </div>
         </div>
       </article>
