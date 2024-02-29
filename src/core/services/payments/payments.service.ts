@@ -85,7 +85,6 @@ const submitOrderPesapalPayment = async (
         },
       }
     );
-
     return { url, orderTrackingId };
   } catch (error) {
     throw error;
