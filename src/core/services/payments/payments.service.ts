@@ -52,7 +52,7 @@ const registerIPNPesapalPayment = async (token: string): Promise<string> => {
     } = await axios.post(
       `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/URLSetup/RegisterIPN`,
       {
-        url: "",
+        url: `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/reservations/prueba`,
         ipn_notification_type: "GET",
       },
       {
