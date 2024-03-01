@@ -96,7 +96,7 @@ export function Reservations() {
           await getTransactionStatus(orderTrackingId, token);
 
         localStorage.removeItem("reservation");
-        if (status !== "Failed") {
+        if (status === "Completed") {
           setReservationStepper("reservationsPayment");
           setIsLoadingPayment(true);
           setIsReservationsOpen(true);
