@@ -21,7 +21,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Maalum",
   description: "Best natural swimming cave in zanzibar",
-  viewport: "width=device-width, initial-scale=1",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   icons: "/favicon.ico",
 };
 

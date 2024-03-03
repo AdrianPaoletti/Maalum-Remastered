@@ -104,12 +104,10 @@
   }
 
   &__description {
-    @include display-flex(flex-start, flex-end, column);
     gap: 0.8rem;
-
-    @include responsive(phone) {
-      @include display-flex(center, flex-end, column);
-    }
+    display: flex;
+    flex-direction: column;
+    text-align: right;
 
     h3 {
       font-weight: 500;
@@ -122,7 +120,9 @@
 
   &__list {
     @include responsive(phone) {
-      margin-right: 14rem;
+      text-align: left;
+      align-self: baseline;
+      // margin-right: 14rem;
     }
   }
 
@@ -243,7 +243,10 @@
   }
 
   &__text-container {
-    @include display-flex(center, center, column);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   &__text {
