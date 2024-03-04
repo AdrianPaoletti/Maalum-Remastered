@@ -81,6 +81,10 @@ export function Reservations() {
   );
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [spaExcluded, setSpaExcluded] = useState<ReservationsSpaCounter>();
+  const [confirmationTexts, setConfirmationTexts] = useState<{
+    title: string;
+    text: string;
+  }>({ title: "", text: "" });
   const isReservationsConfirmationButtonDisabled = Object.values(
     reservationsConfirmationInformation
   ).some((value) => !value || !value?.length);
@@ -176,7 +180,33 @@ export function Reservations() {
     const isError = !new RegExp(EMAIL_REGEX).test(
       reservationsConfirmationInformation.email
     );
-    if (!isError) {
+
+    const reservation = {
+      ...reservationsPickerInformation,
+      ...reservationsConfirmationInformation,
+      client: true,
+      date: dateToUTC(reservationsPickerInformation.date as Date),
+      spaDate: dateToUTC(
+        getSpaDate(reservationsPickerInformation.date as Date)
+      ),
+      caveGuests,
+      ...formatUpgradeGuests(upgradeGuests),
+    };
+
+    if (isError) {
+      setIsError(isError);
+      return;
+    }
+
+    if (
+      reservationsPickerInformation.totalGuests >= 4 ||
+      reservationsPickerInformation.maalumRitual ||
+      reservationsPickerInformation.naturalEssence
+    ) {
+      setConfirmationTexts({
+        title: "PAYMENT CONFIRMATION",
+        text: "A PAYMENT CONFIRMATION EMAIL HAS BEEN SENT TO YOU",
+      });
       setReservationStepper("reservationsPayment");
       setIsLoadingPayment(true);
       try {
@@ -188,23 +218,24 @@ export function Reservations() {
         localStorage.setItem(
           "reservation",
           JSON.stringify({
-            ...reservationsPickerInformation,
-            ...reservationsConfirmationInformation,
-            client: true,
-            date: dateToUTC(reservationsPickerInformation.date as Date),
-            spaDate: dateToUTC(
-              getSpaDate(reservationsPickerInformation.date as Date)
-            ),
+            ...reservation,
             token,
             orderTrackingId,
-            caveGuests,
-            ...formatUpgradeGuests(upgradeGuests),
           })
         );
       } catch (error) {}
+      return;
     }
 
-    setIsError(isError);
+    setReservationStepper("reservationsPayment");
+    setIsLoadingPayment(true);
+    setIsReservationsOpen(true);
+    setConfirmationTexts({
+      title: "BOOKING CONFIRMATION",
+      text: "A BOOKING CONFIRMATION EMAIL HAS BEEN SENT TO YOU",
+    });
+    await postReservation(reservation as any);
+    setIsLoadingPayment(false);
   };
 
   const handleGoBack = () => {
@@ -296,9 +327,10 @@ export function Reservations() {
               URLPayment={URLPayment}
               isLoading={isLoadingPayment}
               setIsLoading={setIsLoadingPayment}
+              text={confirmationTexts.text}
             />
           ),
-          title: "PAYMENT CONFIRMATION",
+          title: confirmationTexts.title,
           buttonText: "CLOSE",
           isButtonDisabled: false,
           onClick: () => handleOnClose(),

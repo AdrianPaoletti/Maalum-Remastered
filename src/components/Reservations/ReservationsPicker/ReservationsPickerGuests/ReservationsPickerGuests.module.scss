@@ -49,6 +49,29 @@
     text-align: end;
     margin-right: 0;
   }
+
+  &__card-info {
+    border-radius: 0.5rem;
+    list-style: none;
+    position: relative;
+
+    &--whatsapp {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      border: 1px solid $color-gray;
+      font-size: $font-size-12;
+      line-height: 1.7rem;
+      text-decoration: none;
+      color: black;
+
+      span {
+        color: green;
+        font-weight: 600;
+      }
+    }
+  }
 }
 
 button.guests__button {

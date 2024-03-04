@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { IconButton, useMediaQuery } from "@mui/material";
 
+import { WHATSAPP_LINK } from "maalum/core/constants/constants";
 import {
   ReservationsGuestsCounter,
   ReservationsPickerInformation,
@@ -132,6 +135,17 @@ export function ReservationsPickerGuests({
           </div>
         )
       )}
+      <Link
+        className={`${styles["guests__card-info"]} ${styles["guests__card-info--whatsapp"]}`}
+        href={WHATSAPP_LINK}
+        target="_blank"
+      >
+        <WhatsAppIcon fontSize="large" style={{ color: "green" }} />
+        <p>
+          For big groups or specific request, please <span>click here</span> to
+          contact us throw whatsapp.
+        </p>
+      </Link>
     </form>
   );
 }

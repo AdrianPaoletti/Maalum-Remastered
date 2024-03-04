@@ -10,12 +10,14 @@ interface ReservationsPaymentProps {
   URLPayment?: string;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  text: string;
 }
 
 const ReservationsPayment = ({
   URLPayment,
   isLoading,
   setIsLoading,
+  text,
 }: ReservationsPaymentProps) => {
   return (
     <div
@@ -27,9 +29,7 @@ const ReservationsPayment = ({
       {!URLPayment && !isLoading && (
         <>
           <CheckCircleIcon fontSize="inherit" />
-          <h4 className={`heading-cuaternary`}>
-            A PAYMENT CONFIRMATION EMAIL HAS BEEN SENT TO YOU
-          </h4>
+          <h4 className={`heading-cuaternary`}>{text}</h4>
         </>
       )}
       {URLPayment && (
