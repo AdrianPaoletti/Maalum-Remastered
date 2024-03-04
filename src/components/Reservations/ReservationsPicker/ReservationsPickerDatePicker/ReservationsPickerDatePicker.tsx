@@ -94,8 +94,6 @@ export function ReservationsPickerDatePicker({
     }
   }, [isLastDay, reservationsPickerInformation.totalGuests, setExcludedDays]);
 
-  console.log(minimumDate);
-
   useEffect(() => {
     if (reservationsPickerInformation.date?.getHours()) {
       setMinimumHour(getMinimumHour(reservationsPickerInformation.date));
