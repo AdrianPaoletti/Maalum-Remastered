@@ -49,6 +49,10 @@
   &__booking-data-block-container {
     @include display-flex(flex-start, flex-start, row, nowrap);
     gap: 2.5rem;
+
+    @include responsive(phone) {
+      gap: 1.5rem;
+    }
   }
 
   &__booking-data-title {
@@ -57,7 +61,7 @@
   }
 
   &__booking-data-block {
-    @include display-flex(space-between, flex-start, column);
+    @include display-flex(space-between, flex-start, column, nowrap);
     font-size: $font-size-12;
     gap: 0.75rem;
 

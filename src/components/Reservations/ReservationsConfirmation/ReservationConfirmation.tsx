@@ -49,14 +49,17 @@ export function ReservationConfirmation({
   const isSmallPhoneViewport = useMediaQuery("(max-width:27.2em)");
   const bookingData = [
     ...(Object.values(caveGuests).some((guests) => guests)
-    ? [{
-      id: "cave",
-      data: formatReservationsPickerData({
-        ...reservationsPickerInformation,
-        ...caveGuests,
-      }),
-      title: "Maalum cave",
-    }] : []),
+      ? [
+          {
+            id: "cave",
+            data: formatReservationsPickerData({
+              ...reservationsPickerInformation,
+              ...caveGuests,
+            }),
+            title: "Maalum cave",
+          },
+        ]
+      : []),
     ...(includeInBookingData(formattedUpgradeGuests.naturalEssence)
       ? [
           {
@@ -148,6 +151,12 @@ export function ReservationConfirmation({
                             style={{
                               fontWeight,
                               whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                              overflow: "clip",
+                              maxWidth:
+                                id === "guests" && isSmallPhoneViewport
+                                  ? "80px"
+                                  : "auto",
                             }}
                           >
                             {data[id]}
