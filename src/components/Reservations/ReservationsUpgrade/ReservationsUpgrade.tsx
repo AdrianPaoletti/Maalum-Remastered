@@ -182,7 +182,10 @@ export function ReservationsUpgrade({
           href={WHATSAPP_LINK}
           target="_blank"
         >
-          <WhatsAppIcon fontSize="large" style={{ color: "green" }} />
+          <WhatsAppIcon
+            fontSize="large"
+            style={{ color: defaultTheme.palette.beige.main }}
+          />
           <p>
             For more than 2 guests or specific request, please{" "}
             <span>click here</span> to contact us throw whatsapp.

@@ -50,6 +50,7 @@
       align-items: center;
       gap: 1rem;
       padding: 1.5rem;
+      border: 1px solid $color-beige;
       background-color: $color-white;
       font-size: $font-size-12;
       line-height: 1.7rem;
@@ -57,7 +58,7 @@
       color: black;
 
       span {
-        color: green;
+        color: $color-beige;
         font-weight: 600;
       }
     }
