@@ -54,20 +54,22 @@
     border-radius: 0.5rem;
     list-style: none;
     position: relative;
+    margin-bottom: 1.5rem;
 
     &--whatsapp {
       display: flex;
       align-items: center;
       gap: 1rem;
       padding: 1.5rem;
-      border: 1px solid $color-gray;
+      border: 1px solid $color-beige;
+      background-color: $color-gray-medium-light;
       font-size: $font-size-12;
       line-height: 1.7rem;
       text-decoration: none;
       color: black;
 
       span {
-        color: green;
+        color: $color-beige;
         font-weight: 600;
       }
     }

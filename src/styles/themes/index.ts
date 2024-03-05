@@ -3,13 +3,13 @@ import { createTheme, Theme } from "@mui/material/styles";
 
 declare module "@mui/material/styles/createPalette" {
   interface Palette {
-    beige: { bold: string; light: string; disabled: string };
+    beige: { bold: string; light: string; disabled: string; main: string };
     gray: { light: string; lightMain: string; main: string };
     white: string;
   }
 
   interface PaletteOptions {
-    beige: { bold: string; light: string; disabled: string };
+    beige: { bold: string; light: string; disabled: string; main: string };
     gray: { light: string; lightMain: string; main: string };
     white: string;
   }
@@ -17,7 +17,12 @@ declare module "@mui/material/styles/createPalette" {
 
 export const defaultTheme: Theme = createTheme({
   palette: {
-    beige: { bold: "#957940", light: "#c3b288", disabled: "#c3b28878" },
+    beige: {
+      bold: "#957940",
+      light: "#c3b288",
+      disabled: "#c3b28878",
+      main: "#bda065",
+    },
     gray: { light: "", lightMain: "#f0f2f4", main: "#737373" },
     white: "#fff",
   },

@@ -2,7 +2,6 @@
 
 import { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 

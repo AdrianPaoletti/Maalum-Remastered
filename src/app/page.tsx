@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Banner } from "maalum/components/ui/Banner/Banner";
 import { Carousel } from "maalum/components/ui/Carousel/Carousel";
 import { IsSocialMedia } from "maalum/core/models/home.model";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
@@ -23,6 +24,7 @@ import styles from "./page.module.scss";
 
 export default function Home() {
   const { setIsReservationsOpen } = useContext(MaalumContext);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isSocialMediaHover, setIsSocialMediaHover] = useState<IsSocialMedia>({
     instagram: false,
     facebook: false,
@@ -41,6 +43,7 @@ export default function Home() {
 
   return (
     <main>
+      <Banner open={isOpen} setIsOpen={setIsOpen} />
       <article className={`${styles.description}`}>
         <div
           className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
@@ -174,6 +177,7 @@ export default function Home() {
       </article>
       <article className={`${styles["spa-container"]}`}>
         <div
+          id={"spa"}
           className={`${styles.container} ${styles["spa"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
         >
           <Carousel images={carouselImages} />

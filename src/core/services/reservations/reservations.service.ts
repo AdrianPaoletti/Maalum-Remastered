@@ -13,7 +13,7 @@ const getBlockedDaysMonthly = async (
 ): Promise<BlockedDaysHours[]> => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_LOCAL}/days/blocked-monthly`,
+      `${process.env.NEXT_PUBLIC_RAILWAY_REMASTERED}/days/blocked-monthly`,
       {
         params: requestBody,
       }
@@ -30,7 +30,7 @@ const getReservationsMonthly = async (
 ): Promise<Reservation[]> => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_LOCAL}/reservations`,
+      `${process.env.NEXT_PUBLIC_RAILWAY_REMASTERED}/reservations`,
       {
         params: requestBody,
       }
@@ -47,7 +47,7 @@ const postReservation = async (
 ): Promise<string> => {
   try {
     const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_LOCAL}/reservations`,
+      `${process.env.NEXT_PUBLIC_RAILWAY_REMASTERED}/reservations`,
       requestBody
     );
 

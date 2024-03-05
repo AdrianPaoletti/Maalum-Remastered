@@ -65,6 +65,20 @@ export function ReservationsPickerGuests({
 
   return (
     <form className={`${styles.guests} u-padding-vertical-small-medium`}>
+      <Link
+        className={`${styles["guests__card-info"]} ${styles["guests__card-info--whatsapp"]}`}
+        href={WHATSAPP_LINK}
+        target="_blank"
+      >
+        <WhatsAppIcon
+          fontSize="large"
+          style={{ color: defaultTheme.palette.beige.main }}
+        />
+        <p>
+          For big groups or specific request, please <span>click here</span> to
+          contact us throw whatsapp.
+        </p>
+      </Link>
       {reservationsGuestsInformation.map(
         ({
           id,
@@ -135,17 +149,6 @@ export function ReservationsPickerGuests({
           </div>
         )
       )}
-      <Link
-        className={`${styles["guests__card-info"]} ${styles["guests__card-info--whatsapp"]}`}
-        href={WHATSAPP_LINK}
-        target="_blank"
-      >
-        <WhatsAppIcon fontSize="large" style={{ color: "green" }} />
-        <p>
-          For big groups or specific request, please <span>click here</span> to
-          contact us throw whatsapp.
-        </p>
-      </Link>
     </form>
   );
 }

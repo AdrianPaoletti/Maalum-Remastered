@@ -1,0 +1,32 @@
+@import "src/styles/abstracts/mixins";
+@import "src/styles/abstracts/variables";
+
+.banner {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 2rem;
+  border-radius: 1rem;
+  background-color: $color-beige-yellow;
+  padding: 4rem 5rem;
+  width: 80%;
+  max-width: 45rem;
+
+  &__description {
+    text-align: center;
+  }
+
+  &__button {
+    @include display-flex();
+    @include button();
+  }
+}
+
+button.banner__close {
+  position: absolute;
+  font-size: $font-size-20;
+  top: 1rem;
+  right: 1rem;
+}
