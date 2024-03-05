@@ -31,11 +31,11 @@ export function Banner({ open, setIsOpen }: BannerProps) {
       slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
-          timeout: 500,
+          timeout: 900,
         },
       }}
     >
-      <Slide direction="down" in={open}>
+      <Slide direction="down" in={open} timeout={900}>
         <article className={styles.banner}>
           <IconButton
             onClick={handleClose}
