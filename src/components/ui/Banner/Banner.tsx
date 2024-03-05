@@ -27,6 +27,7 @@ export function Banner({ open, setIsOpen }: BannerProps) {
   return (
     <Modal
       closeAfterTransition
+      disableAutoFocus
       open={open}
       slots={{ backdrop: Backdrop }}
       slotProps={{
