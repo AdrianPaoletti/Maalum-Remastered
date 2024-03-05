@@ -35,7 +35,7 @@ export function Banner({ open, setIsOpen }: BannerProps) {
         },
       }}
     >
-      <Slide direction="down" in={open} timeout={900}>
+      <Slide direction="down" in={open} timeout={{ enter: 900, exit: 500 }}>
         <article className={styles.banner}>
           <IconButton
             onClick={handleClose}
