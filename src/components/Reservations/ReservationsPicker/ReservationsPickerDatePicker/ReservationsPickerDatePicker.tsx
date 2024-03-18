@@ -15,6 +15,7 @@ import {
   getLastDayMonth,
   getMinimumHour,
   getReservationsExcludedHours,
+  includedTimes,
 } from "maalum/utils/reservations/reservationsPicker.utils";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -136,6 +137,8 @@ export function ReservationsPickerDatePicker({
         excludeDates={excludedDays}
         onChange={handleChange}
         onMonthChange={getBlockedDaysReservationsMonthly}
+        timeFormat="p"
+        includeTimes={includedTimes}
       />
       {isLoading && <Loading isLoading={isLoading} opacity={0.6} />}
     </form>

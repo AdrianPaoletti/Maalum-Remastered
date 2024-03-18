@@ -133,6 +133,16 @@ const addHoursToTime = (date: Date, hours: number): Date =>
 const getLastDayMonth = () =>
   new Date(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0));
 
+const includedTimes = [
+  new Date(new Date(new Date().setHours(8)).setMinutes(0)),
+  new Date(new Date(new Date().setHours(9)).setMinutes(30)),
+  new Date(new Date(new Date().setHours(11)).setMinutes(0)),
+  new Date(new Date(new Date().setHours(30)).setMinutes(12)),
+  new Date(new Date(new Date().setHours(14)).setMinutes(0)),
+  new Date(new Date(new Date().setHours(30)).setMinutes(15)),
+  new Date(new Date(new Date().setHours(17)).setMinutes(0)),
+];
+
 export {
   getBlockedDaysExcludedHours,
   getReservationsExcludedHours,
@@ -141,4 +151,5 @@ export {
   getMinimumHour,
   addDaysToDate,
   addHoursToTime,
+  includedTimes,
 };
