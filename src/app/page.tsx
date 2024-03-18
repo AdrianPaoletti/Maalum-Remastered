@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,11 +25,16 @@ import styles from "./page.module.scss";
 export default function Home() {
   const { setIsReservationsOpen } = useContext(MaalumContext);
   const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isReservation, setIsReservation] = useState<boolean>(false);
   const [isSocialMediaHover, setIsSocialMediaHover] = useState<IsSocialMedia>({
     instagram: false,
     facebook: false,
     tripadvisor: false,
   });
+
+  useEffect(() => {
+    setIsReservation(!!localStorage.getItem("reservation"));
+  }, []);
 
   const handleSocialMediaMouseEvent = ({
     target,
@@ -43,7 +48,7 @@ export default function Home() {
 
   return (
     <main>
-      <Banner open={isOpen} setIsOpen={setIsOpen} />
+      {!isReservation && <Banner open={isOpen} setIsOpen={setIsOpen} />}
       <article className={`${styles.description}`}>
         <div
           className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}

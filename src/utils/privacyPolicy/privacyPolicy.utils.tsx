@@ -12,13 +12,13 @@ const privacyPolicyText: {
         subtitle: "",
         text: (
           <>
-            In CCJ Investments <span>MAALUM</span> with address at Tulum-Punta
-            Allen km 8.7, manzana 002, lote 23, Zona Costera, Tulum Quintana
-            Roo, C.P. 77760, Quintana Roo, México; We inform that the personal
-            information of all our clients and potential clients is treated in a
-            strictly confidential manner, so clients can feel fully confident
-            that when purchasing our goods and/or services, a permanent effort
-            to safeguard and protect that information is made.
+            In CCJ Investments <span>MAALUM</span> with address at Maalum Paje,
+            after Gym Road, POBOX: 72110 Paje, Kusini, Unguja, PGCJ+X8 Paje; We
+            inform that the personal information of all our clients and
+            potential clients is treated in a strictly confidential manner, so
+            clients can feel fully confident that when purchasing our goods
+            and/or services, a permanent effort to safeguard and protect that
+            information is made.
           </>
         ),
       },

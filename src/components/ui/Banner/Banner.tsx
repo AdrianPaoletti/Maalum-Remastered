@@ -32,11 +32,11 @@ export function Banner({ open, setIsOpen }: BannerProps) {
       slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
-          timeout: 900,
+          timeout: 500,
         },
       }}
     >
-      <Slide direction="down" in={open} timeout={{ enter: 500, exit: 500 }}>
+      <Slide direction="down" in={open} timeout={{ enter: 400, exit: 400 }}>
         <article className={styles.banner}>
           <IconButton
             onClick={handleClose}
