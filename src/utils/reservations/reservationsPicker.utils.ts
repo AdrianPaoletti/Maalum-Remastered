@@ -7,6 +7,7 @@ import {
   Reservation,
   ReservationsSpaCounter,
 } from "maalum/core/models/reservations.model";
+import { dateToUTC } from "../formatters/formatters.utils";
 
 const getBlockedDaysExcludedHours = (
   blockedDaysHours: BlockedDaysHours[],
@@ -93,17 +94,19 @@ const getReseravtionsSpaGuests = (
   )
     .map((reservation) => ({
       ...reservation,
-      date: new Date(
-        new Date(reservation.date).setHours(
-          new Date(reservation.date).getHours() - 3
+      caveDate: dateToUTC(
+        new Date(
+          new Date(reservation.caveDate).setHours(
+            new Date(reservation.caveDate).getHours() - 2
+          )
         )
       ),
     }))
     .filter(
-      ({ service, date }) =>
-        date.getHours() === selectedDate.getHours() && service === "caveAndSpa"
+      ({ service, caveDate }) =>
+        caveDate.getHours() === selectedDate.getHours() &&
+        service === "caveAndSpa"
     );
-
   return accumulatedDates.reduce(
     (accum, value) => {
       const { spaType, totalGuests } = value;

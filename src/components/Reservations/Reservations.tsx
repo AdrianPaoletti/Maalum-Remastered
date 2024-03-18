@@ -142,6 +142,12 @@ export function Reservations() {
       naturalEssence: 0,
       maalumRitual: 0,
     }));
+    console.log(
+      getReseravtionsSpaGuests(
+        reservations,
+        reservationsPickerInformation.date as Date
+      )
+    );
     setSpaExcluded(
       getReseravtionsSpaGuests(
         reservations,

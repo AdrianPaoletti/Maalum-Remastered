@@ -138,7 +138,6 @@ export function ReservationsPickerDatePicker({
         onChange={handleChange}
         onMonthChange={getBlockedDaysReservationsMonthly}
         timeFormat="p"
-        includeTimes={includedTimes}
       />
       {isLoading && <Loading isLoading={isLoading} opacity={0.6} />}
     </form>

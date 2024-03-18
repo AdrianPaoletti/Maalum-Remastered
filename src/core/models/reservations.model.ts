@@ -37,6 +37,7 @@ export type GetReservationsMonthlyRequestBody =
 
 export interface Reservation {
   date: Date;
+  caveDate: Date;
   totalGuests: number;
   service: string;
   spaType: string;
