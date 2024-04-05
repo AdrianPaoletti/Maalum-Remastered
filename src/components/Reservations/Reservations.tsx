@@ -200,11 +200,6 @@ export function Reservations() {
       return;
     }
 
-    console.log(
-      reservationsPickerInformation.maalumRitual,
-      reservationsPickerInformation.naturalEssence
-    );
-
     if (
       reservationsPickerInformation.totalGuests >= 4 ||
       reservationsPickerInformation.maalumRitual ||
