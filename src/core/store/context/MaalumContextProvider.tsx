@@ -12,10 +12,11 @@ export default function MaalumContextProvider({
   children,
 }: MaalumContextProviderProps) {
   const [isReservationsOpen, setIsReservationsOpen] = useState<boolean>(false);
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   return (
     <MaalumContext.Provider
-      value={{ isReservationsOpen, setIsReservationsOpen }}
+      value={{ isReservationsOpen, setIsReservationsOpen, isImageLoaded, setIsImageLoaded }}
     >
       {children}
     </MaalumContext.Provider>

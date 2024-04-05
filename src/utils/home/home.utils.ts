@@ -83,14 +83,25 @@ const bookNowListItem: {
   },
 ];
 
-const carouselImages: { id: string; url: string }[] = [
+const carouselSpa: { id: string; url: string }[] = [
   {
     id: "spa-first",
-    url: "/images/restaurant-1.jpg",
+    url: "/images/spa-1.jpg",
   },
   {
     id: "spa-second",
-    url: "/images/restaurant-2.jpg",
+    url: "/images/spa-2.jpg",
+  },
+];
+
+const carouselExperiences: { id: string; url: string }[] = [
+  {
+    id: "spa-first",
+    url: "/images/spa-3.jpg",
+  },
+  {
+    id: "spa-second",
+    url: "/images/spa-4.jpg",
   },
 ];
 
@@ -219,18 +230,6 @@ const experiencesInformation = [
       },
     ],
   },
-  {
-    id: 3,
-    title: "",
-    subtitle: "TRADITION OF BEAUTY",
-    text: [
-      {
-        id: 1,
-        paragraph:
-          "Discover the ancient secret of Japanese beauty with the Japanase facial lifting massage. This ancient skincare technique is combined with nourishing ingredients to cleanse, balance and renew your skin, leaving you with a rejuvenated and revitalized feeling.",
-      },
-    ],
-  },
 ];
 
 const imagesRestaurant: { id: string; url: string }[] = [
@@ -257,7 +256,8 @@ export {
   imagesInstagram,
   imagesRestaurant,
   bookNowListItem,
-  carouselImages,
+  carouselSpa,
+  carouselExperiences,
   socialMediaLogos,
   spaInformation,
   experiencesInformation,

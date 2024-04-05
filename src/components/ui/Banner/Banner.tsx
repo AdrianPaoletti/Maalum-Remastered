@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import CloseIcon from "@mui/icons-material/Close";
 import { Backdrop, IconButton, Modal } from "@mui/material";
 import Slide from "@mui/material/Slide";
@@ -44,12 +46,17 @@ export function Banner({ open, setIsOpen }: BannerProps) {
           >
             <CloseIcon fontSize="inherit" />
           </IconButton>
-          <h2 className="heading-secundary">New service!</h2>
+          <h2 className="heading-secundary">FOREST SPA</h2>
           <p
             className={`${styles.banner__description} text-primary u-padding-top-small`}
           >
-            Now we have Spa, check it out!
+            Massage surrounded by nature and tailored to individual preferences.
           </p>
+          <p className={`${styles.banner__description} text-primary`}>
+            This immersive experience invites you to feel a deep connection with
+            your inner self and the special rhythms around you.
+          </p>
+
           <div className={`${styles.banner__button} u-padding-top-medium`}>
             <span
               className="text-primary"

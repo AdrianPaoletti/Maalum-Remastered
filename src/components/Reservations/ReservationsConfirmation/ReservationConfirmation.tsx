@@ -5,7 +5,9 @@ import { Alert, TextField, useMediaQuery } from "@mui/material";
 
 import {
   NATURAL_ESSENCE_PRICE,
+  NATURAL_ESSENCE_PRICE_PROMO,
   RITUAL_PRICE,
+  RITUAL_PRICE_PROMO,
 } from "maalum/core/constants/constants";
 import {
   ReservationsConfirmationInformation,
@@ -57,6 +59,7 @@ export function ReservationConfirmation({
               ...caveGuests,
             }),
             title: "Maalum cave",
+            image: "/images/confirmation-cave.jpg",
           },
         ]
       : []),
@@ -68,8 +71,10 @@ export function ReservationConfirmation({
               ...formattedUpgradeGuests.naturalEssence,
               date: reservationsPickerInformation.date,
               spaPrice: NATURAL_ESSENCE_PRICE,
+              spaPricePromo: NATURAL_ESSENCE_PRICE_PROMO,
             }),
             title: "Natural Essence",
+            image: "/images/confirmation-natural.jpg",
           },
         ]
       : []),
@@ -81,8 +86,10 @@ export function ReservationConfirmation({
               ...formattedUpgradeGuests.maalumRitual,
               date: reservationsPickerInformation.date,
               spaPrice: RITUAL_PRICE,
+              spaPricePromo: RITUAL_PRICE_PROMO,
             }),
             title: "Maalum Ritual",
+            image: "/images/confirmation-ritual.jpg",
           },
         ]
       : []),
@@ -108,14 +115,14 @@ export function ReservationConfirmation({
           YOUR BOOKING
         </h5>
         <ul>
-          {bookingData.map(({ id, data, title }) => (
+          {bookingData.map(({ id, data, title, image }) => (
             <li
               key={id}
               className={`${styles["your-booking__booking-information"]}`}
             >
               <div className={`${styles["your-booking__image-container"]}`}>
                 <Image
-                  src={"/images/instagram-1.jpg"}
+                  src={image}
                   alt="booking-swimming-cave"
                   width={isSmallPhoneViewport ? 180 / 1.35 : 180}
                   height={isSmallPhoneViewport ? 120 / 1.35 : 120}

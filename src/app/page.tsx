@@ -6,11 +6,14 @@ import Link from "next/link";
 
 import { Banner } from "maalum/components/ui/Banner/Banner";
 import { Carousel } from "maalum/components/ui/Carousel/Carousel";
+import Loading from "maalum/components/ui/Loading/Loading";
 import { IsSocialMedia } from "maalum/core/models/home.model";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
+import { defaultTheme } from "maalum/styles/themes";
 import {
   bookNowListItem,
-  carouselImages,
+  carouselExperiences,
+  carouselSpa,
   experiencesInformation,
   imagesDescription,
   imagesInstagram,
@@ -23,7 +26,7 @@ import {
 import styles from "./page.module.scss";
 
 export default function Home() {
-  const { setIsReservationsOpen } = useContext(MaalumContext);
+  const { isImageLoaded, setIsReservationsOpen } = useContext(MaalumContext);
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isReservation, setIsReservation] = useState<boolean>(false);
   const [isSocialMediaHover, setIsSocialMediaHover] = useState<IsSocialMedia>({
@@ -48,7 +51,15 @@ export default function Home() {
 
   return (
     <main>
-      {!isReservation && <Banner open={isOpen} setIsOpen={setIsOpen} />}
+      <Loading
+        isLoading={!isImageLoaded}
+        backgroundColor={"#000"}
+        opacity={0.6}
+      />
+      <Banner
+        open={isOpen && !isReservation && isImageLoaded}
+        setIsOpen={setIsOpen}
+      />
       <article className={`${styles.description}`}>
         <div
           className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
@@ -155,13 +166,17 @@ export default function Home() {
                   {paragraph}
                 </p>
               ))}
-              {/* {!!indexNumber && (
+              {!!indexNumber && (
                 <p className={`text-primary u-padding-top-small`}>
-                  <a className={`${styles["restaurant__food-menu"]}`}>
+                  <a
+                    href="/documents/menu-2024.pdf"
+                    download="menu-maalum"
+                    className={`${styles["restaurant__food-menu"]}`}
+                  >
                     Food Menu
                   </a>
                 </p>
-              )} */}
+              )}
             </div>
           ))}
         </div>
@@ -185,7 +200,7 @@ export default function Home() {
           id={"spa"}
           className={`${styles.container} ${styles["spa"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
         >
-          <Carousel images={carouselImages} />
+          <Carousel images={carouselSpa} />
           <div className={`${styles["spa__text-container"]} col-1-of-2`}>
             {spaInformation.map(({ id, title, subtitle, text }) => (
               <div key={id}>
@@ -240,7 +255,7 @@ export default function Home() {
               )
             )}
           </div>
-          <Carousel images={carouselImages} />
+          <Carousel images={carouselExperiences} />
         </div>
       </article>
       <article

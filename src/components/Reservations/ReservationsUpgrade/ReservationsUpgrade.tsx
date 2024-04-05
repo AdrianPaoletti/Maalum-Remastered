@@ -191,25 +191,28 @@ export function ReservationsUpgrade({
             <span>click here</span> to contact us throw whatsapp.
           </p>
         </Link>
-        {cardElements.map(({ id, title, price, description }) => {
+        {cardElements.map(({ id, title, price, description, image }) => {
           const hourSpa =
-            totalSpaExcluded < 2 ? getHour(formattedDate[1] ?? "") : "SOLD OUT";
+            totalSpaExcluded < 2
+              ? getHour(formattedDate?.[1] ?? "")
+              : "SOLD OUT";
           const isSoldOut = hourSpa === "SOLD OUT";
+          const guestsAvailability = isSoldOut ? 0 : guestsAvailable;
 
           return (
             <li key={id} className={`${styles["reservations-upgrade__card"]}`}>
               <span
                 className={`${styles["reservations-upgrade__card-availability"]}`}
               >
-                {`${guestsAvailable} ${
-                  guestsAvailable === 1 ? "place" : "places"
+                {`${guestsAvailability} ${
+                  guestsAvailability === 1 ? "place" : "places"
                 } left`}
               </span>
               <div
                 className={`${styles["reservations-upgrade__image-container"]}`}
               >
                 <Image
-                  src="/images/restaurant-main.jpg"
+                  src={image}
                   alt="fotos"
                   layout="fill"
                   objectFit="cover"

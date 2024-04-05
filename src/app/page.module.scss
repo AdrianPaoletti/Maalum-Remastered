@@ -188,6 +188,7 @@
     @include underline-effect($color-beige, 0.1rem, 0);
     transition: color 0.25s ease-out;
     cursor: pointer;
+    text-decoration: none;
 
     &:hover {
       color: darken($color-beige, 10%);

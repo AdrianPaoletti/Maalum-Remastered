@@ -3,6 +3,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Backdrop, IconButton, Slide, useMediaQuery } from "@mui/material";
+import { v4 as uuid } from "uuid";
 
 import { EMAIL_REGEX } from "maalum/core/constants/constants";
 import {
@@ -142,12 +143,6 @@ export function Reservations() {
       naturalEssence: 0,
       maalumRitual: 0,
     }));
-    console.log(
-      getReseravtionsSpaGuests(
-        reservations,
-        reservationsPickerInformation.date as Date
-      )
-    );
     setSpaExcluded(
       getReseravtionsSpaGuests(
         reservations,
@@ -195,6 +190,7 @@ export function Reservations() {
       spaDate: dateToUTC(
         getSpaDate(reservationsPickerInformation.date as Date)
       ),
+      orderTrackingId: uuid(),
       caveGuests,
       ...formatUpgradeGuests(upgradeGuests),
     };
@@ -203,6 +199,11 @@ export function Reservations() {
       setIsError(isError);
       return;
     }
+
+    console.log(
+      reservationsPickerInformation.maalumRitual,
+      reservationsPickerInformation.naturalEssence
+    );
 
     if (
       reservationsPickerInformation.totalGuests >= 4 ||

@@ -15,12 +15,14 @@ const cardElements: {
   id: "naturalEssence" | "maalumRitual";
   title: string;
   price: number;
+  image: string;
   description: string;
 }[] = [
   {
     id: "naturalEssence",
     title: "Natural Essence",
     price: NATURAL_ESSENCE_PRICE,
+    image: "/images/restaurant-main.jpg",
     description:
       "Maalum massage surrounded by nature and tailored to individual preferences. This immersive experience invites you to feel a deep connection with your inner self and the special rhythms around you.",
   },
@@ -28,6 +30,7 @@ const cardElements: {
     id: "maalumRitual",
     title: "Maalum Ritual",
     price: RITUAL_PRICE,
+    image: "/images/spa-card-2.jpg",
     description:
       "Pure relaxation with facial and head massage 35min combo. Boost circulation and leave your skin feeling refreshed with a radiant glow.",
   },
