@@ -68,6 +68,7 @@ export function Reservations() {
       initialReservationsPickerInformation
     );
   const [isError, setIsError] = useState<boolean>(false);
+  const [isValidPhone, setIsValidPhone] = useState<boolean>(true);
   const [
     reservationsConfirmationInformation,
     setReservationsConfirmationInformation,
@@ -305,7 +306,8 @@ export function Reservations() {
           component: (
             <ReservationConfirmation
               isError={isError}
-              setIsError={setIsError}
+              isValidPhone={isValidPhone}
+              setIsValidPhone={setIsValidPhone}
               reservationsPickerInformation={reservationsPickerInformation}
               formattedUpgradeGuests={formatUpgradeGuests(upgradeGuests)}
               caveGuests={caveGuests}
@@ -319,7 +321,8 @@ export function Reservations() {
           ),
           title: "BOOKING CONFIRMATION",
           buttonText: "PROCEED TO BOOK",
-          isButtonDisabled: isReservationsConfirmationButtonDisabled,
+          isButtonDisabled:
+            isReservationsConfirmationButtonDisabled || !isValidPhone,
           onClick: () => handleReservationConfirmationSubmit(),
           hasGoBackIcon: true,
         };

@@ -35,7 +35,8 @@ import styles from "./ReservationsConfirmation.module.scss";
 
 interface ReservationConfirmationProps {
   isError: boolean;
-  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+  isValidPhone: boolean;
+  setIsValidPhone: React.Dispatch<React.SetStateAction<boolean>>;
   reservationsPickerInformation: ReservationsPickerInformation;
   formattedUpgradeGuests: {
     [key in keyof UpgradeGuests]: ReservationsGuestsCounter;
@@ -49,6 +50,8 @@ interface ReservationConfirmationProps {
 
 export function ReservationConfirmation({
   isError,
+  isValidPhone,
+  setIsValidPhone,
   reservationsPickerInformation,
   formattedUpgradeGuests,
   reservationsConfirmationInformation,
@@ -57,7 +60,6 @@ export function ReservationConfirmation({
 }: ReservationConfirmationProps) {
   const isSmallPhoneViewport = useMediaQuery("(max-width:27.2em)");
   const [isPhoneBlur, setIsPhoneBlur] = useState<boolean>(false);
-  const [isValidPhone, setIsValidPhone] = useState<boolean>(true);
   const bookingData = [
     ...(Object.values(caveGuests).some((guests) => guests)
       ? [
@@ -113,10 +115,8 @@ export function ReservationConfirmation({
         value,
         country.iso2.toUpperCase()
       );
-      setIsValidPhone(!!phoneNumber?.isValid());
       return !!phoneNumber?.isValid();
     } catch (error) {
-      setIsValidPhone(false);
       return false;
     }
   };
@@ -240,7 +240,19 @@ export function ReservationConfirmation({
                 }
                 onBlur={() => setIsPhoneBlur(true)}
                 specialLabel=""
-                isValid={isPhoneBlur ? isValidPhoneNumber : true}
+                isValid={
+                  isPhoneBlur
+                    ? (value, country) => {
+                        const isValidNumber = isValidPhoneNumber(
+                          value,
+                          country
+                        );
+                        setIsValidPhone(isValidNumber);
+
+                        return isValidNumber;
+                      }
+                    : true
+                }
                 inputProps={{
                   name: id,
                   required: true,
