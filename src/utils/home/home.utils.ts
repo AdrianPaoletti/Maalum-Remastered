@@ -143,23 +143,18 @@ const spaInformation: {
 }[] = [
   {
     id: 1,
-    title: "MAALUM SPA",
+    title: "FOREST SPA",
     subtitle: "NATURAL RETREAT",
     text: [
       {
         id: 1,
         paragraph:
-          "Indulge in serenity and rejuvenation at La Valise SPA, our luxurious wellness sanctuary in Tulum. Experience our signature treatments and immersive spa experiences at our sister property.",
+          "Welcome to our natural retreat, where relaxation meets nature. We invite you to unwind and rejuvenate in our peaceful sanctuary.",
       },
       {
         id: 2,
         paragraph:
-          "Immerse yourself in a sensorial journey, nurturing body, mind, and soul. From blissful massages to revitalizing facials, our therapies embrace ancient Mayan techniques in a tranquil atmosphere. Our skilled practitioners curate tailored treatments, ensuring a sanctuary of relaxation.",
-      },
-      {
-        id: 3,
-        paragraph:
-          "Indulge in serenity and rejuvenation at La Valise SPA, our luxurious wellness sanctuary in Tulum. Experience our signature treatments and immersive spa experiences at our sister property.",
+          "Immerse yourself in nature's embrace as you indulge in our tailored treatments aimed at restoring your body and mind Step into our serene environment and let us help you find balance and relaxation.",
       },
     ],
   },

@@ -24,7 +24,7 @@ const cardElements: {
     price: NATURAL_ESSENCE_PRICE,
     image: "/images/restaurant-main.jpg",
     description:
-      "Maalum massage surrounded by nature and tailored to individual preferences. This immersive experience invites you to feel a deep connection with your inner self and the special rhythms around you.",
+      "Relax with our 45-minute full-body massage, surrounded by nature and tailored just for you. This special experience helps you connect deeply with yourself and the peaceful world around you. Let our skilled therapists ease away tension and restore your body's balance, while you enjoy the calming beauty of the outdoors.",
   },
   {
     id: "maalumRitual",
@@ -32,7 +32,7 @@ const cardElements: {
     price: RITUAL_PRICE,
     image: "/images/spa-card-2.jpg",
     description:
-      "Pure relaxation with facial and head massage 35min combo. Boost circulation and leave your skin feeling refreshed with a radiant glow.",
+      "Experience pure relaxation with our 45-minute full-body massage followed by a 35-minute facial and head massage combo. This indulgent treatment not only soothes muscles but also enhances circulation, leaving your skin refreshed and glowing with radiance. Let us pamper you from head to toe, revitalizing both body and spirit for a truly rejuvenating experience.",
   },
 ];
 

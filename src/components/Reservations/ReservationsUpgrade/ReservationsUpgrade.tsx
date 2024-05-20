@@ -235,7 +235,7 @@ export function ReservationsUpgrade({
                         ,000tsh
                       </span>
                     </p>
-                    <p>Includes cave and spa</p>
+                    {/* <p>Includes cave and spa</p> */}
                   </div>
                 </div>
                 <p className={`${styles["reservations-upgrade__description"]}`}>

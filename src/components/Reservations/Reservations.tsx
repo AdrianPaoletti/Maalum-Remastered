@@ -305,6 +305,7 @@ export function Reservations() {
           component: (
             <ReservationConfirmation
               isError={isError}
+              setIsError={setIsError}
               reservationsPickerInformation={reservationsPickerInformation}
               formattedUpgradeGuests={formatUpgradeGuests(upgradeGuests)}
               caveGuests={caveGuests}

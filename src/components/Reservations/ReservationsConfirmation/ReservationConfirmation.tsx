@@ -1,7 +1,12 @@
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useState } from "react";
+import PhoneInput from "react-phone-input-2";
 import Image from "next/image";
 
 import { Alert, TextField, useMediaQuery } from "@mui/material";
+import {
+  formatIncompletePhoneNumber,
+  parsePhoneNumberFromString,
+} from "libphonenumber-js";
 
 import {
   NATURAL_ESSENCE_PRICE,
@@ -25,10 +30,12 @@ import {
 } from "maalum/utils/reservations/reservationsConfirmation.utils";
 import { sumUpgradeGuests } from "maalum/utils/reservations/reservationsUpgrade.util";
 
+import "react-phone-input-2/lib/material.css";
 import styles from "./ReservationsConfirmation.module.scss";
 
 interface ReservationConfirmationProps {
   isError: boolean;
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
   reservationsPickerInformation: ReservationsPickerInformation;
   formattedUpgradeGuests: {
     [key in keyof UpgradeGuests]: ReservationsGuestsCounter;
@@ -49,6 +56,8 @@ export function ReservationConfirmation({
   caveGuests,
 }: ReservationConfirmationProps) {
   const isSmallPhoneViewport = useMediaQuery("(max-width:27.2em)");
+  const [isPhoneBlur, setIsPhoneBlur] = useState<boolean>(false);
+  const [isValidPhone, setIsValidPhone] = useState<boolean>(true);
   const bookingData = [
     ...(Object.values(caveGuests).some((guests) => guests)
       ? [
@@ -94,6 +103,23 @@ export function ReservationConfirmation({
         ]
       : []),
   ];
+
+  const isValidPhoneNumber = (
+    value: string,
+    country: { [key: string]: any }
+  ): boolean => {
+    try {
+      const phoneNumber = parsePhoneNumberFromString(
+        value,
+        country.iso2.toUpperCase()
+      );
+      setIsValidPhone(!!phoneNumber?.isValid());
+      return !!phoneNumber?.isValid();
+    } catch (error) {
+      setIsValidPhone(false);
+      return false;
+    }
+  };
 
   const handleChange = (
     { target: { value } }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -198,40 +224,77 @@ export function ReservationConfirmation({
           CONTACT INFORMATION
         </h5>
         <div className={`${styles["contact-information__inputs-container"]}`}>
-          {reservationsConfirmationInputs.map(({ id, label, type }) => (
-            <TextField
-              key={id}
-              label={label}
-              type={type || "text"}
-              variant="filled"
-              value={reservationsConfirmationInformation[id] || ""}
-              onChange={(event) => handleChange(event, id)}
-              required
-              InputProps={{
-                disableUnderline: true,
-                sx: {
+          {reservationsConfirmationInputs.map(({ id, label, type }) =>
+            id === "phone" ? (
+              <PhoneInput
+                key={id}
+                country={"tz"}
+                value={reservationsConfirmationInformation[id]}
+                onChange={(event) =>
+                  setReservationsConfirmationInformation(
+                    (prevReservationsConfirmationInformation) => ({
+                      ...prevReservationsConfirmationInformation,
+                      [id]: event,
+                    })
+                  )
+                }
+                onBlur={() => setIsPhoneBlur(true)}
+                specialLabel=""
+                isValid={isPhoneBlur ? isValidPhoneNumber : true}
+                inputProps={{
+                  name: id,
+                  required: true,
+                }}
+                inputStyle={{
                   fontSize: "14px",
                   border: "1px solid transparent",
                   backgroundColor: defaultTheme.palette.gray.lightMain,
                   borderRadius: ".4rem",
-                  "&.Mui-focused": {
-                    border: `1px solid ${defaultTheme.palette.gray.main}`,
+                  width: "100%",
+                }}
+                enableTerritories
+              />
+            ) : (
+              <TextField
+                key={id}
+                label={label}
+                type={type || "text"}
+                variant="filled"
+                value={reservationsConfirmationInformation[id] || ""}
+                onChange={(event) => handleChange(event, id)}
+                required
+                InputProps={{
+                  disableUnderline: true,
+                  sx: {
+                    fontSize: "14px",
+                    border:
+                      isError && id === "email"
+                        ? "1px solid red"
+                        : "1px solid transparent",
+                    backgroundColor: defaultTheme.palette.gray.lightMain,
+                    borderRadius: ".4rem",
+                    "&.Mui-focused": {
+                      border:
+                        isError && id === "email"
+                          ? "1px solid red"
+                          : `1px solid ${defaultTheme.palette.gray.main}`,
+                    },
                   },
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  color: defaultTheme.palette.gray.main,
-                  letterSpacing: "1.5px",
-                  fontSize: "11px",
-                  paddingTop: "4px",
-                  border: "none",
-                },
-              }}
-            />
-          ))}
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: defaultTheme.palette.gray.main,
+                    letterSpacing: "1.5px",
+                    fontSize: "11px",
+                    paddingTop: "4px",
+                    border: "none",
+                  },
+                }}
+              />
+            )
+          )}
         </div>
-        {isError && (
+        {(isError || !isValidPhone) && (
           <Alert
             sx={{
               marginTop: "2rem",
@@ -241,7 +304,9 @@ export function ReservationConfirmation({
             }}
             severity="error"
           >
-            Incorrect email format
+            {!isValidPhone
+              ? "Incorrect phone format"
+              : "Incorrect email format"}
           </Alert>
         )}
       </div>

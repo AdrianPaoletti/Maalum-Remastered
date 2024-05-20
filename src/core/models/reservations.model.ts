@@ -54,7 +54,7 @@ export interface ReservationsPickerInformation
 export interface ReservationsConfirmationInformation {
   firstName: string;
   lastName: string;
-  phone: string | null;
+  phone: any | null;
   email: string;
 }
 
