@@ -29,7 +29,11 @@ const ReservationsPayment = ({
       {!URLPayment && !isLoading && (
         <>
           <CheckCircleIcon fontSize="inherit" />
-          <h4 className={`heading-cuaternary`}>{text}</h4>
+          <h4 className={`heading-cuaternary`}>
+            {text.length
+              ? text
+              : "A PAYMENT CONFIRMATION EMAIL HAS BEEN SENT TO YOU"}
+          </h4>
         </>
       )}
       {URLPayment && (

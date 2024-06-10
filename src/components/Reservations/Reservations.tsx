@@ -153,16 +153,15 @@ export function Reservations() {
   };
 
   const handleReservationsUpgradeSubmit = () => {
-    const formattedUpgradeGuests = formatUpgradeGuests(upgradeGuests);
-    const sumSpaGuests = sumUpgradeGuests(
-      formattedUpgradeGuests.maalumRitual,
-      formattedUpgradeGuests.naturalEssence
-    );
+    // const formattedUpgradeGuests = formatUpgradeGuests(upgradeGuests);
+    // const sumSpaGuests = sumUpgradeGuests(
+    //   formattedUpgradeGuests.maalumRitual,
+    //   formattedUpgradeGuests.naturalEssence
+    // );
     const caveGuests = {
-      adults: reservationsPickerInformation.adults - sumSpaGuests.adults,
-      children: reservationsPickerInformation.children - sumSpaGuests.children,
-      residents:
-        reservationsPickerInformation.residents - sumSpaGuests.residents,
+      adults: reservationsPickerInformation.adults,
+      children: reservationsPickerInformation.children,
+      residents: reservationsPickerInformation.residents,
     };
     const totalPrice = totalPriceSum({
       ...caveGuests,
@@ -336,7 +335,9 @@ export function Reservations() {
               text={confirmationTexts.text}
             />
           ),
-          title: confirmationTexts.title,
+          title: confirmationTexts.title.length
+            ? confirmationTexts.title
+            : "PAYMENT CONFIRMATION",
           buttonText: "CLOSE",
           isButtonDisabled: false,
           onClick: () => handleOnClose(),

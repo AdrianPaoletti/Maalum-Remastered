@@ -22,7 +22,7 @@ const cardElements: {
     id: "naturalEssence",
     title: "Natural Essence",
     price: NATURAL_ESSENCE_PRICE,
-    image: "/images/restaurant-main.jpg",
+    image: "/images/spa-card-1.jpg",
     description:
       "Relax with our 45-minute full-body massage, surrounded by nature and tailored just for you. This special experience helps you connect deeply with yourself and the peaceful world around you. Let our skilled therapists ease away tension and restore your body's balance, while you enjoy the calming beauty of the outdoors.",
   },
