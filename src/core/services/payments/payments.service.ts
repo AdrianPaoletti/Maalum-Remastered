@@ -32,10 +32,10 @@ const authPesapalPayment = async (): Promise<string> => {
     const {
       data: { token },
     } = await axios.post(
-      `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/Auth/RequestToken`,
+      `${process.env.NEXT_PUBLIC_PESAPAL_API_PRODUCTION}/Auth/RequestToken`,
       {
-        consumer_key: process.env.NEXT_PUBLIC_PESAPAL_CONSUMER_KEY_TEST,
-        consumer_secret: process.env.NEXT_PUBLIC_PESAPAL_CONSUMER_SECRET_TEST,
+        consumer_key: process.env.NEXT_PUBLIC_PESAPAL_CONSUMER_KEY_PRODUCTION,
+        consumer_secret: process.env.NEXT_PUBLIC_PESAPAL_CONSUMER_SECRET_PRODUCTION,
       }
     );
 
@@ -50,9 +50,9 @@ const registerIPNPesapalPayment = async (token: string): Promise<string> => {
     const {
       data: { ipn_id: ipnId },
     } = await axios.post(
-      `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/URLSetup/RegisterIPN`,
+      `${process.env.NEXT_PUBLIC_PESAPAL_API_PRODUCTION}/URLSetup/RegisterIPN`,
       {
-        url: `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/reservations/prueba`,
+        url: `${process.env.NEXT_PUBLIC_PESAPAL_API_PRODUCTION}/reservations/prueba`,
         ipn_notification_type: "GET",
       },
       {
@@ -77,7 +77,7 @@ const submitOrderPesapalPayment = async (
     const {
       data: { redirect_url: url, order_tracking_id: orderTrackingId },
     } = await axios.post(
-      `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/Transactions/SubmitOrderRequest`,
+      `${process.env.NEXT_PUBLIC_PESAPAL_API_PRODUCTION}/Transactions/SubmitOrderRequest`,
       requestBody(body, ipnId),
       {
         headers: {
@@ -94,7 +94,7 @@ const submitOrderPesapalPayment = async (
 const getTransactionStatus = async (orderTrackingId: string, token: string) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_PESAPAL_API_TEST}/Transactions/GetTransactionStatus`,
+      `${process.env.NEXT_PUBLIC_PESAPAL_API_PRODUCTION}/Transactions/GetTransactionStatus`,
       {
         params: { orderTrackingId },
         headers: {
