@@ -124,8 +124,8 @@ const requestBody = (
     currency: "USD",
     amount: totalPrice,
     description: "Maalum reservation",
-    callback_url: "http://localhost:3000/", //"https://maalum-remastered.vercel.app/",
-    cancellation_url: "http://localhost:3000/", //"https://maalum-remastered.vercel.app/",
+    callback_url: "https://maalum-remastered.vercel.app/",
+    cancellation_url: "https://maalum-remastered.vercel.app/",
     notification_id: ipnId,
     billing_address: {
       email_address: email,
