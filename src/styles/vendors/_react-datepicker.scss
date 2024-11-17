@@ -1,194 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
+
 .react-datepicker {
-  width: 100%;
-  border: none;
-  font-family: "__Montserrat_04619a", "__Montserrat_Fallback_04619a";
-  font-size: $font-size-13;
-
-  &__header {
-    background-color: transparent;
-    border-bottom: 1px solid transparent;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  &__day {
-    width: 7rem;
-    height: 6rem;
-    padding: 0.75rem;
-    border-radius: 0.25rem;
-    background-color: $color-gray-medium-light;
-    color: $color-gray;
-    font-weight: 600;
-
-    &:hover {
-      background-color: $color-beige-light;
-      color: $color-white;
-    }
-
-    &--disabled {
-      background-color: $color-gray-disabled;
-      color: lighten($color-gray, 40%);
-
-      &:hover {
-        background-color: $color-gray-disabled;
-        color: lighten($color-gray, 40%);
-      }
-    }
-
-    &--selected {
-      outline-offset: 0;
-      border-radius: 0.25rem;
-      background-color: $color-beige-light;
-      color: $color-white;
-    }
-
-    &--outside-month {
-      visibility: hidden;
-    }
-
-    &-name {
-      width: 7rem;
-      height: 4rem;
-      color: $color-gray;
-      font-weight: 600;
-    }
-  }
-
-  &__day-names {
-    @include display-flex(space-between, center, row, inherit);
     width: 100%;
-  }
+    border: none;
+    font-family: "Montserrat" !important;
+    font-size: $font-size-13;
 
-  &__week {
-    @include display-flex(space-between, center, row, inherit);
-    width: 100%;
-  }
-
-  &__month {
-    margin: 0;
-  }
-
-  &__month-container {
-    width: 100%;
-    padding-bottom: 1.5rem;
-  }
-
-  &__current-month {
-    letter-spacing: 0.5px;
-    color: $color-gray;
-    font-size: $font-size-16;
-    font-weight: 400;
-    padding-bottom: 3rem;
-  }
-
-  &__navigation {
-    &--next--with-time:not(
-        .react-datepicker__navigation--next--with-today-button
-      ) {
-      right: 2px;
-      color: $color-beige;
+    &__header {
+        background-color: transparent;
+        border-bottom: 1px solid transparent;
+        padding-left: 0;
+        padding-right: 0;
     }
 
-    &-icon::before {
-      border-color: $color-gray;
-      border-width: 2px 2px 0 0;
+    &__day {
+        width: 7rem;
+        height: 6rem;
+        padding: 0.75rem;
+        border-radius: 0.25rem;
+        background-color: $color-gray-medium-light;
+        color: $color-gray;
+        font-weight: 600;
+
+        &:hover {
+            background-color: $color-beige-light;
+            color: $color-white;
+        }
+
+        &--disabled {
+            background-color: $color-gray-disabled;
+            color: lighten($color-gray, 40%);
+
+            &:hover {
+                background-color: $color-gray-disabled;
+                color: lighten($color-gray, 40%);
+            }
+        }
+
+        &--selected {
+            outline-offset: 0;
+            border-radius: 0.25rem;
+            background-color: $color-beige-light;
+            color: $color-white;
+        }
+
+        &--outside-month {
+            visibility: hidden;
+        }
+
+        &-name {
+            width: 7rem;
+            height: 4rem;
+            color: $color-gray;
+            font-weight: 600;
+        }
     }
-  }
 
-  &__time-container {
-    width: 100%;
-    padding-top: 2px;
-    border-left: 1px solid transparent;
-
-    .react-datepicker__time {
-      .react-datepicker__time-box {
+    &__day-names {
+        @include display-flex(space-between, center, row, inherit);
         width: 100%;
-        display: flex;
-      }
-    }
-  }
-
-  &-time__header {
-    color: transparent;
-    font-size: 0;
-    border-top: 1px solid rgb(206, 203, 187);
-    margin: 0 2px;
-  }
-
-  &__time-list {
-    padding-top: 1.5rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    height: 100% !important;
-
-    & li {
-      display: none;
     }
 
-    & li:nth-child(3n + 17) {
-      display: inline-block;
-      background-color: $color-gray-medium-light;
-      border-radius: 0.25rem;
-      color: $color-gray;
-      margin-right: 0.4rem;
-      margin-bottom: 0.4rem;
-      font-family: "__Montserrat_04619a", "__Montserrat_Fallback_04619a";
-      font-size: $font-size-13;
-      font-weight: 500;
+    &__week {
+        @include display-flex(space-between, center, row, inherit);
+        width: 100%;
     }
 
-    & li:nth-child(1n + 36) {
-      display: none;
+    &__month {
+        margin: 0;
     }
-  }
+
+    &__month-container {
+        width: 100%;
+        padding-bottom: 1.5rem;
+    }
+
+    &__current-month {
+        letter-spacing: 0.5px;
+        color: $color-gray;
+        font-size: $font-size-16;
+        font-weight: 400;
+        padding-bottom: 3rem;
+    }
+
+    &__navigation {
+        &--next--with-time:not(
+                .react-datepicker__navigation--next--with-today-button
+            ) {
+            right: 2px;
+            color: $color-beige;
+        }
+
+        &-icon::before {
+            border-color: $color-gray;
+            border-width: 2px 2px 0 0;
+        }
+    }
+
+    &__time-container {
+        width: 100%;
+        padding-top: 2px;
+        border-left: 1px solid transparent;
+
+        .react-datepicker__time {
+            .react-datepicker__time-box {
+                width: 100%;
+                display: flex;
+            }
+        }
+    }
+
+    &-time__header {
+        color: transparent;
+        font-size: 0;
+        border-top: 1px solid rgb(206, 203, 187);
+        margin: 0 2px;
+    }
+
+    &__time-list {
+        padding-top: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        height: 100% !important;
+
+        & li {
+            display: none;
+        }
+
+        & li:nth-child(3n + 17) {
+            display: inline-block;
+            background-color: $color-gray-medium-light;
+            border-radius: 0.25rem;
+            color: $color-gray;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+            font-family: "Montserrat";
+            font-size: $font-size-13;
+            font-weight: 500;
+        }
+
+        & li:nth-child(1n + 36) {
+            display: none;
+        }
+    }
 }
 
 .react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box
-  ul.react-datepicker__time-list {
-  overflow-y: hidden;
-  padding-left: 3px;
+    .react-datepicker__time
+    .react-datepicker__time-box
+    ul.react-datepicker__time-list {
+    overflow-y: hidden;
+    padding-left: 3px;
 
-  & li.react-datepicker__time-list-item {
-    height: 2.5rem;
-    padding: 1rem;
-    white-space: nowrap;
-    color: $color-gray;
+    & li.react-datepicker__time-list-item {
+        height: 2.5rem;
+        padding: 1rem;
+        white-space: nowrap;
+        color: $color-gray;
+        border-radius: 0.25rem;
+
+        &--disabled {
+            background-color: $color-gray-disabled;
+            color: lighten($color-gray, 40%);
+        }
+
+        :hover {
+            background-color: $color-beige-light;
+        }
+    }
+
+    & li.react-datepicker__time-list-item--disabled:hover {
+        background-color: $color-gray-disabled !important;
+        color: lighten($color-gray, 40%) !important;
+    }
+
+    & li.react-datepicker__time-list-item:hover {
+        background-color: $color-beige-light;
+        color: $color-white;
+    }
+}
+
+.react-datepicker__time-container
+    .react-datepicker__time
+    .react-datepicker__time-box
+    ul.react-datepicker__time-list
+    li.react-datepicker__time-list-item--selected {
     border-radius: 0.25rem;
-
-    &--disabled {
-      background-color: $color-gray-disabled;
-      color: lighten($color-gray, 40%);
-    }
-
-    :hover {
-      background-color: $color-beige-light;
-    }
-  }
-
-  & li.react-datepicker__time-list-item--disabled:hover {
-    background-color: $color-gray-disabled !important;
-    color: lighten($color-gray, 40%) !important;
-  }
-
-  & li.react-datepicker__time-list-item:hover {
+    outline-offset: 0;
     background-color: $color-beige-light;
     color: $color-white;
-  }
-}
 
-.react-datepicker__time-container
-  .react-datepicker__time
-  .react-datepicker__time-box
-  ul.react-datepicker__time-list
-  li.react-datepicker__time-list-item--selected {
-  border-radius: 0.25rem;
-  outline-offset: 0;
-  background-color: $color-beige-light;
-  color: $color-white;
-
-  &:hover {
-    background-color: $color-beige-light;
-  }
+    &:hover {
+        background-color: $color-beige-light;
+    }
 }

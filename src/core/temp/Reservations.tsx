@@ -1,11 +1,12 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import { Backdrop, IconButton, useMediaQuery } from "@mui/material";
+import { Backdrop, IconButton, Slide, useMediaQuery } from "@mui/material";
+import { v4 as uuid } from "uuid";
 
+import { EMAIL_REGEX } from "maalum/core/constants/constants";
 import {
     Reservation,
     ReservationsConfirmationInformation,
@@ -15,20 +16,26 @@ import {
     ReservationStepper,
     UpgradeGuests,
 } from "maalum/core/models/reservations.model";
+import {
+    getTransactionStatus,
+    getURLPesapalPayment,
+} from "maalum/core/services/payments/payments.service";
+import { postReservation } from "maalum/core/services/reservations/reservations.service";
 import MaalumContext from "maalum/core/store/context/MaalumContext";
-import { defaultTheme } from "maalum/styles/themes";
+import { dateToUTC } from "maalum/utils/formatters/formatters.utils";
 import {
     initialGuestsCounter,
     initialReservationsConfirmationInformation,
     initialReservationsPickerInformation,
     initialUpgradeGuestsValue,
 } from "maalum/utils/reservations/reservations.utils";
-import {
-    generateWhatsAppLink,
-    totalPrice as totalPriceSum,
-} from "maalum/utils/reservations/reservationsConfirmation.utils";
+import { totalPrice as totalPriceSum } from "maalum/utils/reservations/reservationsConfirmation.utils";
 import { getReseravtionsSpaGuests } from "maalum/utils/reservations/reservationsPicker.utils";
-import { formatUpgradeGuests } from "maalum/utils/reservations/reservationsUpgrade.util";
+import {
+    formatUpgradeGuests,
+    getSpaDate,
+    sumUpgradeGuests,
+} from "maalum/utils/reservations/reservationsUpgrade.util";
 import { ReservationConfirmation } from "./ReservationsConfirmation/ReservationConfirmation";
 import { ReservationsPicker } from "./ReservationsPicker/ReservationsPicker";
 import { ReservationsUpgrade } from "./ReservationsUpgrade/ReservationsUpgrade";
@@ -139,6 +146,70 @@ export function Reservations() {
         setReservationStepper("reservationsConfirmation");
     };
 
+    // const handleReservationConfirmationSubmit = async () => {
+    //     const isError = !new RegExp(EMAIL_REGEX).test(
+    //         reservationsConfirmationInformation.email
+    //     );
+
+    //     const reservation = {
+    //         ...reservationsPickerInformation,
+    //         ...reservationsConfirmationInformation,
+    //         client: true,
+    //         date: dateToUTC(reservationsPickerInformation.date as Date),
+    //         spaDate: dateToUTC(
+    //             getSpaDate(reservationsPickerInformation.date as Date)
+    //         ),
+    //         orderTrackingId: uuid(),
+    //         caveGuests,
+    //         ...formatUpgradeGuests(upgradeGuests),
+    //     };
+
+    //     if (isError) {
+    //         setIsError(isError);
+    //         return;
+    //     }
+
+    //     if (
+    //         reservationsPickerInformation.totalGuests >= 4 ||
+    //         reservationsPickerInformation.maalumRitual ||
+    //         reservationsPickerInformation.naturalEssence
+    //     ) {
+    //         setConfirmationTexts({
+    //             title: "PAYMENT CONFIRMATION",
+    //             text: "A PAYMENT CONFIRMATION EMAIL HAS BEEN SENT TO YOU",
+    //         });
+    //         setReservationStepper("reservationsPayment");
+    //         setIsLoadingPayment(true);
+    //         try {
+    //             const { url, orderTrackingId, token } =
+    //                 await getURLPesapalPayment({
+    //                     ...reservationsPickerInformation,
+    //                     ...reservationsConfirmationInformation,
+    //                 });
+    //             setURLPayment(url);
+    //             localStorage.setItem(
+    //                 "reservation",
+    //                 JSON.stringify({
+    //                     ...reservation,
+    //                     token,
+    //                     orderTrackingId,
+    //                 })
+    //             );
+    //         } catch (error) {}
+    //         return;
+    //     }
+
+    //     setReservationStepper("reservationsPayment");
+    //     setIsLoadingPayment(true);
+    //     setIsReservationsOpen(true);
+    //     setConfirmationTexts({
+    //         title: "BOOKING CONFIRMATION",
+    //         text: "A BOOKING CONFIRMATION EMAIL HAS BEEN SENT TO YOU",
+    //     });
+    //     await postReservation(reservation as any);
+    //     setIsLoadingPayment(false);
+    // };
+
     const handleGoBack = () => {
         if (reservationStepper === "reservationsUpgrade") {
             setReservationStepper("reservationsPicker");
@@ -156,7 +227,7 @@ export function Reservations() {
         title: string;
         buttonText: string;
         isButtonDisabled: boolean;
-        onClick: () => void;
+        onClick?: () => void;
         hasGoBackIcon?: boolean;
         hideCloseIcon?: boolean;
     } => {
@@ -231,14 +302,26 @@ export function Reservations() {
                         isReservationsConfirmationButtonDisabled ||
                         !isValidPhone,
                     hasGoBackIcon: true,
-                    onClick: () =>
-                        router.push(
-                            generateWhatsAppLink({
-                                ...reservationsPickerInformation,
-                                ...reservationsConfirmationInformation,
-                            })
-                        ),
                 };
+            // case "reservationsPayment":
+            //   return {
+            //     component: (
+            //       <ReservationsPayment
+            //         URLPayment={URLPayment}
+            //         isLoading={isLoadingPayment}
+            //         setIsLoading={setIsLoadingPayment}
+            //         text={confirmationTexts.text}
+            //       />
+            //     ),
+            //     title: confirmationTexts.title.length
+            //       ? confirmationTexts.title
+            //       : "PAYMENT CONFIRMATION",
+            //     buttonText: "CLOSE",
+            //     isButtonDisabled: false,
+            //     onClick: () => handleOnClose(),
+            //     hasGoBackIcon: false,
+            //     hideCloseIcon: !!URLPayment,
+            //   };
             default:
                 return {
                     component: <></>,
@@ -319,30 +402,25 @@ export function Reservations() {
                         </IconButton>
                     </header>
                     {component}
-
-                    <footer className={`${styles.reservations__footer}`}>
-                        <button
-                            className={`${
-                                styles["reservations__footer-button"]
-                            } ${
-                                isButtonDisabled &&
-                                styles["reservations__footer-button--disabled"]
-                            }`}
-                            disabled={isButtonDisabled}
-                            type="button"
-                            onClick={onClick}
-                        >
-                            {buttonText}
-                            {isLinkButton && (
-                                <WhatsAppIcon
-                                    style={{
-                                        color: defaultTheme.palette.white,
-                                        fontSize: 20,
-                                    }}
-                                />
-                            )}
-                        </button>
-                    </footer>
+                    {isLinkButton && (
+                        <footer className={`${styles.reservations__footer}`}>
+                            <button
+                                className={`${
+                                    styles["reservations__footer-button"]
+                                } ${
+                                    isButtonDisabled &&
+                                    styles[
+                                        "reservations__footer-button--disabled"
+                                    ]
+                                }`}
+                                disabled={isButtonDisabled}
+                                type="button"
+                                onClick={onClick}
+                            >
+                                {buttonText}
+                            </button>
+                        </footer>
+                    )}
                 </div>
             </section>
         </ReservationsWrapper>

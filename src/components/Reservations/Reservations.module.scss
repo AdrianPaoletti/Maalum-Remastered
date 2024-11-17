@@ -2,108 +2,112 @@
 @import "src/styles/abstracts/variables";
 
 .reservations {
-  position: fixed;
-  right: -100vw;
-  left: auto;
-  top: 2rem;
-  bottom: 2rem;
-  width: 50rem;
-  border-radius: 1rem;
-  background-color: $color-white;
-  transition: ease-in-out 1s;
-  -webkit-transition: ease-in-out 0.8s;
-
-  @include responsive(phone) {
-    right: 0;
-    left: 0;
-    z-index: 2;
     position: fixed;
-    top: 100vh;
-    bottom: -100vh;
-    width: 100vw;
-    border-radius: 0;
+    right: -100vw;
+    left: auto;
+    top: 2rem;
+    bottom: 2rem;
+    width: 50rem;
+    border-radius: 1rem;
+    background-color: $color-white;
     transition: ease-in-out 1s;
     -webkit-transition: ease-in-out 0.8s;
 
+    @include responsive(phone) {
+        right: 0;
+        left: 0;
+        z-index: 2;
+        position: fixed;
+        top: 100vh;
+        bottom: -100vh;
+        width: 100vw;
+        border-radius: 0;
+        transition: ease-in-out 1s;
+        -webkit-transition: ease-in-out 0.8s;
+
+        &--active {
+            bottom: 0;
+            top: 0;
+        }
+    }
+
     &--active {
-      bottom: 0;
-      top: 0;
-    }
-  }
-
-  &--active {
-    right: 2rem;
-  }
-
-  &__container {
-    position: relative;
-    height: 100%;
-  }
-
-  &__title-container {
-    @include display-flex();
-    gap: 1rem;
-  }
-
-  &__header {
-    @include display-flex(space-between);
-    width: 100%;
-    top: 2rem;
-    background-color: $color-beige-light;
-    padding: 1rem 2.5rem 1rem 3rem;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    color: $color-white;
-
-    @include responsive(phone) {
-      border-radius: 0;
+        right: 2rem;
     }
 
-    @include responsive(phone-small) {
-      padding: 1rem 1rem 1rem 1.7rem;
-    }
-  }
-
-  &__body {
-    // overflow-y: scroll;
-    // height: calc(100vh - 58px - 71px - 2rem - 2rem);
-    // color: $color-gray;
-
-    // @include responsive(phone-small) {
-    //   padding: 1rem 1.7rem 0 1.7rem;
-    //   height: calc(100vh - 58px - 71px - 5.75rem);
-    // }
-  }
-
-  &__title {
-    color: $color-white;
-  }
-
-  &__footer {
-    padding: 1.5rem 3rem;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: $color-white;
-    box-shadow: 0 -4px 13px 2px hsla(0, 0%, 69%, 0.35);
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-
-    @include responsive(phone) {
-      border-radius: 0;
+    &__container {
+        position: relative;
+        height: 100%;
     }
 
-    @include responsive(phone-small) {
-      padding: 1.5rem 1.8rem;
+    &__title-container {
+        @include display-flex();
+        gap: 1rem;
     }
 
-    button {
-      width: 100%;
-      padding: 1.25rem;
-    }
-  }
+    &__header {
+        @include display-flex(space-between);
+        width: 100%;
+        top: 2rem;
+        background-color: $color-beige-light;
+        padding: 1rem 2.5rem 1rem 3rem;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        color: $color-white;
 
-  &__footer-button {
-    @include button-reservations();
-  }
+        @include responsive(phone) {
+            border-radius: 0;
+        }
+
+        @include responsive(phone-small) {
+            padding: 1rem 1rem 1rem 1.7rem;
+        }
+    }
+
+    &__body {
+        // overflow-y: scroll;
+        // height: calc(100vh - 58px - 71px - 2rem - 2rem);
+        // color: $color-gray;
+
+        // @include responsive(phone-small) {
+        //   padding: 1rem 1.7rem 0 1.7rem;
+        //   height: calc(100vh - 58px - 71px - 5.75rem);
+        // }
+    }
+
+    &__title {
+        color: $color-white;
+    }
+
+    &__footer {
+        padding: 1.5rem 3rem;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: $color-white;
+        box-shadow: 0 -4px 13px 2px hsla(0, 0%, 69%, 0.35);
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+
+        @include responsive(phone) {
+            border-radius: 0;
+        }
+
+        @include responsive(phone-small) {
+            padding: 1.5rem 1.8rem;
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1.4rem;
+        }
+    }
+
+    &__footer-button {
+        @include button-reservations();
+    }
 }

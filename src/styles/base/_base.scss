@@ -1,28 +1,32 @@
 *,
 *::after,
 *::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
 }
 
 html {
-  font-size: 62.5%; /* 10px = 10 * 0.625 || 10 / 16 */
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+    font-size: 62.5%; /* 10px = 10 * 0.625 || 10 / 16 */
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Montserrat";
 }
 
 @include responsive(phone-up) {
-  ::-webkit-scrollbar {
-    width: 0.5rem;
-  }
+    ::-webkit-scrollbar {
+        width: 0.5rem;
+    }
 
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: $color-beige-dark;
-    border-radius: 0.5rem;
-  }
+    ::-webkit-scrollbar-thumb {
+        background: $color-beige-dark;
+        border-radius: 0.5rem;
+    }
 }
