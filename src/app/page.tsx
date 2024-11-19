@@ -261,7 +261,7 @@ export default function Home() {
                             className={`${styles["spa__button"]} u-padding-top-large`}
                             onClick={() => setIsReservationsOpen(true)}
                         >
-                            <span className="text-primary">RESERVE NOW</span>
+                            <span className="text-primary">BOOK NOW</span>
                         </div>
                     </div>
                 </div>

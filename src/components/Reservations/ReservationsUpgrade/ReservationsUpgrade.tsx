@@ -75,7 +75,7 @@ export function ReservationsUpgrade({
     );
     const totalSpaExcluded =
         spaExcluded.maalumRitual + spaExcluded.naturalEssence;
-    const guestsAvailable = 4 - totalSpaExcluded - totalUpgradeGuests;
+    const guestsAvailable = 3 - totalSpaExcluded - totalUpgradeGuests;
     const guests = reservationsGuestsInformation.filter(
         ({ id }) => reservationsPickerInformation[id]
     );
@@ -106,7 +106,7 @@ export function ReservationsUpgrade({
         id: "naturalEssence" | "maalumRitual",
         idGuests: keyof ReservationsGuestsCounter
     ) => {
-        if (totalUpgradeGuests >= 4) {
+        if (totalUpgradeGuests >= 3) {
             setTooltipOpen({ card: id, guest: idGuests });
             setTimer(setTimeout(() => handleTooltipClose(), 3000));
             return;
@@ -193,7 +193,7 @@ export function ReservationsUpgrade({
                         style={{ color: defaultTheme.palette.beige.main }}
                     />
                     <p>
-                        For more than 4 guests or specific request, please{" "}
+                        For more than 3 guests or specific request, please{" "}
                         <span>click here</span> to contact us throw whatsapp.
                     </p>
                 </Link>

@@ -197,7 +197,7 @@ const generateWhatsAppLink = ({
     if (maalumRitual > 0) {
         services.push(
             `including ${maalumRitual} ${
-                maalumRitual === 1 ? "maalum ritual" : "maalum rituals"
+                maalumRitual === 1 ? "maalum ritual 80" : "maalum rituals 80"
             }`
         );
     }
@@ -205,7 +205,7 @@ const generateWhatsAppLink = ({
     if (naturalEssence > 0) {
         services.push(
             `${services.length > 0 ? "and" : "including"} ${naturalEssence} ${
-                naturalEssence === 1 ? "natural essence" : "natural essences"
+                naturalEssence === 1 ? "maalum ritual 45" : "maalum ritual 80"
             }`
         );
     }
