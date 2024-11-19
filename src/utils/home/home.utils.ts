@@ -220,7 +220,7 @@ const experiencesInformation = [
             {
                 id: 1,
                 paragraph:
-                    "Experience pure relaxation with a 45min the massage of your choice, tailored just for you. This special experience helps you connect deeply with yourself and the peaceful world around you. Let our skilled therapists pamper you from head to toe, ease away tension and restore your body's balance, while you enjoy the calming beauty of your surroundings.",
+                    "Experience pure relaxation with a 45min massage of your choice, tailored just for you. This special experience helps you connect deeply with yourself and the peaceful world around you. Let our skilled therapists pamper you from head to toe, ease away tension and restore your body's balance, while you enjoy the calming beauty of your surroundings.",
             },
         ],
     },
@@ -232,7 +232,7 @@ const experiencesInformation = [
             {
                 id: 1,
                 paragraph:
-                    "Experience pure relaxation with a 80min the massage of your choice, tailored just for you. This special experience helps you connect deeply with yourself and the peaceful world around you. Let our skilled therapists pamper you from head to toe, ease away tension and restore your body's balance, while you enjoy the calming beauty of your surroundings.",
+                    "Experience pure relaxation with a 80min massage of your choice, tailored just for you. This special experience helps you connect deeply with yourself and the peaceful world around you. Let our skilled therapists pamper you from head to toe, ease away tension and restore your body's balance, while you enjoy the calming beauty of your surroundings.",
             },
         ],
     },

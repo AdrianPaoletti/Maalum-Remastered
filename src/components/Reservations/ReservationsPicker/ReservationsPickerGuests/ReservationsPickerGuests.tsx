@@ -80,7 +80,7 @@ export function ReservationsPickerGuests({
                 />
                 <p>
                     For big groups or specific request, please{" "}
-                    <span>click here</span> to contact us throw whatsapp.
+                    <span>click here</span> to contact us by whatsapp.
                 </p>
             </Link>
             {reservationsGuestsInformation.map(
