@@ -194,7 +194,7 @@ export function ReservationsUpgrade({
                     />
                     <p>
                         For more than 3 guests or specific request, please{" "}
-                        <span>click here</span> to contact us by whatsapp.
+                        <span>click here</span> to contact us on whatsapp.
                     </p>
                 </Link>
                 {cardElements.map(
