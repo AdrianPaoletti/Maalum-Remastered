@@ -1,60 +1,60 @@
 import axios from "axios";
 
 import {
-  BlockedDaysHours,
-  GetBlockedDaysMonthlyRequestBody,
-  GetReservationsMonthlyRequestBody,
-  PostReservationRequestBody,
-  Reservation,
+    BlockedDaysHours,
+    GetBlockedDaysMonthlyRequestBody,
+    GetReservationsMonthlyRequestBody,
+    PostReservationRequestBody,
+    Reservation,
 } from "maalum/core/models/reservations.model";
 
 const getBlockedDaysMonthly = async (
-  requestBody: GetBlockedDaysMonthlyRequestBody
+    requestBody: GetBlockedDaysMonthlyRequestBody
 ): Promise<BlockedDaysHours[]> => {
-  try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_RAILWAY_REMASTERED}/days/blocked-monthly`,
-      {
-        params: requestBody,
-      }
-    );
+    try {
+        const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_RAILWAY}/days/blocked-monthly`,
+            {
+                params: requestBody,
+            }
+        );
 
-    return data;
-  } catch (error) {
-    throw error;
-  }
+        return data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 const getReservationsMonthly = async (
-  requestBody: GetReservationsMonthlyRequestBody
+    requestBody: GetReservationsMonthlyRequestBody
 ): Promise<Reservation[]> => {
-  try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_RAILWAY_REMASTERED}/reservations`,
-      {
-        params: requestBody,
-      }
-    );
+    try {
+        const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_RAILWAY}/reservations`,
+            {
+                params: requestBody,
+            }
+        );
 
-    return data;
-  } catch (error) {
-    throw error;
-  }
+        return data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 const postReservation = async (
-  requestBody: PostReservationRequestBody
+    requestBody: PostReservationRequestBody
 ): Promise<string> => {
-  try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_RAILWAY_REMASTERED}/reservations`,
-      requestBody
-    );
+    try {
+        const { data } = await axios.post(
+            `${process.env.NEXT_PUBLIC_RAILWAY}/reservations`,
+            requestBody
+        );
 
-    return data;
-  } catch (error) {
-    throw error;
-  }
+        return data;
+    } catch (error) {
+        throw error;
+    }
 };
 
 export { getBlockedDaysMonthly, getReservationsMonthly, postReservation };
