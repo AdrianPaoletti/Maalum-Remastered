@@ -46,11 +46,17 @@ const getHour = (hour: string) => {
         case "09:30":
             return "11:30";
 
+        case "11:00":
+            return "12:30";
+
         case "12:30":
             return "14:00";
 
         case "14:00":
             return "16:00";
+
+        case "15:30":
+            return "17:00";
 
         default:
             return "SOLD OUT";
