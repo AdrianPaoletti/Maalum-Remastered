@@ -411,7 +411,7 @@ export function ReservationsUpgrade({
                                                                                     For
                                                                                     more
                                                                                     than
-                                                                                    2
+                                                                                    3
                                                                                     guests,
                                                                                     please{" "}
                                                                                     <span>
@@ -421,7 +421,7 @@ export function ReservationsUpgrade({
                                                                                     to
                                                                                     contact
                                                                                     us
-                                                                                    throw
+                                                                                    on
                                                                                     whatsapp.
                                                                                 </p>
                                                                             </Link>
