@@ -161,6 +161,11 @@
 
     a {
         text-decoration: none;
+        color: $color-white;
+        
+        @include responsive(phone) {
+            color: $color-beige;
+        }
     }
   }
 

@@ -138,8 +138,8 @@ export function Navbar({}: NavbarProps) {
               <a
                 href={`/documents/${id}-2025.pdf`}
                 download={`menu-${id}`}
-                className={`navbar-list-item ${styles["menu__item"]}`}
-                style={{border: !!index ? 'none' : undefined}}
+                className={`navbar-list-item`}
+                style={{color: !!index ? 'none' : undefined}}
                 >
                 {title}
                 </a>
