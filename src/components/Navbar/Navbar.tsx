@@ -2,6 +2,7 @@
 
 import { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 
@@ -10,9 +11,10 @@ import styles from "./Navbar.module.scss";
 interface NavbarProps {}
 
 export function Navbar({}: NavbarProps) {
+  const pathname = usePathname();
   const [hasScrollMoved, setHasScrollMoved] = useState<boolean>(false);
-  const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false);
-  const { setIsReservationsOpen } = useContext(MaalumContext);
+  const { setIsReservationsOpen, isMenuExpanded, setIsMenuExpanded, handleBurgerMenuClick } = useContext(MaalumContext);
+  const isMenuPath = pathname === '/menus';
 
   const handleScrollEvent = useCallback(() => {
     if (window.scrollY > 0) {
@@ -24,9 +26,14 @@ export function Navbar({}: NavbarProps) {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollEvent);
+
     if (window.scrollY > 0) {
       setHasScrollMoved(true);
       return;
+    }
+
+    if(isMenuPath) {
+      handleBurgerMenuClick()
     }
 
     return () => {
@@ -65,15 +72,19 @@ export function Navbar({}: NavbarProps) {
     },
   ];
 
-  const handleBurgerMenuClick = () => {
-    setIsMenuExpanded(!isMenuExpanded);
-
-    if (!isMenuExpanded) {
-      document.body.className = `${document.body.classList[0]} u-scroll-disabled`;
-      return;
-    }
-    document.body.className = `${document.body.classList[0]}`;
-  };
+  const menuPDF: {
+    id: string;
+    title: string;
+  }[] = [
+    {
+      id: "restaurant",
+      title: "RESTAURANT MENU",
+    },
+    {
+      id: "spa",
+      title: "SPA MENU",
+    },
+  ];
 
   return (
     <nav
@@ -96,7 +107,7 @@ export function Navbar({}: NavbarProps) {
           width={157}
           height={41}
         />
-        <div
+        {!isMenuPath && <div
           className={`${styles["menu__burger-container"]}`}
           onClick={handleBurgerMenuClick}
         >
@@ -108,7 +119,7 @@ export function Navbar({}: NavbarProps) {
               }`}
             ></span>
           ))}
-        </div>
+        </div>}
       </div>
       <div className={`${styles.menu}`}>
         <ul
@@ -116,7 +127,17 @@ export function Navbar({}: NavbarProps) {
             isMenuExpanded && styles["menu__list--active"]
           }`}
         >
-          {menuItems.map(({ id, title, onClick }) => (
+          {isMenuPath ? menuPDF.map(({ id, title }) => (
+            <li
+              key={id}
+              className={`navbar-list-item ${styles["menu__item"]} ${
+                hasScrollMoved && styles["menu__item--sticky"]
+              }`}
+              onClick={() => window.open(`/documents/${id}-2025.pdf`, "_blank")}
+            >
+              {title}
+            </li>
+          )) : menuItems.map(({ id, title, onClick }) => (
             <li
               key={id}
               className={`navbar-list-item ${styles["menu__item"]} ${

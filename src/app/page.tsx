@@ -58,10 +58,6 @@ export default function Home() {
                 backgroundColor={"#000"}
                 opacity={0.6}
             />
-            {/* <Banner
-        open={isOpen && !isReservation && isImageLoaded}
-        setIsOpen={setIsOpen}
-      /> */}
             <article className={`${styles.description}`}>
                 <div
                     className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
@@ -196,7 +192,7 @@ export default function Home() {
                                         className={`text-primary u-padding-top-small`}
                                     >
                                         <a
-                                            href="/documents/menu-2024.pdf"
+                                            href="/documents/restaurant-2025.pdf"
                                             download="menu-maalum"
                                             className={`${styles["restaurant__food-menu"]}`}
                                         >

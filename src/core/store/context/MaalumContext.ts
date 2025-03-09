@@ -5,6 +5,9 @@ export interface MaalumCreateContext {
   setIsReservationsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isImageLoaded: boolean;
   setIsImageLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+  isMenuExpanded: boolean;
+  setIsMenuExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  handleBurgerMenuClick: () => void;
 }
 
 const MaalumContext = createContext<MaalumCreateContext>(
