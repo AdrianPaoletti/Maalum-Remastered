@@ -135,7 +135,13 @@ export function Navbar({}: NavbarProps) {
               }`}
               onClick={() => window.open(`/documents/${id}-2025.pdf`, "_blank")}
             >
-              {title}
+              <a
+                href={`/documents/${id}-2025.pdf`}
+                download={`menu-${id}`}
+                className={`navbar-list-item ${styles["menu__item"]}`}
+                >
+                {title}
+                </a>
             </li>
           )) : menuItems.map(({ id, title, onClick }) => (
             <li
