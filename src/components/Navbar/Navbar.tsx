@@ -127,7 +127,7 @@ export function Navbar({}: NavbarProps) {
             isMenuExpanded && styles["menu__list--active"]
           }`}
         >
-          {isMenuPath ? menuPDF.map(({ id, title }) => (
+          {isMenuPath ? menuPDF.map(({ id, title }, index) => (
             <li
               key={id}
               className={`navbar-list-item ${styles["menu__item"]} ${
@@ -139,6 +139,7 @@ export function Navbar({}: NavbarProps) {
                 href={`/documents/${id}-2025.pdf`}
                 download={`menu-${id}`}
                 className={`navbar-list-item ${styles["menu__item"]}`}
+                style={{border: !!index ? 'none' : undefined}}
                 >
                 {title}
                 </a>
