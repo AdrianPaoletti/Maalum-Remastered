@@ -123,7 +123,7 @@ export function Navbar({}: NavbarProps) {
       </div>
       <div className={`${styles.menu}`}>
         <ul
-          className={`${styles["menu__list"]} ${
+          className={`${styles["menu__list"]} ${!isMenuPath ? styles["menu__list--normal"] : styles["menu__list--active"]} ${
             isMenuExpanded && styles["menu__list--active"]
           }`}
         >

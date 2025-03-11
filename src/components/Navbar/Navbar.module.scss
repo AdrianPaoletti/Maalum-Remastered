@@ -82,12 +82,15 @@
       position: fixed;
       background-color: $color-white;
       height: 100vh;
-      left: -100vw;
       right: 100vw;
       top: 0;
       bottom: 0;
-      transition: 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
-      -webkit-transition: 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
+    }
+
+    &--normal{
+        left: -100vw;
+        transition: 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
+        -webkit-transition: 0.8s cubic-bezier(0.2, 0.7, 0.1, 1);
     }
 
     &--active {
