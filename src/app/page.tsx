@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,6 +21,7 @@ import {
     restaurantInformation,
     socialMediaLogos,
     spaInformation,
+    sustainabilityInformation,
 } from "../utils/home/home.utils";
 
 import styles from "./page.module.scss";
@@ -264,7 +265,7 @@ export default function Home() {
             </article>
             <article className={`${styles["experiences-container"]}`}>
                 <div
-                    className={`${styles.container} ${styles["experiences"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
+                    className={`${styles.container} ${styles["experiences"]} u-padding-vertical-large-extra u-padding-horizontal-huge ${styles['experiences--no-space']}`}
                 >
                     <div
                         className={`${styles["experiences__text-container"]} col-1-of-2`}
@@ -295,6 +296,43 @@ export default function Home() {
                         )}
                     </div>
                     <Carousel images={carouselExperiences} />
+                </div>
+            </article>
+            <article className={`${styles.sustainability}`}>
+                <div className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}>
+                <h2 className={`heading-secundary ${styles["sustainability__subtitle"]}`}>
+                    SUSTAINABILITY
+                </h2>
+                <div className={`${styles.sustainability__content}`}>
+                    <div
+                        className={`${styles["images__container"]} ${styles['images__container--sustainability']}`}
+                    >
+                        <Image
+                            src={'/images/sustainability-1.jpg'}
+                            alt="sustainability-picture"
+                            fill
+                            sizes="50vw"
+                        />
+                    </div>
+                    <div className={styles.sustainability__information}>
+                        {sustainabilityInformation.map(({title, description}, index) => (
+                            <div key={index}>
+                                <h3
+                                    className={`${
+                                        styles["experiences__subtitle"]
+                                    } text-primary text-primary--contrast`}
+                                >
+                                    {title.toUpperCase()}
+                                </h3>
+                                <p
+                                    className={`text-primary text-primary--contrast u-padding-top-small`}
+                                >
+                                    {description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
                 </div>
             </article>
             <article

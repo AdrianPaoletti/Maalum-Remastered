@@ -257,6 +257,24 @@ const imagesRestaurant: { id: string; url: string }[] = [
     },
 ];
 
+const sustainabilityInformation = [
+    {
+        title: "Sustainable Energy & Local Materials",
+        description:
+            "We are committed to reducing our environmental impact through the use of renewable energy sources, primarily solar power, and through the adoption of Km0, locally sourced sustainable and ecological materials. These practices minimize emissions, support the regional economy, and ensure that our operations remain aligned with long-term sustainability principles.",
+    },
+    {
+        title: "Ecosystem Restoration & Environmental Stewardship",
+        description:
+            "Our work focuses on the restoration and protection of natural ecosystems, including coastal habitats and the tropical humid forest through the planting of native species from the Jozani Forest. These initiatives enhance biodiversity, create feeding areas, habitats and educational spaces for local species, and contribute to climate resilience. As part of this effort, we are planting 200–300 native trees in Paje to establish a climate refuge. In collaboration with the Zanzibar Environmental Ministry authorities, we have supported the reclassification of land use from natural bank to natural reserve and contributed to the development of legislation and management strategies for groundwater systems and terrestrial caves.",
+    },
+    {
+        title: "Circular Economy & Local Community Development",
+        description:
+            "We promote circular-economy practices and foster strong integration with local commerce, prioritizing products and suppliers that extend material lifecycle and reinforce sustainable development. Our commitment to community empowerment includes training and offering professional development opportunities to local residents from Zanzibar, many of whom hold managerial positions within our organization, ensuring shared growth and long-term social impact.",
+    },
+];
+
 export {
     imagesDescription,
     imagesInstagram,
@@ -268,4 +286,5 @@ export {
     spaInformation,
     experiencesInformation,
     restaurantInformation,
+    sustainabilityInformation,
 };

@@ -35,6 +35,10 @@ button {
     &--disabled {
         color: lighten($color-gray, 40%);
     }
+
+    &--contrast {
+        color: $color-black-light;
+    }
 }
 
 .text-secondary {
