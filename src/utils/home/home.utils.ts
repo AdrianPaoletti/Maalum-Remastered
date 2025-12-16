@@ -259,19 +259,39 @@ const imagesRestaurant: { id: string; url: string }[] = [
 
 const sustainabilityInformation = [
     {
-        title: "Sustainable Energy & Local Materials",
-        description:
-            "We are committed to reducing our environmental impact through the use of renewable energy sources, primarily solar power, and through the adoption of Km0, locally sourced sustainable and ecological materials. These practices minimize emissions, support the regional economy, and ensure that our operations remain aligned with long-term sustainability principles.",
+        title: "Renewable Energy & Sustainable Materials",
+        description: [
+            "At Maalum, sustainability guides how we build, operate and grow. Our facilities rely primarily on renewable solar energy, reducing dependence on fossil fuels and lowering greenhouse gas emissions in a region highly vulnerable to climate change.",
+            "We carefully select sustainable, durable and locally sourced (Km0) materials, prioritising ecological solutions that minimise environmental impact while supporting local suppliers and craftsmanship. By combining clean energy, responsible sourcing and efficient resource use, Maalum demonstrates that low-impact infrastructure can coexist with comfort, quality and long-term resilience.",
+        ],
+        sdgs: ["07", "12", "13", "08"],
     },
     {
-        title: "Ecosystem Restoration & Environmental Stewardship",
-        description:
-            "Our work focuses on the restoration and protection of natural ecosystems, including coastal habitats and the tropical humid forest through the planting of native species from the Jozani Forest. These initiatives enhance biodiversity, create feeding areas, habitats and educational spaces for local species, and contribute to climate resilience. As part of this effort, we are planting 200–300 native trees in Paje to establish a climate refuge. In collaboration with the Zanzibar Environmental Ministry authorities, we have supported the reclassification of land use from natural bank to natural reserve and contributed to the development of legislation and management strategies for groundwater systems and terrestrial caves.",
+        title: "Ecosystem Restoration & Biodiversity Conservation",
+        description: [
+            "Maalum is deeply committed to the restoration and conservation of Zanzibar’s natural ecosystems, recognising biodiversity as the foundation of climate resilience and community well-being. Our actions focus on protecting coastal areas, freshwater systems and tropical vegetation surrounding the cenote.",
+            "In Paje, we are planting 200–300 native tree species to create a climate refuge that enhances biodiversity, stabilises soils and improves local microclimates. These restored areas also function as living spaces for environmental education, fostering a deeper connection between people and nature.",
+            "Working closely with the Zanzibar Ministry of Environment, Maalum has supported land-use protection measures and the development of management strategies for groundwater systems and terrestrial caves, ensuring the long-term preservation of these sensitive ecosystems.",
+        ],
+        sdgs: ["15", "06", "13", "04"],
     },
     {
         title: "Circular Economy & Local Community Development",
-        description:
-            "We promote circular-economy practices and foster strong integration with local commerce, prioritizing products and suppliers that extend material lifecycle and reinforce sustainable development. Our commitment to community empowerment includes training and offering professional development opportunities to local residents from Zanzibar, many of whom hold managerial positions within our organization, ensuring shared growth and long-term social impact.",
+        description: [
+            "Maalum embraces a circular economy approach that reduces waste, extends the life cycle of materials and keeps economic value within the local community. From construction choices to daily operations, we prioritise reuse, durability and responsible consumption.",
+            "We collaborate closely with local artisans, suppliers and professionals, generating fair employment opportunities and strengthening local value chains. Our team reflects our commitment to equity and inclusion, with equal representation of women and men, including women in leadership and decision-making roles.",
+            "Through continuous training and professional development, Maalum invests in people as a cornerstone of long-term social, environmental and economic sustainability.",
+        ],
+        sdgs: ["08", "05", "10", "12"],
+    },
+    {
+        title: "Environmental Management & Conservation",
+        description: [
+            "The Maalum cenote is a fragile and unique freshwater ecosystem, and its protection is central to our mission. We apply strict environmental management and conservation measures to ensure the long-term ecological balance of the cenote and its surrounding habitats.",
+            "Visitor access is carefully regulated through limited numbers and time-controlled entry. To protect water quality and wildlife, smoking, food and waste are prohibited, and visitors are required to shower before entering the water to remove chemical residues. Behavioural guidelines promote a calm, respectful environment that safeguards both biodiversity and geological formations.",
+            "As a result of these measures, the cenote’s fauna has increased by approximately 40% since the project began. We continue to protect and maintain natural buffer zones around the cenote to preserve its ecological integrity for future generations.",
+        ],
+        sdgs: ["14", "15", "06", "12"],
     },
 ];
 

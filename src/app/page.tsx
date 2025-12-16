@@ -265,7 +265,7 @@ export default function Home() {
             </article>
             <article className={`${styles["experiences-container"]}`}>
                 <div
-                    className={`${styles.container} ${styles["experiences"]} u-padding-vertical-large-extra u-padding-horizontal-huge ${styles['experiences--no-space']}`}
+                    className={`${styles.container} ${styles["experiences"]} u-padding-vertical-large-extra u-padding-horizontal-huge ${styles["experiences--no-space"]}`}
                 >
                     <div
                         className={`${styles["experiences__text-container"]} col-1-of-2`}
@@ -299,40 +299,114 @@ export default function Home() {
                 </div>
             </article>
             <article className={`${styles.sustainability}`}>
-                <div className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}>
-                <h2 className={`heading-secundary ${styles["sustainability__subtitle"]}`}>
-                    SUSTAINABILITY
-                </h2>
-                <div className={`${styles.sustainability__content}`}>
-                    <div
-                        className={`${styles["images__container"]} ${styles['images__container--sustainability']}`}
+                <div
+                    className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
+                >
+                    <h2
+                        className={`heading-secundary ${styles["sustainability__subtitle"]}`}
                     >
-                        <Image
-                            src={'/images/sustainability-1.jpg'}
-                            alt="sustainability-picture"
-                            fill
-                            sizes="50vw"
-                        />
+                        SUSTAINABILITY
+                    </h2>
+                    <div className={`${styles.sustainability__content}`}>
+                        <div
+                            className={`${styles["images__container"]} ${styles["images__container--sustainability"]}`}
+                        >
+                            <Image
+                                src={"/images/sustainability-1.jpg"}
+                                alt="sustainability-picture"
+                                fill
+                                sizes="50vw"
+                            />
+                        </div>
+                        <div className={styles.sustainability__information}>
+                            {sustainabilityInformation
+                                .slice(0, 2)
+                                .map(({ title, description, sdgs }, index) => (
+                                    <div key={index}>
+                                        <h3
+                                            className={`${styles["experiences__subtitle"]} text-primary text-primary--contrast`}
+                                        >
+                                            {title.toUpperCase()}
+                                        </h3>
+                                        {description.map((paragraph, index) => (
+                                            <p
+                                                key={index}
+                                                className={`text-primary text-primary--contrast ${
+                                                    !!index
+                                                        ? "u-padding-top-small-extra"
+                                                        : "u-padding-top-small"
+                                                }`}
+                                            >
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                        <div
+                                            className={`${styles["sustainability__sdgs"]} u-padding-top-small`}
+                                        >
+                                            {sdgs.map((sdg) => (
+                                                <Image
+                                                    key={sdg}
+                                                    src={`/images/sdg_icons/E_SDG_Icons-${sdg}.jpg`}
+                                                    alt={`SDG ${sdg}`}
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
                     </div>
-                    <div className={styles.sustainability__information}>
-                        {sustainabilityInformation.map(({title, description}, index) => (
-                            <div key={index}>
-                                <h3
-                                    className={`${
-                                        styles["experiences__subtitle"]
-                                    } text-primary text-primary--contrast`}
-                                >
-                                    {title.toUpperCase()}
-                                </h3>
-                                <p
-                                    className={`text-primary text-primary--contrast u-padding-top-small`}
-                                >
-                                    {description}
-                                </p>
-                            </div>
-                        ))}
+                    <div className={`${styles.sustainability__content}`}>
+                        <div className={styles.sustainability__information}>
+                            {sustainabilityInformation
+                                .slice(2)
+                                .map(({ title, description, sdgs }, index) => (
+                                    <div key={index}>
+                                        <h3
+                                            className={`${styles["experiences__subtitle"]} text-primary text-primary--contrast`}
+                                        >
+                                            {title.toUpperCase()}
+                                        </h3>
+                                        {description.map((paragraph, index) => (
+                                            <p
+                                                key={index}
+                                                className={`text-primary text-primary--contrast ${
+                                                    !!index
+                                                        ? "u-padding-top-small-extra"
+                                                        : "u-padding-top-small"
+                                                }`}
+                                            >
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                        <div
+                                            className={`${styles["sustainability__sdgs"]} u-padding-top-small`}
+                                        >
+                                            {sdgs.map((sdg) => (
+                                                <Image
+                                                    key={sdg}
+                                                    src={`/images/sdg_icons/E_SDG_Icons-${sdg}.jpg`}
+                                                    alt={`SDG ${sdg}`}
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                        </div>
+                        <div
+                            className={`${styles["images__container"]} ${styles["images__container--sustainability"]}`}
+                        >
+                            <Image
+                                src={"/images/sustainability-2.jpeg"}
+                                alt="sustainability-picture"
+                                fill
+                                sizes="50vw"
+                            />
+                        </div>
                     </div>
-                </div>
                 </div>
             </article>
             <article

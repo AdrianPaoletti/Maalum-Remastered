@@ -271,6 +271,11 @@
         flex-direction: column;
         gap: 40px;
     }
+
+    &__sdgs {
+        display: flex;
+        gap: 1rem;
+    }
 }
 
 .contact-us {
