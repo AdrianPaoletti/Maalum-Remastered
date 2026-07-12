@@ -4,6 +4,14 @@ import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import {
+    FadeIn,
+    MotionLink,
+    StaggerGroup,
+    StaggerItem,
+    staggerItemVariants,
+    WordsPullUp,
+} from "maalum/components/ui/Animations/Animations";
 import { Banner } from "maalum/components/ui/Banner/Banner";
 import { Carousel } from "maalum/components/ui/Carousel/Carousel";
 import Loading from "maalum/components/ui/Loading/Loading";
@@ -65,7 +73,10 @@ export default function Home() {
                     <h2
                         className={`${styles["description__title"]} heading-secundary`}
                     >
-                        TAKE A BREATH <span>LOVE NATURE</span>
+                        <WordsPullUp text="TAKE A BREATH" />{" "}
+                        <span>
+                            <WordsPullUp text="LOVE NATURE" />
+                        </span>
                     </h2>
                     <div
                         className={`${styles["description__text"]} u-padding-top-large`}
@@ -84,11 +95,12 @@ export default function Home() {
                     </div>
                 </div>
             </article>
-            <article
+            <StaggerGroup
+                as="article"
                 className={`${styles.container} ${styles["images"]} ${styles["images--description"]} u-padding-horizontal-huge u-padding-vertical-large-extra`}
             >
                 {imagesDescription.map(({ url, id }) => (
-                    <div
+                    <StaggerItem
                         key={id}
                         className={`${styles["images__container"]} ${styles["images__container--description"]}`}
                     >
@@ -98,14 +110,16 @@ export default function Home() {
                             fill
                             sizes="50vw"
                         />
-                    </div>
+                    </StaggerItem>
                 ))}
-            </article>
+            </StaggerGroup>
             <article className={`${styles["book-now"]}`}>
                 <div
                     className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
                 >
-                    <h2 className={`heading-secundary`}>BOOK NOW</h2>
+                    <h2 className={`heading-secundary`}>
+                        <WordsPullUp text="BOOK NOW" />
+                    </h2>
                     <div
                         className={`${styles["book-now__text-container"]} u-padding-vertical-large`}
                     >
@@ -125,15 +139,18 @@ export default function Home() {
                                 cave area
                             </p>
                         </div>
-                        <ul
+                        <StaggerGroup
+                            as="ul"
                             className={`${styles["book-now__list"]} col-1-of-2`}
                         >
                             {bookNowListItem.map(({ id, url, text, size }) => (
-                                <li
+                                <StaggerItem
+                                    as="li"
                                     key={id}
                                     className={`${styles["book-now__list-item"]}`}
                                 >
                                     <Image
+                                        className={`${styles["book-now__list-icon"]}`}
                                         src={url}
                                         alt="zanzibar swimming cave services"
                                         width={size || 22}
@@ -141,25 +158,27 @@ export default function Home() {
                                         sizes="50vw"
                                     />
                                     <p className="text-primary">{text}</p>
-                                </li>
+                                </StaggerItem>
                             ))}
-                        </ul>
+                        </StaggerGroup>
                     </div>
-                    <div className={`${styles["book-now__button"]}`}>
-                        <span
-                            className="text-primary"
-                            onClick={() => setIsReservationsOpen(true)}
-                        >
-                            BOOK NOW
-                        </span>
-                    </div>
+                    <FadeIn
+                        className={`${styles["book-now__button"]}`}
+                        hover
+                        onClick={() => setIsReservationsOpen(true)}
+                    >
+                        <span className="text-primary">BOOK NOW</span>
+                    </FadeIn>
                 </div>
             </article>
             <article
                 className={`${styles.container} ${styles["restaurant"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
             >
-                <h2 className={`heading-secundary`}>OUR RESTAURANT</h2>
-                <div
+                <h2 className={`heading-secundary`}>
+                    <WordsPullUp text="OUR RESTAURANT" />
+                </h2>
+                <FadeIn
+                    scale={0.95}
                     className={`${styles["restaurant__image-container"]} u-padding-vertical-large`}
                 >
                     <Image
@@ -169,7 +188,7 @@ export default function Home() {
                         fill
                         sizes="100vw"
                     />
-                </div>
+                </FadeIn>
                 <div className={`${styles["restaurant__text-container"]}`}>
                     {restaurantInformation.map(
                         ({ id, title, text }, indexNumber) => (
@@ -177,15 +196,16 @@ export default function Home() {
                                 <h2
                                     className={`heading-secundary ${styles["restaurant__subtitle"]}`}
                                 >
-                                    {title}
+                                    <WordsPullUp text={title} />
                                 </h2>
                                 {text.map(({ id, paragraph }) => (
-                                    <p
+                                    <FadeIn
+                                        as="p"
                                         key={id}
                                         className={`text-primary u-padding-top-small`}
                                     >
                                         {paragraph}
-                                    </p>
+                                    </FadeIn>
                                 ))}
                                 {!!indexNumber && (
                                     <p
@@ -204,11 +224,11 @@ export default function Home() {
                         )
                     )}
                 </div>
-                <div
+                <StaggerGroup
                     className={`${styles["images"]} ${styles["images--restaurant"]} u-padding-top-large`}
                 >
                     {imagesRestaurant.map(({ url, id }) => (
-                        <div
+                        <StaggerItem
                             key={id}
                             className={`${styles["images__container"]}`}
                         >
@@ -218,23 +238,28 @@ export default function Home() {
                                 fill
                                 sizes="50vw"
                             />
-                        </div>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerGroup>
             </article>
             <article className={`${styles["spa-container"]}`}>
                 <div
                     id={"spa"}
                     className={`${styles.container} ${styles["spa"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
                 >
-                    <Carousel images={carouselSpa} />
+                    <FadeIn className="col-1-of-2" scale={0.95}>
+                        <Carousel images={carouselSpa} />
+                    </FadeIn>
                     <div
                         className={`${styles["spa__text-container"]} col-1-of-2`}
                     >
                         {spaInformation.map(({ id, title, subtitle, text }) => (
                             <div key={id}>
-                                <h2 className={`heading-secundary`}>{title}</h2>
-                                <h3
+                                <h2 className={`heading-secundary`}>
+                                    <WordsPullUp text={title} />
+                                </h2>
+                                <FadeIn
+                                    as="h3"
                                     className={`${
                                         styles["spa__subtitle"]
                                     } text-primary ${
@@ -242,23 +267,25 @@ export default function Home() {
                                     }`}
                                 >
                                     {subtitle}
-                                </h3>
+                                </FadeIn>
                                 {text.map(({ id, paragraph }) => (
-                                    <p
+                                    <FadeIn
+                                        as="p"
                                         key={id}
                                         className={`text-primary u-padding-top-small`}
                                     >
                                         {paragraph}
-                                    </p>
+                                    </FadeIn>
                                 ))}
                             </div>
                         ))}
-                        <div
+                        <FadeIn
                             className={`${styles["spa__button"]} u-padding-top-large`}
+                            hover
                             onClick={() => setIsReservationsOpen(true)}
                         >
                             <span className="text-primary">BOOK NOW</span>
-                        </div>
+                        </FadeIn>
                     </div>
                 </div>
             </article>
@@ -273,43 +300,50 @@ export default function Home() {
                             ({ id, title, subtitle, text }, index) => (
                                 <div key={id}>
                                     <h2 className={`heading-secundary`}>
-                                        {title}
+                                        <WordsPullUp text={title} />
                                     </h2>
-                                    <h3
+                                    <FadeIn
+                                        as="h3"
                                         className={`${
                                             styles["experiences__subtitle"]
                                         } text-primary ${"u-padding-top-large"}`}
                                     >
                                         {subtitle}
-                                    </h3>
+                                    </FadeIn>
                                     {text.map(({ id, paragraph }) => (
-                                        <p
+                                        <FadeIn
+                                            as="p"
                                             key={id}
                                             className={`text-primary u-padding-top-small`}
                                         >
                                             {paragraph}
-                                        </p>
+                                        </FadeIn>
                                     ))}
                                 </div>
                             )
                         )}
                     </div>
-                    <Carousel images={carouselExperiences} />
+                    <FadeIn className="col-1-of-2" scale={0.95}>
+                        <Carousel images={carouselExperiences} />
+                    </FadeIn>
                 </div>
             </article>
             <article
                 className={`${styles.container} ${styles["instagram"]} u-padding-vertical-large-extra u-padding-horizontal-huge`}
             >
-                <h2 className={`heading-secundary`}>FOLLOW US ON INSTAGRAM</h2>
-                <div
+                <h2 className={`heading-secundary`}>
+                    <WordsPullUp text="FOLLOW US ON INSTAGRAM" />
+                </h2>
+                <StaggerGroup
                     className={`${styles["images"]} ${styles["images--instagram"]} u-padding-top-large`}
                 >
                     {imagesInstagram.map(({ url, id, href }) => (
-                        <Link
+                        <MotionLink
                             id={id}
                             key={id}
                             className={`${styles["images__container"]}`}
                             href={href}
+                            variants={staggerItemVariants}
                         >
                             <Image
                                 src={url}
@@ -317,23 +351,29 @@ export default function Home() {
                                 fill
                                 sizes="50vw"
                             />
-                        </Link>
+                        </MotionLink>
                     ))}
-                </div>
+                </StaggerGroup>
             </article>
             <article className={`${styles["contact-us"]}`} id={"contact"}>
                 <div
                     className={`${styles.container} u-padding-vertical-large-extra u-padding-horizontal-huge`}
                 >
-                    <h2 className={`heading-secundary`}>CONTACT US</h2>
+                    <h2 className={`heading-secundary`}>
+                        <WordsPullUp text="CONTACT US" />
+                    </h2>
                     <div
                         className={`${styles["contact-us__container"]} u-padding-top-large`}
                     >
                         <div
                             className={`${styles["contact-us__text-container"]} col-1-of-2`}
                         >
-                            <h3 className="heading-terciary">CONTACT</h3>{" "}
-                            <p
+                            <FadeIn as="h3" className="heading-terciary">
+                                CONTACT
+                            </FadeIn>{" "}
+                            <FadeIn
+                                as="p"
+                                delay={0.1}
                                 className={`${styles["contact-us__text"]} text-primary u-padding-top-small`}
                             >
                                 <span>Information: </span>EMAIL |{" "}
@@ -343,17 +383,24 @@ export default function Home() {
                                 >
                                     info@maalumzanzibar.com
                                 </Link>
-                            </p>
-                            <h3 className="heading-terciary u-padding-top-medium-large">
+                            </FadeIn>
+                            <FadeIn
+                                as="h3"
+                                delay={0.2}
+                                className="heading-terciary u-padding-top-medium-large"
+                            >
                                 OUR LOCATION
-                            </h3>
-                            <p
+                            </FadeIn>
+                            <FadeIn
+                                as="p"
+                                delay={0.3}
                                 className={`${styles["contact-us__text"]} text-primary u-padding-top-small`}
                             >
                                 Paje
-                            </p>
+                            </FadeIn>
                         </div>
-                        <div
+                        <FadeIn
+                            scale={0.95}
                             className={`${styles["contact-us__map-container"]} col-1-of-2`}
                         >
                             <div className={`${styles["contact-us__map"]}`}>
@@ -365,14 +412,18 @@ export default function Home() {
                                     title="maalum zanzibar swimming cave"
                                 />
                             </div>
-                        </div>
+                        </FadeIn>
                     </div>
-                    <div
+                    <StaggerGroup
                         className={`${styles["contact-us__social-media"]} u-padding-top-large`}
                     >
                         {socialMediaLogos.map(
                             ({ id, white, black, altText, href }) => (
-                                <Link href={href} key={id}>
+                                <MotionLink
+                                    href={href}
+                                    key={id}
+                                    variants={staggerItemVariants}
+                                >
                                     <Image
                                         id={id}
                                         src={
@@ -390,10 +441,10 @@ export default function Home() {
                                             handleSocialMediaMouseEvent
                                         }
                                     />
-                                </Link>
+                                </MotionLink>
                             )
                         )}
-                    </div>
+                    </StaggerGroup>
                 </div>
             </article>
         </main>

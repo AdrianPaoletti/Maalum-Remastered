@@ -3,10 +3,21 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";
 
 import styles from "./Navbar.module.scss";
+
+// Drop-in entrance used for individual navbar pieces on load. Applied only to
+// non-fixed inner elements, never to <nav>/<ul>, so the sticky white bar and
+// the mobile off-canvas menu keep their own behaviour untouched. Snappy spring
+// to match the rest of the motion system.
+const dropIn = (delay: number) => ({
+  initial: { opacity: 0, y: -14 },
+  animate: { opacity: 1, y: 0 },
+  transition: { type: "spring" as const, stiffness: 300, damping: 24, delay },
+});
 
 interface NavbarProps {}
 
@@ -93,23 +104,28 @@ export function Navbar({}: NavbarProps) {
       }`}
     >
       <div className={`${styles.navbar__container}`}>
-        <Image
-          src={
-            hasScrollMoved ? "/images/logo-beige.png" : "/images/logo-white.png"
-          }
-          alt="maalum-zanzibar-logo"
-          className={styles.navbar__image}
-          onClick={() =>
-            document
-              .getElementById("header")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-          width={157}
-          height={41}
-        />
-        {!isMenuPath && <div
+        <motion.div {...dropIn(0.1)}>
+          <Image
+            src={
+              hasScrollMoved
+                ? "/images/logo-beige.png"
+                : "/images/logo-white.png"
+            }
+            alt="maalum-zanzibar-logo"
+            className={styles.navbar__image}
+            onClick={() =>
+              document
+                .getElementById("header")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            width={157}
+            height={41}
+          />
+        </motion.div>
+        {!isMenuPath && <motion.div
           className={`${styles["menu__burger-container"]}`}
           onClick={handleBurgerMenuClick}
+          {...dropIn(0.2)}
         >
           {[1, 2, 3].map((value) => (
             <span
@@ -119,7 +135,7 @@ export function Navbar({}: NavbarProps) {
               }`}
             ></span>
           ))}
-        </div>}
+        </motion.div>}
       </div>
       <div className={`${styles.menu}`}>
         <ul
@@ -128,12 +144,13 @@ export function Navbar({}: NavbarProps) {
           }`}
         >
           {isMenuPath ? menuPDF.map(({ id, title }, index) => (
-            <li
+            <motion.li
               key={id}
               className={`navbar-list-item ${styles["menu__item"]} ${
                 hasScrollMoved && styles["menu__item--sticky"]
               }`}
               onClick={() => window.open(`/documents/${id}-2025.pdf`, "_blank")}
+              {...dropIn(0.25 + index * 0.08)}
             >
               <a
                 href={`/documents/${id}-2025.pdf`}
@@ -143,9 +160,9 @@ export function Navbar({}: NavbarProps) {
                 >
                 {title}
                 </a>
-            </li>
-          )) : menuItems.map(({ id, title, onClick }) => (
-            <li
+            </motion.li>
+          )) : menuItems.map(({ id, title, onClick }, index) => (
+            <motion.li
               key={id}
               className={`navbar-list-item ${styles["menu__item"]} ${
                 hasScrollMoved && styles["menu__item--sticky"]
@@ -154,9 +171,10 @@ export function Navbar({}: NavbarProps) {
                 setIsMenuExpanded(!isMenuExpanded);
                 onClick();
               }}
+              {...dropIn(0.25 + index * 0.08)}
             >
               {title}
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>

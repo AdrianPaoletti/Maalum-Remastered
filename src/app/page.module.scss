@@ -133,6 +133,11 @@
     padding-bottom: 0.6rem;
   }
 
+  &__list-icon {
+    // icons are pure black PNGs; invert(45%) maps black to $color-gray (#737373)
+    filter: invert(45%);
+  }
+
   &__button {
     @include display-flex();
     @include button();

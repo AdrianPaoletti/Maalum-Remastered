@@ -29,3 +29,33 @@ $font-size-24: 2.4rem;
 $font-size-25: 2.5rem;
 $font-size-27: 2.7rem;
 $font-size-30: 3rem;
+
+// Motion system — single source of truth shared with the framer-motion
+// reveals. The JS side uses real physics springs; CSS transitions can't, so
+// $ease-spring is a linear() curve sampled from a critically-damped spring
+// (no overshoot, so full-bleed panels never reveal an edge) that gives the
+// same springy deceleration. One language across JS reveals and CSS panels.
+$ease-spring: linear(
+  0,
+  0.059,
+  0.1846,
+  0.3277,
+  0.464,
+  0.583,
+  0.6817,
+  0.7609,
+  0.8228,
+  0.8705,
+  0.9065,
+  0.9336,
+  0.9537,
+  0.9685,
+  0.9793,
+  0.9872,
+  0.9929,
+  0.997,
+  1
+);
+$ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1); // fallback for non-linear() browsers
+$duration-panel: 0.6s; // full-bleed slide-in panels
+$duration-control: 0.35s; // small controls (burger lines)

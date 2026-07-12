@@ -41,27 +41,27 @@ const bookNowListItem: {
 }[] = [
     {
         id: "1621032601945",
-        url: `${BOOK_NOW_PATH}/609efe990d9395780c51aa48/1621032601945/private_outdoor_seating-01.svg`,
+        url: `/images/book-now-sunbathing.png`,
         text: "Chill and relax",
     },
     {
         id: "1621032628107",
-        url: `${BOOK_NOW_PATH}/609efeb4ce15a13eb81a4202/1621032628107/breakfast_included-01.svg`,
+        url: `/images/book-now-tray.png`,
         text: "Restaurant Service",
     },
     {
         id: "1621032659724",
-        url: `${BOOK_NOW_PATH}/609efed38254c307c1f01610/1621032659724/all_natural_soaps-01-01.svg`,
+        url: `/images/book-now-soap.png`,
         text: "All natural soaps",
     },
     {
         id: "1621032729616",
-        url: `${BOOK_NOW_PATH}/609eff193eba882097c37649/1621032729616/parking_included-01-white.svg`,
+        url: `/images/book-now-car-parking.png`,
         text: "Parking",
     },
     {
         id: "1621032747753",
-        url: `${BOOK_NOW_PATH}/609eff2be93ae07ca7dfdacc/1621032747753/safe_included-01-white.svg`,
+        url: `/images/book-now-dressing-room.png`,
         text: "Changing Rooms and Lockers",
     },
     {
