@@ -3,6 +3,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+
 import { motion } from "framer-motion";
 
 import MaalumContext from "maalum/core/store/context/MaalumContext";

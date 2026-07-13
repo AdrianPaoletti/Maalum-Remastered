@@ -2,6 +2,7 @@
 
 import { useContext, useState } from "react";
 import Image from "next/image";
+
 import { motion } from "framer-motion";
 
 import { WordsPullUp } from "maalum/components/ui/Animations/Animations";
