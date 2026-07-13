@@ -212,7 +212,7 @@ export default function Home() {
                                         className={`text-primary u-padding-top-small`}
                                     >
                                         <a
-                                            href="/documents/restaurant-2025.pdf"
+                                            href="/documents/restaurant-2026.pdf"
                                             download="menu-maalum"
                                             className={`${styles["restaurant__food-menu"]}`}
                                         >
